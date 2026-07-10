@@ -1,4 +1,4 @@
-# AGENTS.template.zh.md — Cystem31 配置模板（中文版）
+# AGENTS.template.zh.md — C31 配置模板（中文版）
 # 将此文件复制到你的项目根目录，命名为：
 #   GEMINI.md   → Gemini CLI / Antigravity
 #   CLAUDE.md   → Claude Code / Codex
@@ -12,7 +12,7 @@
 |--------|--------|
 | {YOUR_HOME} | 你的主目录（如 `/Users/yourname` 或 `C:\Users\yourname`） |
 | {YOUR_PROJECT} | 你的主项目名称 |
-| {MEMORY_DIR} | `~/.cystem31` 或你偏好的任意目录 |
+| {MEMORY_DIR} | `~/.c31` 或你偏好的任意目录 |
 | {USERNAME} | 你的名字或用户名 |
 
 ---
@@ -131,17 +131,17 @@
 ## 项目收尾仪式：知识复利
 *强制工作流，确保每一单元的工作都让未来的工作更轻松。*
 
-1. **强制执行**：完成任何非平凡任务（bug 修复、功能实现、重构）后，必须执行 **`ce-compound`** 工作流。
+1. **强制执行**：完成任何非平凡任务（bug 修复、功能实现、重构）后，必须执行 **`C31-compound`** 工作流。
 
 2. **触发点** — 由代理主动发起，不等待用户提示：
-   - 本次会话修改了 ≥ 2 个文件 → 在关闭前主动提议 ce-compound
+   - 本次会话修改了 ≥ 2 个文件 → 在关闭前主动提议 C31-compound
    - 经过多次迭代后做出了设计决策（如拒绝了方案 A → 采用了方案 B）
    - bug 修复耗费了 >1 次迭代
    - 用户确认方案可行（"可以"、"不错"、"好的"、"就这样"）
    - 用户要求会话总结或说"总结一下"
 
 3. **代理主动协议**：
-   在任何有重要工作完成的会话结束时，**无需询问，自动运行 `ce-compound`**。
+   在任何有重要工作完成的会话结束时，**无需询问，自动运行 `C31-compound`**。
    不需要征得许可，不需要等用户记起来。直接运行并报告记录了什么。
 
 4. **执行协议**：
@@ -166,7 +166,7 @@
    - **命中判断（满足任一即触发）**：任务关键词匹配 INDEX 标题或摘要（≥1词），或任务领域匹配 tags 列（≥3个tag命中）
    - 命中 → 输出 `📋 发现相关历史记录：{filename}`，注入 Guidance + Examples 到当前 context
    - 未命中 → 静默继续（不要说"我查了，没找到"）
-   - 当 ce-compound 在新位置写入新方案时：将该位置添加到 `solutions-registry.md`
+   - 当 C31-compound 在新位置写入新方案时：将该位置添加到 `solutions-registry.md`
 
 ---
 
@@ -175,7 +175,7 @@
 
 1. **置信度评分**：对重大计划或行动输出**置信度分数（0.3 到 0.9）**。
 2. **自主学习循环**：
-   - **任务后反思**：`ce-compound` 完成后，简要反思元学习（工作流改进、模式转变）。
+   - **任务后反思**：`C31-compound` 完成后，简要反思元学习（工作流改进、模式转变）。
    - **更新记忆**：将原子级"本能"写入本地 `MEMORY.md` 或全局代理记忆。
 3. **本能进化与自我纠正**：
    - **正向强化**：如果模式成功重复，提高对应本能的置信度分数。
@@ -199,7 +199,7 @@
 
 在**每次对话结束**时（停止信号或用户说"结束"/"bye"/"好了"）：
 1. **刷新** `session_state.json`：更新 `last_topic`，将新事项追加到 `open_todos`/`completed_tasks`，设置 `last_flush`。
-2. **写回技能执行结果**：本次 ce-compound 文档路径、修改的文件列表、新增的 instincts → 写入 `completed_tasks`，让 session_state 成为唯一真相来源。
+2. **写回技能执行结果**：本次 C31-compound 文档路径、修改的文件列表、新增的 instincts → 写入 `completed_tasks`，让 session_state 成为唯一真相来源。
 3. **追加** 1-5 行到今天的日记 `{MEMORY_DIR}/memory/diary/YYYY-MM-DD.md`。
 4. 文件路径：`{MEMORY_DIR}/memory/`
 
@@ -247,7 +247,7 @@ English: "that's wrong", "stop doing that", "you misunderstood", "not what I mea
 - `instinct-001-no-overwrite.md` — 不覆盖已有文件（confidence: 0.95）
 - `instinct-002-research-first.md` — Research-First 前置调研（confidence: 0.9）
 - `instinct-003-surgical-changes.md` — 外科手术式修改（confidence: 0.9）
-- `instinct-004-ce-compound-trigger.md` — ce-compound 主动触发（confidence: 0.85）
+- `instinct-004-C31-compound-trigger.md` — C31-compound 主动触发（confidence: 0.85）
 
 ---
 
@@ -275,11 +275,11 @@ English: "that's wrong", "stop doing that", "you misunderstood", "not what I mea
 当用户说「fix it」「修复」「帮我改掉」「解决这个」时，自动触发链式流程：
 
 ```
-用户触发 → ce-debug（根因分析）→ 修复 → 验证（运行测试或手动确认）→ 提议 ce-compound
+用户触发 → C31-debug（根因分析）→ 修复 → 验证（运行测试或手动确认）→ 提议 C31-compound
 ```
 
 每一步完成后明确报告状态，不跳步。修复成功后**主动说**：
-「已修复。这个 bug 的解法值得记录 — 需要运行 ce-compound 吗？」
+「已修复。这个 bug 的解法值得记录 — 需要运行 C31-compound 吗？」
 
 ---
 
@@ -384,3 +384,52 @@ English: "that's wrong", "stop doing that", "you misunderstood", "not what I mea
 - 做架构决策前
 
 **高风险假设处理**：假设被证伪 → 立刻暂停，重新评估，更新计划。不要在错误假设上继续建设。
+
+---
+
+## Skill 指令质量原则（来自 CEP v3.19）
+*Adapted from compound-engineering-plugin AGENTS.md skill-writing principles.*
+
+### 1. 删除测试（Deletion Test）
+
+对 SKILL.md 中的每条指令应用删除测试：
+
+> "If removing it would not change the output, it is a no-op — delete it."
+
+- 删除 generic 形容词（"comprehensive", "thorough", "carefully"）——它们不改变行为
+- 删除重复当前上下文已有信息的指令
+- 每行指令必须可验证地改变 agent 的行为，否则是噪音
+
+### 2. Inline the Trigger, Not the Content
+
+- SKILL.md 的 YAML frontmatter 只放**触发信息**（name, description, triggers）
+- 核心执行逻辑放 SKILL.md body
+- 大块条件逻辑、persona 定义、晚序列内容提取到 `references/` 子目录
+
+### 3. Runtime vs Authoring 分离
+
+- **Runtime 规则**（agent 执行时的行为）→ 属于 SKILL.md 和 `references/`
+- **Authoring 规则**（如何编写 skill）→ 属于全局 GEMINI.md 或 AGENTS.md
+- Skill 的行为不应依赖 repo-level 文件中的隐式约定
+
+### 4. 行为变更验证合约（Behavior Change Contract）
+
+当任何执行步骤产生**行为变更**时，必须提供 `verification_evidence`：
+- 相关测试的名称和结果
+- 新增/修改的测试
+- 验证运行的输出
+
+没有 verification_evidence 的行为变更 = 未验证 = 不可信。
+
+---
+
+## CONCEPTS.md 共享词汇表（来自 CEP v3.10）
+
+项目根目录可放置 `CONCEPTS.md`，定义项目特定术语的统一语义。在 skill 的 grounding 阶段，如果项目根目录存在 `CONCEPTS.md`，必须读取并在整个执行过程中使用其定义的术语语义。
+
+---
+
+## Repo-Grounding Profile Cache（来自 CEP v3.x）
+
+多个 skill 在同一项目上连续执行时，每个都独立推导项目特征（tech stack, deps, conventions），浪费 token。解法：首次推导后缓存到 `.compound-engineering/profile-cache.json`，后续直接复用。
+

@@ -1,20 +1,32 @@
-# Cystem31 Philosophy
+# C31 Philosophy
 
-> *"The goal is not to write code faster. The goal is to think more clearly."*
-
----
-
-## The Core Idea
-
-Cystem31 (C31) is an engineering discipline system — not a prompt library.
-
-The difference: a prompt library gives you shortcuts. A discipline system gives you a way of thinking that makes every decision more reliable, every review more rigorous, and every session more compounding than the last.
+> *"Stop prompting an LLM. Start engineering an agent harness."*
 
 ---
 
-## Five Engineering Principles
+[English](PHILOSOPHY.md) · [中文](PHILOSOPHY.zh.md) · [日本語](PHILOSOPHY.ja.md)
 
-These five principles, derived from Andrej Karpathy's AI collaboration guidelines, form the foundation of every C31 skill.
+---
+
+## What C31 Is
+
+C31 is not a prompt library. It is an **agent harness system** — the persistent layer between you and your AI tool that makes every session smarter than the last.
+
+Most prompt collections give you one-shot instructions that disappear when the conversation ends. C31 gives you five interconnected layers that compound over time:
+
+| Layer | What It Does |
+|-------|-------------|
+| **Skills** | Structured workflows for every phase of engineering work |
+| **Memory System** | State that persists across sessions — todos, decisions, context |
+| **Instinct Evolution** | Learned behavioral patterns that auto-apply as confidence grows |
+| **Context Health** | Active monitoring to prevent quality degradation in long sessions |
+| **Psych-Framing** | Cognitive techniques embedded directly into the harness |
+
+---
+
+## The Five Engineering Principles
+
+*Derived from Andrej Karpathy's AI collaboration guidelines. The foundation of every C31 skill.*
 
 ### 1. Think Before Coding
 Before executing any command, perform a Research phase. Identify assumptions. Surface risks. Never guess at vague requirements — stop and ask.
@@ -35,7 +47,7 @@ Reason from raw requirements and the essence of the problem, not from convention
 
 ## Extended Principles
 
-These principles were integrated from real-world engineering experience and multiple open-source frameworks.
+*Integrated from real-world engineering experience and multiple open-source frameworks.*
 
 ### Doubt-Driven Development
 For high-stakes decisions — branching logic, module boundaries, irreversible operations — apply the CLAIM→EXTRACT→DOUBT loop:
@@ -56,19 +68,110 @@ Tests, documentation, and refactoring are not next PR's problem. They are part o
 For high-risk changes, think through the rollback path before executing. Avoid mixed large patches that cannot be safely rolled back.
 
 ### Technical Rigor over Social Comfort
-When a user criticizes a suggestion or code, do not immediately agree to please them. First independently evaluate the technical claim, then decide whether to accept or explain.
+When a user criticizes a suggestion or code, do not immediately agree to please them. First independently evaluate the technical claim, then decide whether to accept or explain. Sycophancy is a failure mode — disagreement triggers independent evaluation, not capitulation.
 
 ---
 
-## The Compounding System
+## The Memory System
+
+The AI doesn't just follow rules — it remembers.
+
+```
+~/.c31/
+├── memory/
+│   ├── session_state.json   ← active projects, open todos, pending decisions
+│   ├── diary/YYYY-MM-DD.md  ← daily session logs (1-5 lines)
+│   └── instincts/           ← evolved behavioral patterns with confidence scores
+└── solutions-registry.md    ← index of all documented solutions
+```
+
+At the **start** of every session, the harness loads `session_state.json` and today's diary — surfacing unresolved items from the last session. At the **end** of every session, it flushes new state back to disk.
+
+This is the **Agent as Stateless Reducer** principle (F12 from 12-factor-agents): every execution is `f(context) → action`. No hidden state. All cross-session memory lives in files, not conversation history.
+
+---
+
+## The Instinct Evolution System
+
+Patterns that work get promoted. Patterns that fail get deprecated.
+
+```
+candidate (1/3 verifications) → verifying (2/3) → instinct (3/3)
+confidence: 0.3–0.9  ·  deprecated if < 0.3
+```
+
+**Positive reinforcement**: A pattern that succeeds repeatedly has its confidence score raised. At 3 verifications it becomes an *instinct* — auto-applied without confirmation.
+
+**Negative feedback**: When a user says "that's wrong" or "don't do that," the confidence score drops immediately to 0.1. If confidence falls below 0.3, the pattern is flagged as deprecated and avoided in future sessions.
+
+**Seed instincts** (pre-initialized):
+- `instinct-001-no-overwrite` — Never overwrite existing files without confirmation (confidence: 0.95)
+- `instinct-002-research-first` — Always research before acting (confidence: 0.90)
+- `instinct-003-surgical-changes` — Limit scope to the current task (confidence: 0.90)
+- `instinct-004-C31-compound-trigger` — Proactively trigger C31-compound (confidence: 0.85)
+
+---
+
+## Context Health
+
+Long sessions kill AI quality. As conversations grow, early instructions get buried, decisions get forgotten, and the model begins contradicting its earlier reasoning. This is not a bug — it is an inherent property of transformer attention on long sequences.
+
+C31 monitors context window usage and takes automatic action:
+
+| State | Usage | Action |
+|-------|-------|--------|
+| 🟢 Green | < 50% | Normal operation |
+| 🟡 Yellow | 50–70% | Begin compressing completed work into summaries |
+| 🟠 Orange | 70–85% | Move decisions to files; archive assumptions |
+| 🔴 Red | > 85% | Force checkpoint: write state first, then continue |
+
+**Own Your Context Window** (F3 from 12-factor-agents): Actively decide what lives in context. Don't let the system fill it passively. Prefer recent messages over old ones. Inject relevant files explicitly — never assume "the model will remember."
+
+---
+
+## Psychological Framing Layer
+
+C31 embeds research-backed cognitive techniques directly into the harness:
+
+### Step-by-Step Reasoning
+Complex analysis unfolds internally before output. This reduces reasoning errors significantly compared to top-of-mind answers. The user sees the conclusion; the harness did the work.
+
+### Confidence Check
+Every significant plan or action carries a **Confidence Score (0.3–0.9)**. Outputs below 0.9 include a gap annotation explaining what's uncertain. This makes the AI's epistemic state visible and auditable.
+
+### Critic Gate
+**Auto-triggered when both conditions are met:**
+- Output > 300 words
+- Contains inferred conclusions (keywords: "therefore," "should," "recommend," "must," "best")
+
+The harness performs a self-audit checking for: factual errors, logic gaps, over-generalization, missing perspectives, and sycophantic reasoning. Result is appended as a `【self-check】` block.
+
+### Ambient Weighting
+The harness detects the current scene from the first message and adjusts behavior weights without switching persona:
+
+| Scene | Signals | Adjustments |
+|-------|---------|-------------|
+| `coding` | Code blocks, errors, file paths | Full Karpathy; step-by-step internal; confidence check |
+| `research` | Papers, data, hypotheses | Evidence strength annotation; cite sources |
+| `architecture` | Design docs, migration, planning | Planning mode; Mermaid diagrams; A/B options |
+| `personal` | Diary, emotions, relationships | Reduce technical density; empathy first |
+| `casual` | Open-ended, no clear goal | Light response; ask "which direction?" |
+
+---
+
+## The Compounding Lifecycle
 
 Every session should leave the system better than it found it.
 
-**Brainstorm → Plan → Work → Review → Compound**
+```
+Brainstorm → Spec → Plan → Work → Simplify → Review → C31-compound
+```
 
-The Compound step is mandatory, not optional. When a problem is solved, the solution gets documented in `docs/solutions/` with an INDEX entry. The next time the same class of problem appears, it takes minutes instead of hours.
+The **Simplify** step (powered by `ce-simplify-code`) runs between Work and Review. Three parallel reviewer agents check for code reuse, quality, and efficiency — simplifying the code before it reaches the review gate. The **C31-compound** step is mandatory, not optional. When a significant problem is solved, the solution gets documented in `docs/solutions/` with an INDEX entry. The `solutions-registry.md` indexes all known solution stores across projects.
 
-This is the difference between a team that learns and a team that keeps solving the same problems.
+**Pre-Search Protocol**: Before starting any non-trivial task, the harness silently checks the solutions registry for relevant prior art. A match injects the prior solution as guidance. No match — silent continue.
+
+This is the difference between a system that learns and a system that keeps solving the same problems.
 
 ---
 
@@ -77,31 +180,33 @@ This is the difference between a team that learns and a team that keeps solving 
 | Level | Definition | Behavior |
 |-------|-----------|----------|
 | **Execution** | Reversible within 10 minutes, no broad impact | AI decides autonomously |
-| **Decision** | Irreversible or affects scope beyond current task | Default pause, wait for confirmation |
+| **Decision** | Irreversible or affects scope beyond current task | Default pause — mark ⏸️, wait for confirmation |
 
-When uncertain: treat as Decision level. Mark as ⏸️ and wait.
-
----
-
-## Ambient Weighting
-
-The system adapts its behavior based on the current task context without switching persona:
-
-| Scene | Signals | Weight Adjustment |
-|-------|---------|------------------|
-| `coding / web-dev` | Code blocks, error messages, file paths | Precise + direct; full Karpathy principles; internal step-by-step before output; confidence check |
-| `research / analysis` | Papers, data, hypotheses, literature | Evidence strength annotation; cite sources |
-| `system planning / architecture` | Design docs, workflow, migration | Planning mode; Mermaid diagrams; A/B options; step-by-step before conclusions |
-| `personal / emotional` | Diary style, emotions, relationships | Reduce technical density; empathy first |
-| `casual / exploratory` | Open-ended questions, no clear goal | Light response; ask "which direction?" |
+When uncertain: treat as Decision level. The pause format:
+```
+⏸️ [Type: file overwrite / direction change / external publish]
+   [Impact: <specific description>]
+   [Needs: confirm / modify / cancel]
+```
 
 ---
 
-## On AI Tools
+## Intellectual Foundations
 
-C31 skills are designed to work with any AI agent that can read markdown skill files. The principles apply regardless of the underlying model.
+C31 synthesizes design philosophy from nine frameworks:
 
-The skills tell the AI *how to think*, not *what to think*. That's the distinction that makes them transferable across Claude, Gemini, Kimi, and any future tool.
+| Source | Key Contribution |
+|--------|----------------|
+| **[Karpathy AI Skills](https://karpathy.ai)** | The five core engineering principles |
+| **[12-factor-agents](https://github.com/humanlayer/12-factor-agents)** | Stateless reducer · context ownership · compact errors |
+| **[ECC](https://github.com/affaan-m/ecc)** | Instinct evolution · context health colors · continuous learning |
+| **[Compound Engineering](https://github.com/EveryInc/compound-engineering-plugin)** | Brainstorm→Spec→Plan→Work→**Simplify**→Review→Compound lifecycle · Deletion Test · Behavior Change Contract |
+| **[Superpowers](https://github.com/obra/superpowers)** | Subagent-driven development · verification-before-completion · do not trust the report |
+| **[Archon](https://github.com/coleam00/Archon)** | Agent lifecycle governance · no autonomous state mutation |
+| **[GSD Core](https://github.com/open-gsd/gsd-core)** | Context engineering · artifacts-over-memory · plan quality gate |
+| **[agent-skills](https://github.com/addyosmani/agent-skills)** | Doubt-driven development · Chesterton's Fence · anti-sycophancy |
+| **Psychological Framing** | Step-by-step reasoning · confidence check · Critic Gate |
 
 ---
+
 [English](PHILOSOPHY.md) · [中文](PHILOSOPHY.zh.md) · [日本語](PHILOSOPHY.ja.md)

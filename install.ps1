@@ -1,5 +1,5 @@
-# Cystem31 (C31) — Universal AI Workflow Skills
-# https://github.com/ChianW/Cystem31
+﻿# C31 (C31) — Universal AI Workflow Skills
+# https://github.com/ChianW/C31
 #
 # Usage:
 #   .\install.ps1              # install core skills (default)
@@ -15,7 +15,7 @@ param(
 
 $ErrorActionPreference = "Stop"
 $Repo = Split-Path -Parent $MyInvocation.MyCommand.Path
-$MemoryDir = Join-Path $env:USERPROFILE ".cystem31"
+$MemoryDir = Join-Path $env:USERPROFILE ".C31"
 
 # ─── Auto-detect AI tool skills directory ───
 if (Test-Path (Join-Path $env:USERPROFILE ".claude\skills")) {
@@ -31,7 +31,7 @@ if (Test-Path (Join-Path $env:USERPROFILE ".claude\skills")) {
 
 Write-Host ""
 Write-Host "  +===================================+"
-Write-Host "  |        Cystem31 (C31)             |"
+Write-Host "  |        C31 (C31)             |"
 Write-Host "  |  Engineering Workflow Skills      |"
 Write-Host "  +===================================+"
 Write-Host ""

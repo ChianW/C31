@@ -1,4 +1,4 @@
-# Scope Contract: gsd-new-project
+﻿# Scope Contract: gsd-new-project
 
 ## In Scope
 - Project workspace initialization
@@ -7,7 +7,7 @@
 
 ## Out of Scope
 - Requirements for existing projects (→ C31-brainstorm)
-- Coding (→ C31-work / ce-work)
+- Coding (→ C31-work / C31-work)
 - Distribution (→ C31-lfg)
 
 ## Dependencies

@@ -285,7 +285,7 @@ Phase 2: 6 维度分析 → GTD + LLM / Timeboxing / PRD 模板 / Context Window
 Phase 3: Gap 分析 → 对比 C31：
       - GTD：C31 已有 GSD 工作流（更完整的阶段门控）
       - Timeboxing：C31 已有 cron/heartbeat 调度
-      - PRD 模板：C31 已有 ce-brainstorm → ce-plan 流程
+      - PRD 模板：C31 已有 C31-brainstorm → C31-plan 流程
       - Context Window：C31 已有 context-pressure-guard hook
       - 6 层架构：与 GSD Discuss→Plan→Execute→Verify→Ship 高度重叠
 Phase 4: 生成报告 → 保存到 memory/moc/analysis-gstack-deep-dive.md

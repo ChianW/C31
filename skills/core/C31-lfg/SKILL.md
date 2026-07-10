@@ -291,7 +291,7 @@ One-line result.
 | `C31-plan` | **Upstream** — produces plans that C31-lfg consumes |
 | `C31-work` | **Reference** — wave/parallel execution logic borrowed from; C31-lfg is the headless/autonomous wrapper |
 | `C31-review` | **Gate 5** — invoked as sub-routine for review pass |
-| `ce-compound` | **Post-execution** — if execution reveals new knowledge, trigger compound after report |
+| `C31-compound` | **Post-execution** — if execution reveals new knowledge, trigger compound after report |
 
 ## Success Criteria
 

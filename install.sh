@@ -1,6 +1,6 @@
-#!/bin/bash
-# Cystem31 (C31) — Universal AI Workflow Skills
-# https://github.com/ChianW/Cystem31
+﻿#!/bin/bash
+# C31 (C31) — Universal AI Workflow Skills
+# https://github.com/ChianW/C31
 #
 # Usage:
 #   ./install.sh              # install core skills (default)
@@ -14,7 +14,7 @@ set -e
 
 PACKAGE=${1:-"core"}
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-MEMORY_DIR="${HOME}/.cystem31"
+MEMORY_DIR="${HOME}/.C31"
 
 # ─── Auto-detect AI tool skills directory ───
 if [ -d "${HOME}/.claude/skills" ]; then
@@ -33,7 +33,7 @@ fi
 
 echo ""
 echo "  ╔═══════════════════════════════════╗"
-echo "  ║        Cystem31 (C31)             ║"
+echo "  ║        C31 (C31)             ║"
 echo "  ║  Engineering Workflow Skills      ║"
 echo "  ╚═══════════════════════════════════╝"
 echo ""

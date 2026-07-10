@@ -24,7 +24,7 @@ generate deliverable summary, update project state, and archive.
 
 ## Preconditions
 
-- All verification (C31-review or ce-code-review) has passed
+- All verification (C31-review or C31-review) has passed
 - No unresolved blockers in STATE.md
 - User confirms readiness to ship
 

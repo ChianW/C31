@@ -1,4 +1,4 @@
-# Scope Contract: gsd-progress
+﻿# Scope Contract: gsd-progress
 
 ## In Scope
 - Auto-detect next GSD step
@@ -6,7 +6,7 @@
 - Phase completion tracking
 
 ## Out of Scope
-- Original planning (→ C31-plan / ce-plan)
+- Original planning (→ C31-plan / C31-plan)
 - Quick tasks (→ gsd-quick)
 - Review (→ C31-review)
 

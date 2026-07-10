@@ -1,4 +1,4 @@
-# AGENTS.template.md — Cystem31 Configuration Template
+# AGENTS.template.md — C31 Configuration Template
 # Copy this file to your project root as:
 #   GEMINI.md   → Gemini CLI / Antigravity
 #   CLAUDE.md   → Claude Code / Codex
@@ -12,7 +12,7 @@
 |-------------|-------------|
 | {YOUR_HOME} | Your home directory (e.g. `/Users/yourname` or `C:\Users\yourname`) |
 | {YOUR_PROJECT} | Your main project name |
-| {MEMORY_DIR} | `~/.cystem31` or any directory you prefer |
+| {MEMORY_DIR} | `~/.c31` or any directory you prefer (lowercase convention) |
 | {USERNAME} | Your name or handle |
 
 ---
@@ -131,17 +131,17 @@ If no issues: `[Self-Check] No issues found this round.` If issues exist: List C
 ## Project Completion Ritual: Knowledge Compounding
 *Mandatory workflow to ensure every unit of work makes future work easier.*
 
-1. **Mandatory Execution**: Upon completion of any non-trivial task (bug fix, feature implementation, refactor), you MUST execute the **`ce-compound`** workflow.
+1. **Mandatory Execution**: Upon completion of any non-trivial task (bug fix, feature implementation, refactor), you MUST execute the **`C31-compound`** workflow.
 
 2. **Trigger Points** — agent-initiated, NOT waiting for user phrases:
-   - You modified ≥ 2 files in a session → proactively offer ce-compound before closing
+   - You modified ≥ 2 files in a session → proactively offer C31-compound before closing
    - A design decision was made after multiple iterations (e.g., rejected approach A → adopted approach B)
    - A bug was fixed that took >1 iteration to solve
    - User confirms solution works ("looks good", "that's it", "perfect", "ship it")
    - User asks for a session summary
 
 3. **Agent-Initiated Protocol**:
-   At the end of any session where significant work was done, **automatically run `ce-compound` without asking**.
+   At the end of any session where significant work was done, **automatically run `C31-compound` without asking**.
    Do NOT ask for permission. Do NOT wait for the user to remember. Just run it and report what was documented.
 
 4. **Execution Protocol**:
@@ -166,7 +166,7 @@ If no issues: `[Self-Check] No issues found this round.` If issues exist: List C
    - **Hit criteria (any one triggers)**: Task keywords match INDEX title or summary (≥1 word), or task domain matches tags column (≥3 tag hits)
    - Hit → output `📋 Found relevant prior art: {filename}`, inject Guidance + Examples into current context
    - Miss → continue silently (do NOT say "I checked and found nothing")
-   - When ce-compound writes a new solution in a new location: add that location to `solutions-registry.md`
+   - When C31-compound writes a new solution in a new location: add that location to `solutions-registry.md`
 
 ---
 
@@ -175,7 +175,7 @@ If no issues: `[Self-Check] No issues found this round.` If issues exist: List C
 
 1. **Confidence Scoring**: Output a **Confidence Score (0.3 to 0.9)** for significant plans or actions.
 2. **Autonomous Learning Loop**:
-   - **Post-Task Reflection**: After `ce-compound` completes, briefly reflect on the meta-learning (workflow improvements, pattern shifts).
+   - **Post-Task Reflection**: After `C31-compound` completes, briefly reflect on the meta-learning (workflow improvements, pattern shifts).
    - **Update Memory**: Write atomic "Instincts" to local `MEMORY.md` or global agent memory as appropriate.
 3. **Instinct Evolution & Self-Correction**:
    - **Positive Reinforcement**: Increase the confidence score of an instinct if a pattern is successfully repeated.
@@ -199,14 +199,14 @@ At the **start of every conversation**, do the following silently (do NOT report
 
 At the **end of every conversation** (Stop signal or user says "done"/"bye"/"that's all"):
 1. **Flush** `session_state.json`: update `last_topic`, append new items to `open_todos`/`completed_tasks`, set `last_flush`.
-2. **Write back skill execution results**: This session's ce-compound doc paths, modified file list, new instincts → write to `completed_tasks`, making session_state the single source of truth.
+2. **Write back skill execution results**: This session's C31-compound doc paths, modified file list, new instincts → write to `completed_tasks`, making session_state the single source of truth.
 3. **Append** 1-5 lines to today's diary under `{MEMORY_DIR}/memory/diary/YYYY-MM-DD.md`.
 4. File path: `{MEMORY_DIR}/memory/`
 
 ---
 
 ## Ambient Weighting
-*Adapted from C31 ambient-weighting, derived from oh-my-pi Benchmaxxed pattern.*
+*Adapted from C31 ambient-weighting. Derived from ECC context-health + GSD scene-detection patterns.*
 
 Read the **first message** of every conversation and silently identify the scene. Adjust behavior weights (do NOT switch persona, do NOT tell the user):
 
@@ -236,6 +236,8 @@ Read the **first message** of every conversation and silently identify the scene
 
 ### Trigger words: User correction capture (auto-detect)
 English: "that's wrong", "stop doing that", "you misunderstood", "not what I meant", "revert"
+Chinese: 「不对」「这不是我要的」「你搞错了」「重新来」「这样不好」「越界了」「别这样做」
+Japanese: 「違う」「それは間違い」「やり直して」「そうじゃない」
 
 When these trigger words are detected:
 1. **Immediately** append a candidate entry to instincts/README.md
@@ -246,7 +248,7 @@ When these trigger words are detected:
 - `instinct-001-no-overwrite.md` — Never overwrite existing files (confidence: 0.95)
 - `instinct-002-research-first.md` — Research-First upfront investigation (confidence: 0.9)
 - `instinct-003-surgical-changes.md` — Surgical changes only (confidence: 0.9)
-- `instinct-004-ce-compound-trigger.md` — Proactively trigger ce-compound (confidence: 0.85)
+- `instinct-004-C31-compound-trigger.md` — Proactively trigger C31-compound (confidence: 0.85)
 
 ---
 
@@ -274,11 +276,11 @@ Clarification templates:
 When the user says "fix it", "debug this", "help me fix this", "resolve this", automatically trigger the chain:
 
 ```
-User trigger → ce-debug (root cause analysis) → Fix → Verify (run tests or manual confirm) → Propose ce-compound
+User trigger → C31-debug (root cause) → Fix → C31-review (verify) → Propose C31-compound
 ```
 
 Report status clearly after each step, no step-skipping. After successful fix, **proactively say**:
-"Fixed. This bug's solution is worth documenting — want to run ce-compound?"
+"Fixed. This bug's solution is worth documenting — want to run C31-compound?"
 
 ---
 
@@ -383,3 +385,53 @@ Status:     Active / Validated / Invalidated
 - Before making architecture decisions
 
 **High-risk assumption handling**: Assumption disproved → immediately pause, re-evaluate, update plan. Do not continue building on wrong assumptions.
+
+---
+
+## Skill Instruction Quality (from CEP v3.19)
+*Adapted from compound-engineering-plugin AGENTS.md skill-writing principles.*
+
+### 1. Deletion Test
+
+Apply the deletion test to every instruction in a SKILL.md:
+
+> "If removing it would not change the output, it is a no-op — delete it."
+
+- Delete generic adjectives ("comprehensive", "thorough", "carefully") — they don't change behavior
+- Delete instructions that repeat information already in the current context
+- Every instruction line must verifiably change agent behavior, otherwise it is noise
+
+### 2. Inline the Trigger, Not the Content
+
+- SKILL.md YAML frontmatter should only contain **trigger information** (name, description, triggers)
+- Core execution logic goes in the SKILL.md body
+- Large conditional logic, persona definitions, late-sequence content goes in `references/` subdirectory
+- This reduces token consumption; references are loaded on demand
+
+### 3. Runtime vs Authoring Separation
+
+- **Runtime rules** (agent behavior during execution) → belong in SKILL.md and `references/`
+- **Authoring rules** (how to write skills) → belong in global GEMINI.md or AGENTS.md
+- Skill behavior should not depend on implicit conventions in repo-level files
+
+### 4. Behavior Change Contract
+
+When any execution step produces a **behavior change**, `verification_evidence` must be provided:
+- Test names and results
+- New or modified tests
+- Verification run output
+
+A behavior change without verification_evidence = unverified = untrustworthy.
+
+---
+
+## CONCEPTS.md Shared Vocabulary (from CEP v3.10)
+
+A project root can contain `CONCEPTS.md` to define unified semantics for project-specific terms. During the grounding phase of skills like brainstorm, plan, work, code-review, or compound, if `CONCEPTS.md` exists at the project root, it **must be read** and its terminology used consistently throughout execution.
+
+---
+
+## Repo-Grounding Profile Cache (from CEP v3.x)
+
+When multiple skills execute consecutively on the same project, each independently derives project characteristics (tech stack, deps, conventions), wasting tokens. Solution: cache the project profile to `.compound-engineering/profile-cache.json` (gitignored) on first derivation. Subsequent skills read the cache directly if the `git_sha` matches current HEAD.
+

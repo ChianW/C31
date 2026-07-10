@@ -1,9 +1,10 @@
-﻿# Runtime memory — never commit personal data
-memory/
-.memory/
-diary/
-session_state.json
-instincts/
+# Runtime memory — never commit personal data
+# (only excludes root-level dirs, not agents/memory/ templates)
+/memory/
+/.memory/
+/diary/
+/session_state.json
+/instincts/
 *.session.json
 
 # OS

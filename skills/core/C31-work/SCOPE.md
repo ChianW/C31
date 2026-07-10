@@ -1,4 +1,4 @@
-# Scope Contract: C31-work
+﻿# Scope Contract: C31-work
 
 ## In Scope
 - Execute plans via parallel subagents
@@ -11,6 +11,6 @@
 - Review (→ C31-review)
 
 ## Dependencies
-- Pre: C31-plan or ce-plan
+- Pre: C31-plan or C31-plan
 - Post: C31-review
 - Mutex: none

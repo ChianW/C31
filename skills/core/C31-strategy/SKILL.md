@@ -1,6 +1,6 @@
 ﻿---
 name: C31-strategy
-description: "Create or maintain STRATEGY.md for a project. Anchors all downstream ce-brainstorm, ce-plan, ce-ideate so they stay aligned to the project's actual goal. Use when starting a project, reviewing direction, or when prompts like '定战略', '写策略', 'strategy', '目标是什么', '这个项目到底要做什么', 'update strategy', 'what are we working on' appear. Also triggers when ce-brainstorm or ce-plan need upstream grounding and no STRATEGY.md exists."
+description: "Create or maintain STRATEGY.md for a project. Anchors all downstream C31-brainstorm, C31-plan, C31-brainstorm so they stay aligned to the project's actual goal. Use when starting a project, reviewing direction, or when prompts like '定战略', '写策略', 'strategy', '目标是什么', '这个项目到底要做什么', 'update strategy', 'what are we working on' appear. Also triggers when C31-brainstorm or C31-plan need upstream grounding and no STRATEGY.md exists."
 argument-hint: "[optional: project name, or section to revisit, e.g. 'metrics' or 'approach']"
 ---
 
@@ -22,7 +22,7 @@ argument-hint: "[optional: project name, or section to revisit, e.g. 'metrics' o
 
 `C31-strategy` 生成并维护 `STRATEGY.md`——一个简短、持久的锚点文档，记录项目**是什么、服务谁、如何衡量成功、当前在做什么**。
 
-一旦 `STRATEGY.md` 存在，后续 `ce-ideate`、`ce-brainstorm`、`ce-plan` 在执行时**自动读取它作为 grounding**，防止每次讨论都从零判断、方向漂移。
+一旦 `STRATEGY.md` 存在，后续 `C31-brainstorm`、`C31-brainstorm`、`C31-plan` 在执行时**自动读取它作为 grounding**，防止每次讨论都从零判断、方向漂移。
 
 **文档保持简短是刻意设计的。** 好的 5 个问题比任何数量的 prose 都更能锁定战略。
 
@@ -30,7 +30,7 @@ argument-hint: "[optional: project name, or section to revisit, e.g. 'metrics' o
 
 ## 核心原则
 
-1. **锚点，不是计划**：战略是"做什么/为谁/为何"。功能列表属于 `ce-brainstorm`；排期属于 issue tracker。两者都不要进入这个文档。
+1. **锚点，不是计划**：战略是"做什么/为谁/为何"。功能列表属于 `C31-brainstorm`；排期属于 issue tracker。两者都不要进入这个文档。
 2. **问题的严格性，而不是标题的严格性**：section 头是普通英文，但提问要有战略纪律——不接受模糊答案。
 3. **短是功能**：整个文档读完应 < 5 分钟。拒绝扩充节数。
 4. **跨运行持久**：可重复运行。第二次运行时在原地更新，保留有效部分，只挑战看起来过时或空洞的 section。
@@ -154,7 +154,7 @@ project_type: {{software | content | personal | academic}}
 ```
 ✅ STRATEGY.md 已写入：{{路径}}
 
-下次运行 ce-brainstorm 或 ce-plan 时，我会自动读取这个文档作为上下文。
+下次运行 C31-brainstorm 或 C31-plan 时，我会自动读取这个文档作为上下文。
 不需要手动粘贴——战略会自动 ground 所有后续讨论。
 
 需要更新某个 section？直接说「更新 strategy 的 metrics」即可。
@@ -175,9 +175,9 @@ project_type: {{software | content | personal | academic}}
 
 ## 与其他 skills 的连接
 
-- **ce-brainstorm / C31-brainstorm**：在 Phase 1 开始时，检查项目路径下是否有 `STRATEGY.md`。有则读取并在对话开头说：「已加载 {{project_name}} 的战略文档，以下讨论将基于它的方向展开。」
-- **ce-plan / C31-plan**：同上，在 Research Phase 开始时自动加载。
-- **ce-ideate**：在生成想法前读取，确保候选想法对齐 Target problem 和 Who it's for。
+- **C31-brainstorm / C31-brainstorm**：在 Phase 1 开始时，检查项目路径下是否有 `STRATEGY.md`。有则读取并在对话开头说：「已加载 {{project_name}} 的战略文档，以下讨论将基于它的方向展开。」
+- **C31-plan / C31-plan**：同上，在 Research Phase 开始时自动加载。
+- **C31-brainstorm**：在生成想法前读取，确保候选想法对齐 Target problem 和 Who it's for。
 
 ---
 

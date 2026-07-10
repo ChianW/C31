@@ -1,4 +1,4 @@
-# AGENTS.template.ja.md — Cystem31 設定テンプレート（日本語版）
+# AGENTS.template.ja.md — C31 設定テンプレート（日本語版）
 # このファイルをプロジェクトのルートディレクトリにコピーして以下の名前で保存してください：
 #   GEMINI.md   → Gemini CLI / Antigravity
 #   CLAUDE.md   → Claude Code / Codex
@@ -12,7 +12,7 @@
 |-----------------|-------------|
 | {YOUR_HOME} | ホームディレクトリ（例：`/Users/yourname` または `C:\Users\yourname`） |
 | {YOUR_PROJECT} | メインプロジェクト名 |
-| {MEMORY_DIR} | `~/.cystem31` またはお好みのディレクトリ |
+| {MEMORY_DIR} | `~/.c31` またはお好みのディレクトリ |
 | {USERNAME} | あなたの名前またはハンドルネーム |
 
 ---
@@ -131,17 +131,17 @@
 ## プロジェクト完了の儀式：知識の複利
 *すべての作業単位が将来の作業を容易にすることを確保する必須ワークフロー。*
 
-1. **必須実行**：重要でないタスク（バグ修正、機能実装、リファクタリング）が完了したら、**`ce-compound`** ワークフローを実行する必要がある。
+1. **必須実行**：重要でないタスク（バグ修正、機能実装、リファクタリング）が完了したら、**`C31-compound`** ワークフローを実行する必要がある。
 
 2. **トリガーポイント** — エージェント主導、ユーザーのフレーズを待たない：
-   - セッションで 2 つ以上のファイルを変更した → 終了前に ce-compound を積極的に提案する
+   - セッションで 2 つ以上のファイルを変更した → 終了前に C31-compound を積極的に提案する
    - 複数の反復の後に設計決定が行われた（例：アプローチ A を却下 → アプローチ B を採用）
    - バグ修正に 1 回以上の反復がかかった
    - ユーザーがソリューションの動作を確認した（"良さそう"、"それだ"、"完璧"、"出荷して"）
    - ユーザーがセッションのまとめを求める
 
 3. **エージェント主導プロトコル**：
-   重要な作業が完了したセッションの終わりに、**許可を求めずに自動的に `ce-compound` を実行する**。
+   重要な作業が完了したセッションの終わりに、**許可を求めずに自動的に `C31-compound` を実行する**。
    許可を求めない。ユーザーが思い出すのを待たない。実行して、何が記録されたかを報告する。
 
 4. **実行プロトコル**：
@@ -166,7 +166,7 @@
    - **ヒット基準（いずれか一つでトリガー）**：タスクキーワードが INDEX のタイトルまたは概要と一致（≥1 ワード）、またはタスク領域がタグ列と一致（≥3 タグヒット）
    - ヒット → `📋 関連する先行事例が見つかりました：{filename}` を出力し、Guidance + Examples を現在のコンテキストに注入
    - ミス → サイレントに継続（「チェックしたが何も見つからなかった」と言わない）
-   - ce-compound が新しい場所に新しいソリューションを書いた場合：その場所を `solutions-registry.md` に追加する
+   - C31-compound が新しい場所に新しいソリューションを書いた場合：その場所を `solutions-registry.md` に追加する
 
 ---
 
@@ -175,7 +175,7 @@
 
 1. **信頼度スコアリング**：重要な計画やアクションに対して**信頼度スコア（0.3 から 0.9）**を出力する。
 2. **自律学習ループ**：
-   - **タスク後の振り返り**：`ce-compound` の完了後、メタ学習（ワークフロー改善、パターンシフト）について簡単に振り返る。
+   - **タスク後の振り返り**：`C31-compound` の完了後、メタ学習（ワークフロー改善、パターンシフト）について簡単に振り返る。
    - **メモリの更新**：アトミックな「本能」をローカルの `MEMORY.md` またはグローバルエージェントメモリに書き込む。
 3. **本能の進化と自己修正**：
    - **正の強化**：パターンが繰り返し成功した場合、本能の信頼度スコアを上げる。
@@ -199,7 +199,7 @@
 
 **会話の終わりに**（停止信号またはユーザーが "done"/"bye"/"それでいい" と言った場合）：
 1. `session_state.json` を**フラッシュ**：`last_topic` を更新し、新しいアイテムを `open_todos`/`completed_tasks` に追加し、`last_flush` を設定する。
-2. **スキル実行結果を書き戻す**：このセッションの ce-compound ドキュメントパス、変更されたファイルリスト、新しい本能 → `completed_tasks` に書き込み、session_state を単一の真実のソースにする。
+2. **スキル実行結果を書き戻す**：このセッションの C31-compound ドキュメントパス、変更されたファイルリスト、新しい本能 → `completed_tasks` に書き込み、session_state を単一の真実のソースにする。
 3. 今日の日記 `{MEMORY_DIR}/memory/diary/YYYY-MM-DD.md` に **1〜5 行追加**する。
 4. ファイルパス：`{MEMORY_DIR}/memory/`
 
@@ -247,7 +247,7 @@ English: "that's wrong", "stop doing that", "you misunderstood", "not what I mea
 - `instinct-001-no-overwrite.md` — 既存ファイルを上書きしない（confidence: 0.95）
 - `instinct-002-research-first.md` — Research-First の事前調査（confidence: 0.9）
 - `instinct-003-surgical-changes.md` — 外科的な変更のみ（confidence: 0.9）
-- `instinct-004-ce-compound-trigger.md` — ce-compound を積極的にトリガー（confidence: 0.85）
+- `instinct-004-C31-compound-trigger.md` — C31-compound を積極的にトリガー（confidence: 0.85）
 
 ---
 
@@ -275,11 +275,11 @@ English: "that's wrong", "stop doing that", "you misunderstood", "not what I mea
 ユーザーが "fix it"、"デバッグして"、"直して"、"解決して" と言ったとき、自動的に連鎖をトリガーする：
 
 ```
-ユーザーのトリガー → ce-debug（根本原因分析）→ 修正 → 検証（テスト実行または手動確認）→ ce-compound を提案
+ユーザーのトリガー → C31-debug（根本原因分析）→ 修正 → 検証（テスト実行または手動確認）→ C31-compound を提案
 ```
 
 各ステップの完了後にステータスを明確に報告し、ステップを飛ばさない。修正成功後、**積極的に言う**：
-「修正しました。このバグの解決策を記録する価値があります — ce-compound を実行しますか？」
+「修正しました。このバグの解決策を記録する価値があります — C31-compound を実行しますか？」
 
 ---
 
@@ -384,3 +384,52 @@ English: "that's wrong", "stop doing that", "you misunderstood", "not what I mea
 - アーキテクチャの決定を行う前
 
 **高リスクの仮定の処理**：仮定が覆される → 即座に一時停止、再評価、計画を更新する。間違った仮定の上に構築し続けない。
+
+---
+
+## Skill 指示品質原則（CEP v3.19 より）
+*compound-engineering-plugin AGENTS.md の skill 記述原則から採用。*
+
+### 1. 削除テスト（Deletion Test）
+
+SKILL.md の各指示に削除テストを適用する：
+
+> "If removing it would not change the output, it is a no-op — delete it."
+
+- generic な形容詞（"comprehensive", "thorough", "carefully"）を削除する——それらは動作を変えない
+- 現在のコンテキストに既にある情報を繰り返す指示を削除する
+- 各行の指示はエージェントの動作を検証可能に変更するものでなければならない、そうでなければノイズ
+
+### 2. Inline the Trigger, Not the Content
+
+- SKILL.md の YAML フロントマターには**トリガー情報**のみ（name, description, triggers）を記載する
+- コア実行ロジックは SKILL.md body に記載する
+- 大きな条件分岐ロジック、ペルソナ定義、後半シーケンスのコンテンツは `references/` サブディレクトリに抽出する
+
+### 3. Runtime vs Authoring の分離
+
+- **Runtime ルール**（エージェント実行時の動作）→ SKILL.md と `references/` に属する
+- **Authoring ルール**（skill の書き方）→ グローバル GEMINI.md または AGENTS.md に属する
+- Skill の動作は repo-level ファイルの暗黙の規約に依存すべきでない
+
+### 4. 行動変更検証契約（Behavior Change Contract）
+
+実行ステップが**行動変更**を生じた場合、`verification_evidence` を提供する必要がある：
+- 関連テストの名前と結果
+- 新規追加/変更されたテスト
+- 検証実行の出力
+
+verification_evidence のない行動変更 = 未検証 = 信頼できない。
+
+---
+
+## CONCEPTS.md 共有語彙（CEP v3.10 より）
+
+プロジェクトルートに `CONCEPTS.md` を配置して、プロジェクト固有の用語の統一的な意味を定義できる。skill の grounding フェーズで、プロジェクトルートに `CONCEPTS.md` が存在する場合、必ず読み込み、実行プロセス全体でその定義された用語の意味を使用する。
+
+---
+
+## Repo-Grounding Profile Cache（CEP v3.x より）
+
+複数の skill が同一プロジェクトで連続して実行される場合、それぞれが独立してプロジェクト特性（tech stack, deps, conventions）を推定し、トークンを浪費する。解決策：初回推定後に `.compound-engineering/profile-cache.json` にキャッシュし、以降は直接再利用する。
+

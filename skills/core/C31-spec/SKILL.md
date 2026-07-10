@@ -103,7 +103,7 @@ PRD 写完必须检查：
 
 不通过 → 打回重写，不进入下一步。
 
-### 5. Handoff to C31-plan / ce-work
+### 5. Handoff to C31-plan / C31-work
 
 PRD 确认后，生成 `PLAN.md`：
 
@@ -121,7 +121,7 @@ Based on PRD: [PRD 文件路径]
 - [风险点]: [规避策略]
 ```
 
-然后调用 `C31-plan` 或 `ce-work` 进入执行阶段。
+然后调用 `C31-plan` 或 `C31-work` 进入执行阶段。
 
 ---
 
@@ -161,4 +161,4 @@ Based on PRD: [PRD 文件路径]
 
 - GSD `gsd-new-project` — 项目初始化
 - `C31-plan` — 执行计划生成
-- `ce-work` — 任务执行
+- `C31-work` — 任务执行

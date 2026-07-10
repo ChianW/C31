@@ -54,10 +54,10 @@ If `Status` is not explicitly stated, infer from the content:
 | Status | Suggestion |
 |--------|------------|
 | **No project** (files missing) | `gsd-new-project` |
-| **pending** | `ce-brainstorm` or `gsd-discuss-phase` |
-| **discussed** | `ce-plan` or `gsd-plan-phase` |
-| **planned** | `ce-work` or `gsd-execute-phase` |
-| **executed** | `ce-code-review` or `gsd-verify-work` |
+| **pending** | `C31-brainstorm` or `gsd-discuss-phase` |
+| **discussed** | `C31-plan` or `gsd-plan-phase` |
+| **planned** | `C31-work` or `gsd-execute-phase` |
+| **executed** | `C31-review` or `gsd-verify-work` |
 | **verified** | `gsd-ship` |
 | **shipped** | "Project is shipped. Run `gsd-new-project` for a new project." |
 

@@ -1,12 +1,13 @@
 # C31 — Agent Harness System
 
-**Not just skills. A complete agent harness.**
+> You wrote 1,000 prompts for your AI. Then the conversation reset. It forgot everything.
+> This is why you need an agent harness — not better prompts, but a persistent operating layer.
 
-Memory that persists. Instincts that evolve. Context that stays healthy.  
-Built from 5+ months of daily production use. Powers **[chian.io](https://chian.io)** and **[chian.io/investment-os](https://chian.io/investment-os)**.
+**C31** is the agent harness forged from 7 open-source frameworks and 5 months of daily production use.  
+Memory that persists. Instincts that evolve. Context that stays healthy.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Skills](https://img.shields.io/badge/skills-50%2B-green.svg)](skills/)
+[![Skills](https://img.shields.io/badge/skills-43-green.svg)](skills/)
 [![Platforms](https://img.shields.io/badge/platforms-6%2B-purple.svg)](#compatibility)
 [![Languages](https://img.shields.io/badge/languages-EN%20%7C%20ZH%20%7C%20JA-orange.svg)](#languages)
 
@@ -27,18 +28,41 @@ Built from 5+ months of daily production use. Powers **[chian.io](https://chian.
 
 ## What is C31?
 
-C31 is an **agent harness system** — the layer between you and your AI tool that makes every session smarter than the last.
+In early 2026, I went all-in on building with AI — coding 10+ hours a day. Within the first week, I discovered the core problem: **the AI was brilliant at generating code and completely incapable of remembering anything.**
+
+I needed a system — not better prompts. So I audited 7 open-source agent frameworks in 48 hours and forged their best ideas into a unified harness. That system is C31.
 
 Most prompt collections give you one-shot instructions. C31 gives you a **persistent operating system for your AI**:
 
 | Layer | What It Does |
 |-------|-------------|
-| **Skills** (50+) | Structured workflows: brainstorm → plan → work → **simplify** → review → compound |
+| **Skills** (43) | Structured workflows: brainstorm → plan → work → **simplify** → review → compound |
 | **Memory System** | `session_state.json` + diary + instincts — state persists across sessions |
 | **Instinct Evolution** | AI learns from every interaction; patterns graduate from `candidate → verifying → instinct` |
 | **Context Health** | 🟢🟡🟠🔴 four-state monitoring prevents context rot in long sessions |
 | **Psych-Framing** | Step-by-step reasoning enforcement + confidence-check output validation |
 | **Critic Gate** | Auto quality gate: outputs >300 words with inferred conclusions trigger self-audit |
+
+---
+
+## The 2026 Consensus
+
+In 2025–2026, seven independent open-source projects attacked the same problems from different angles. They had different authors, different philosophies, different star counts. But they converged on five conclusions:
+
+**1. Architecture beats prompts.**
+Reliability doesn't come from better wording. It comes from structure — explicit control flow, quality gates, state management. You don't prompt your way to production-grade agents. You engineer them.
+
+**2. Agents need persistent state.**
+Session-scoped memory is not enough. Instincts, learnings, and decisions must survive across conversations. The agent should get smarter over time, not reset to baseline every session.
+
+**3. Multi-agent orchestration beats monolithic agents.**
+A specialized small agent that does one thing well outperforms a single agent trying to brainstorm, code, test, review, and document all in one context window. Delegation is not a feature — it's an architectural requirement.
+
+**4. Human-in-the-loop is a first-class operation.**
+Irreversible actions need approval gates. The best systems make the boundary between "AI decides autonomously" and "AI pauses for human input" explicit and configurable.
+
+**5. Knowledge compounds — if you capture it.**
+The final step of every workflow should leave the system better than it found it. Document the solution. Index it. Make it searchable. The next time the same class of problem appears, it should take minutes, not hours.
 
 ---
 
@@ -51,7 +75,7 @@ Most prompt collections give you one-shot instructions. C31 gives you a **persis
 │  ─ Ambient weighting       ─ Critic Gate                    │
 │  ─ Psych-framing layer     ─ Fix-it Cascade                 │
 ├─────────────────────────────────────────────────────────────┤
-│  SKILLS (50+)                                               │
+│  SKILLS (43)                                                │
 │  core/ · review/ · product/ · utils/ · personal/           │
 ├─────────────────────────────────────────────────────────────┤
 │  MEMORY SYSTEM                                              │
@@ -71,6 +95,8 @@ Most prompt collections give you one-shot instructions. C31 gives you a **persis
 ## What Makes C31 Different
 
 ### 1. Memory That Persists
+> *Forged from: GSD Core (Artifacts over Memory) + ECC (session state architecture)*
+
 Unlike stateless prompt files, C31 remembers. `session_state.json` tracks active projects, open todos, and pending decisions. A diary captures daily work. Instinct files store learned patterns with confidence scores.
 
 ```
@@ -83,16 +109,20 @@ Unlike stateless prompt files, C31 remembers. `session_state.json` tracks active
 ```
 
 ### 2. Instincts That Evolve
+> *Forged from: ECC (continuous learning loop, confidence scoring)*
+
 The AI doesn't just follow rules — it builds up instincts. When a pattern succeeds 3 times, it graduates to an `instinct` (auto-applied, no confirmation needed). When a user says "that's wrong," the confidence score drops below 0.3 and the pattern is deprecated.
 
 ```
 instinct-001-no-overwrite.md     confidence: 0.95  ← auto-applied
 instinct-002-research-first.md   confidence: 0.90  ← auto-applied
 instinct-003-surgical-changes.md confidence: 0.90  ← auto-applied
-instinct-004-C31-compound.md      confidence: 0.85  ← auto-applied
+instinct-004-compound-trigger.md confidence: 0.85  ← auto-applied
 ```
 
 ### 3. Context Health Monitoring
+> *Forged from: 12-Factor Agents (F3: Own Your Context Window) + GSD Core (Context Rot)*
+
 Long sessions kill AI quality. C31 monitors context window usage and takes automatic action:
 
 | State | Usage | Action |
@@ -103,6 +133,8 @@ Long sessions kill AI quality. C31 monitors context window usage and takes autom
 | 🔴 Red | >85% | Force checkpoint: write state, then continue |
 
 ### 4. Psychological Framing Layer
+> *Forged from: Superpowers (Cialdini compliance) + agent-skills (anti-sycophancy, Doubt Gate)*
+
 C31 embeds research-backed cognitive techniques directly into the harness:
 - **Step-by-step reasoning**: Complex analysis unfolds internally before output (reduces errors ~34%)
 - **Confidence check**: Every significant output carries a gap annotation
@@ -110,6 +142,8 @@ C31 embeds research-backed cognitive techniques directly into the harness:
 - **Anti-sycophancy**: Technical rigor over social comfort — disagreement triggers independent evaluation, not capitulation
 
 ### 5. Compounding Knowledge
+> *Forged from: Compound Engineering Plugin (the Compound step + Deletion Test)*
+
 Every solved problem becomes institutional memory. The `C31-compound` workflow writes solutions to `docs/solutions/` with an INDEX entry. The next time the same class of problem appears, it takes minutes instead of hours.
 
 ---
@@ -158,7 +192,7 @@ Replace `{YOUR_HOME}`, `{YOUR_PROJECT}`, `{MEMORY_DIR}` with your actual paths.
 ### 🔧 core/ (18) — Engineering Workflow
 
 | Skill | EN Trigger | ZH | JA |
-|-------|-----------|----|----|
+|-------|-----------|----|-----|
 | C31-1st | `first principles` | 第一性原理 | 第一原理 |
 | C31-brainstorm | `brainstorm` | 头脑风暴 | ブレスト |
 | C31-plan | `plan` | 制定计划 | 計画を立てる |
@@ -190,21 +224,21 @@ Replace `{YOUR_HOME}`, `{YOUR_PROJECT}`, `{MEMORY_DIR}` with your actual paths.
 
 ---
 
-## Intellectual Foundations
+## The 7 Frameworks — Origin of C31
 
-C31 synthesizes design philosophy from 9 frameworks, built into a unified harness:
+C31 synthesizes the best ideas from 7 open-source frameworks. Each framework solved one piece of the puzzle:
 
-| Source | Key Contribution to C31 |
-|--------|------------------------|
-| **[Karpathy AI Skills](https://karpathy.ai)** | 5 core engineering principles (the bedrock) |
-| **[12-factor-agents](https://github.com/humanlayer/12-factor-agents)** | Stateless reducer · context ownership · compact errors |
-| **[ECC](https://github.com/affaan-m/ecc)** | Instinct evolution system · context health colors · continuous learning loop |
-| **[Compound Engineering](https://github.com/EveryInc/compound-engineering-plugin)** | Brainstorm→Plan→Work→**Simplify**→Review→Compound lifecycle · Deletion Test · Behavior Change Contract |
-| **[Superpowers](https://github.com/obra/superpowers)** | Subagent-driven development · verification-before-completion |
-| **[Archon](https://github.com/coleam00/Archon)** | Agent lifecycle governance · no autonomous mutation |
-| **[GSD Core](https://github.com/open-gsd/gsd-core)** | Context engineering · artifacts-over-memory · plan quality gate |
-| **[agent-skills](https://github.com/addyosmani/agent-skills)** | Doubt-Driven Development · Chesterton's Fence · anti-sycophancy |
-| **Psychological Framing** | Step-by-step reasoning · confidence-check · Critic Gate |
+| Framework | Stars | Key Contribution to C31 | Deep Dive |
+|-----------|-------|------------------------|-----------|
+| **[12-Factor Agents](https://github.com/humanlayer/12-factor-agents)** | ~24k | Stateless reducer · context ownership · compact errors | [Part 1 →](https://github.com/ChianW/C31-papers) |
+| **[Superpowers](https://github.com/obra/superpowers)** | ~249k | Psychology-driven AI compliance (Cialdini) | [Part 2 →](https://github.com/ChianW/C31-papers) |
+| **[ECC](https://github.com/affaan-m/ecc)** | ~225k | Instinct evolution system · context health colors | [Part 3 →](https://github.com/ChianW/C31-papers) |
+| **[agent-skills](https://github.com/addyosmani/agent-skills)** | ~70k | Doubt-Driven Development · Chesterton's Fence · anti-sycophancy | [Part 4 →](https://github.com/ChianW/C31-papers) |
+| **[Compound Engineering](https://github.com/EveryInc/compound-engineering-plugin)** | ~23k | Brainstorm→Plan→Work→**Simplify**→Review→Compound lifecycle | [Part 5 →](https://github.com/ChianW/C31-papers) |
+| **[Archon](https://github.com/coleam00/Archon)** | ~23k | Agent lifecycle governance · no autonomous mutation | [Part 6 →](https://github.com/ChianW/C31-papers) |
+| **[GSD Core](https://github.com/open-gsd/gsd-core)** | ~6k | Context Rot · artifacts-over-memory · plan quality gate | [Part 7 →](https://github.com/ChianW/C31-papers) |
+
+Plus **Karpathy AI Skills** as the bedrock engineering philosophy across all layers.
 
 ---
 

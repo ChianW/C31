@@ -30,7 +30,9 @@ Memory that persists. Instincts that evolve. Context that stays healthy.
 
 ## What is C31?
 
-In early 2026, I went all-in on building with AI — coding 10+ hours a day. Within the first week, I discovered the core problem: **the AI was brilliant at generating code and completely incapable of remembering anything.**
+In seven years running a think tank and investment firm, AI arrived and changed everything. I gradually realized that the only question worth thinking about was: *what will society look like after AGI?* In 2025, I made a decisive move — I let my investment firm become a company of just me and Agents.
+
+Within the first week of building, I discovered the core problem: **the AI was brilliant at generating code and completely incapable of remembering anything.**
 
 I needed a system — not better prompts. So I audited 7 open-source agent frameworks in 48 hours and forged their best ideas into a unified harness. That system is C31.
 
@@ -232,13 +234,13 @@ C31 synthesizes the best ideas from 7 open-source frameworks. Each framework sol
 
 | Framework | Stars | Key Contribution to C31 | Deep Dive |
 |-----------|-------|------------------------|-----------|
-| **[12-Factor Agents](https://github.com/humanlayer/12-factor-agents)** | ~24k | Stateless reducer · context ownership · compact errors | [Part 1 →](https://github.com/ChianW/C31-papers) |
-| **[Superpowers](https://github.com/obra/superpowers)** | ~249k | Psychology-driven AI compliance (Cialdini) | [Part 2 →](https://github.com/ChianW/C31-papers) |
-| **[ECC](https://github.com/affaan-m/ecc)** | ~225k | Instinct evolution system · context health colors | [Part 3 →](https://github.com/ChianW/C31-papers) |
-| **[agent-skills](https://github.com/addyosmani/agent-skills)** | ~70k | Doubt-Driven Development · Chesterton's Fence · anti-sycophancy | [Part 4 →](https://github.com/ChianW/C31-papers) |
-| **[Compound Engineering](https://github.com/EveryInc/compound-engineering-plugin)** | ~23k | Brainstorm→Plan→Work→**Simplify**→Review→Compound lifecycle | [Part 5 →](https://github.com/ChianW/C31-papers) |
-| **[Archon](https://github.com/coleam00/Archon)** | ~23k | Agent lifecycle governance · no autonomous mutation | [Part 6 →](https://github.com/ChianW/C31-papers) |
-| **[GSD Core](https://github.com/open-gsd/gsd-core)** | ~6k | Context Rot · artifacts-over-memory · plan quality gate | [Part 7 →](https://github.com/ChianW/C31-papers) |
+| **[12-Factor Agents](https://github.com/humanlayer/12-factor-agents)** | ~24k | Stateless reducer · context ownership · compact errors | [Part 1 →](https://github.com/ChianW/C31-papers/blob/master/part1_12_factor_agents.md) |
+| **[Superpowers](https://github.com/obra/superpowers)** | ~249k | Psychology-driven AI compliance (Cialdini) | [Part 2 →](https://github.com/ChianW/C31-papers/blob/master/part2_superpowers.md) |
+| **[ECC](https://github.com/affaan-m/ecc)** | ~225k | Instinct evolution system · context health colors | [Part 3 →](https://github.com/ChianW/C31-papers/blob/master/part3_ecc.md) |
+| **[agent-skills](https://github.com/addyosmani/agent-skills)** | ~70k | Doubt-Driven Development · Chesterton's Fence · anti-sycophancy | [Part 4 →](https://github.com/ChianW/C31-papers/blob/master/part4_agent_skills.md) |
+| **[Compound Engineering](https://github.com/EveryInc/compound-engineering-plugin)** | ~23k | Brainstorm→Plan→Work→**Simplify**→Review→Compound lifecycle | [Part 5 →](https://github.com/ChianW/C31-papers/blob/master/part5_cep.md) |
+| **[Archon](https://github.com/coleam00/Archon)** | ~23k | Agent lifecycle governance · no autonomous mutation | [Part 6 →](https://github.com/ChianW/C31-papers/blob/master/part6_archon.md) |
+| **[GSD Core](https://github.com/open-gsd/gsd-core)** | ~6k | Context Rot · artifacts-over-memory · plan quality gate | [Part 7 →](https://github.com/ChianW/C31-papers/blob/master/part7_gsd_core.md) |
 
 Plus **Karpathy AI Skills** as the bedrock engineering philosophy across all layers.
 
@@ -266,6 +268,27 @@ Windows: use `.\install.ps1`
 - 🇺🇸 [English](README.md) (this page)
 - 🇨🇳 [中文](README.zh.md)
 - 🇯🇵 [日本語](README.ja.md)
+
+---
+
+## The Agent Harness Papers
+
+10 articles documenting the journey from problem to system — the frameworks behind C31, from first principles to final synthesis.
+
+| Part | Title |
+|------|-------|
+| [Part 0](https://github.com/ChianW/C31-papers/blob/master/part0_introduction.md) | Why You Need an Agent Harness |
+| [Part 1](https://github.com/ChianW/C31-papers/blob/master/part1_12_factor_agents.md) | 12-Factor Agents — The Architectural Manifesto |
+| [Part 2](https://github.com/ChianW/C31-papers/blob/master/part2_superpowers.md) | Superpowers — The Psychology Hack |
+| [Part 3](https://github.com/ChianW/C31-papers/blob/master/part3_ecc.md) | Everything Claude Code — The Operating Layer |
+| [Part 4](https://github.com/ChianW/C31-papers/blob/master/part4_agent_skills.md) | Agent Skills — The Anti-Laziness Framework |
+| [Part 5](https://github.com/ChianW/C31-papers/blob/master/part5_cep.md) | Compound Engineering — The Compounding Engine |
+| [Part 6](https://github.com/ChianW/C31-papers/blob/master/part6_archon.md) | Archon — Deterministic AI Pipelines |
+| [Part 7](https://github.com/ChianW/C31-papers/blob/master/part7_gsd_core.md) | GSD Core — Naming Context Rot |
+| [Part 8](https://github.com/ChianW/C31-papers/blob/master/part8_comparison.md) | All 7 Frameworks Compared |
+| [Part 9](https://github.com/ChianW/C31-papers/blob/master/part9_building_c31.md) | From Zero to C31 |
+
+→ **[ChianW/C31-papers](https://github.com/ChianW/C31-papers)**
 
 ---
 

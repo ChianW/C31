@@ -1,0 +1,16 @@
+﻿# Runtime memory — never commit personal data
+memory/
+.memory/
+diary/
+session_state.json
+instincts/
+*.session.json
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp

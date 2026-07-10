@@ -1,0 +1,11 @@
+{
+  "_schema": "c31-session-state-v1",
+  "_docs": "Cross-session state file. Read at session start, updated at session end. Copy to ~/.cystem31/memory/session_state.json",
+  "_setup": "Replace all placeholder values. The AI reads this at the start of every session.",
+  "last_topic": "",
+  "last_flush": "",
+  "active_projects": [],
+  "open_todos": [],
+  "pending_decisions": [],
+  "completed_tasks": []
+}

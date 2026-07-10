@@ -21,6 +21,8 @@ Memory that persists. Instincts that evolve. Context that stays healthy.
 |---------|-------------|
 | **[chian.io](https://chian.io)** | *"Being Human is a Luxury."* — A knowledge platform and personal OS exploring taste, judgment, and the irreducible human edge. Products include Investment OS, The Silicon Boardroom (podcast), Project Q, and System Reboot. |
 | **[chian.io/investment-os](https://chian.io/investment-os)** | *Master Clone System* — Buffett's 70 years of shareholder letters (1956–2025) + Howard Marks' 160+ memos (1990–2026), decoded into fully cross-linked knowledge graphs queryable by humans and AI agents. |
+| **[chian.io/kyoto](https://chian.io/kyoto)** | *A philosopher's map of Kyoto.* — 61 temples, shrines, and sacred paths, each one connected to an essay on time, impermanence, and the examined life. Travel as philosophy. |
+| **[agi-cd.com](https://agi-cd.com)** | *AGI Countdown — Calibrating the Only Question That Matters.* — A daily signal feed counting down to AGI Zero Day (2029-03-07). Cross-disciplinary insights from philosophy, history, economics, geopolitics, and investing to align your thinking with the post-AGI world. |
 
 *Built something with C31? Open a PR to add it here.*
 

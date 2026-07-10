@@ -21,6 +21,8 @@
 |------|------|
 | **[chian.io](https://chian.io)** | *「做一个人，是一种奢侈。」* — 一个探索品味、判断力与人类独特性的知识平台与个人操作系统。产品包括：Investment OS、The Silicon Boardroom（播客）、Project Q、System Reboot。 |
 | **[chian.io/investment-os](https://chian.io/investment-os)** | *大师克隆系统* — 巴菲特 70 年股东信（1956–2025）+ 霍华德·马克斯 160+ 份备忘录（1990–2026），解码为完整的跨链接知识图谱，可由人类和 AI Agent 同时查询。 |
+| **[chian.io/kyoto](https://chian.io/kyoto)** | *哲学家的京都地图。* — 61 座寺庙、神社与圣道，每一处马孙连接一篇关于时间、无常与审慎生活的散文。旅行即哲学。 |
+| **[agi-cd.com](https://agi-cd.com)** | *AGI 倒计时 —— 校准唯一重要的问题。* — 每日更新的信号流，倒计时至 AGI 零日（2029-03-07）。跨学科视角（哲学、历史、经济学、地缘政治、投资），帮你将思维与行动校准到后 AGI 世界。 |
 
 *用 C31 做了什么？欢迎提 PR 把你的项目加入这里。*
 

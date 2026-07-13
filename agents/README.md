@@ -1,48 +1,45 @@
-# C31 Memory System — `agents/`
+# C31 Subagent Templates
 
-This directory contains the **persistent memory layer** of C31.
-Copy it to your home directory and configure the path in `AGENTS.template.md`.
+This directory contains **ready-to-use subagent prompt templates** for C31's core orchestration patterns.
+
+Each template is designed to be passed as the initial prompt when spawning a subagent. They are **self-contained** — a fresh agent with no prior context can execute them without needing to ask clarifying questions.
+
+## Directory Structure
 
 ```
-~/.cystem31/          ← recommended location
-├── memory/
-│   ├── session_state.json    ← cross-session state (read at start, written at end)
-│   ├── diary/                ← daily session logs (YYYY-MM-DD.md)
-│   │   └── YYYY-MM-DD.md
-│   ├── instincts/            ← evolved behavioral patterns
-│   │   ├── README.md         ← instinct index
-│   │   └── instinct-XXX-name.md
-│   └── solutions-registry.md ← index of all documented solutions
-└── (your AGENTS.template / GEMINI.md / CLAUDE.md)
+agents/
+├── README.md               ← this file
+├── memory/                 ← persistent memory layer (install to ~/.c31/)
+│   ├── session_state.template.json
+│   ├── solutions-registry.template.md
+│   └── instincts/
+│       ├── README.md
+│       └── instinct-00X-*.md
+├── reviewer/               ← C31-review subagent prompts
+│   ├── correctness.md
+│   ├── security.md
+│   ├── architecture.md
+│   ├── adversarial.md
+│   └── simplicity.md
+├── compound/               ← C31-compound extraction subagent prompts
+│   ├── context-analyzer.md
+│   ├── solution-extractor.md
+│   └── docs-finder.md
+└── debug/
+    └── reproducer.md       ← C31-debug minimal reproduction subagent
 ```
 
-## Quick Setup
+## How Subagents Work in C31
 
-```bash
-mkdir -p ~/.cystem31/memory/diary
-mkdir -p ~/.cystem31/memory/instincts
-cp agents/memory/session_state.template.json ~/.cystem31/memory/session_state.json
-cp agents/memory/instincts/README.md ~/.cystem31/memory/instincts/README.md
-cp agents/memory/solutions-registry.template.md ~/.cystem31/memory/solutions-registry.md
-```
+C31's orchestration follows the **Do Not Trust the Report** principle:
 
-Then in your `AGENTS.template.md`, update the paths:
-```
-Session State: ~/.cystem31/memory/session_state.json
-Diary:         ~/.cystem31/memory/diary/YYYY-MM-DD.md
-Instincts:     ~/.cystem31/memory/instincts/
-Solutions:     ~/.cystem31/memory/solutions-registry.md
-```
+> When a verifier subagent reviews an executor subagent's work, it must independently verify — never rely on the executor's self-report. "It's done" ≠ truly compliant with spec.
 
-## How It Works
+Each subagent receives:
+1. A self-contained prompt (from this directory)
+2. The minimum context needed to complete its specific task
+3. A structured output schema (JSON or markdown)
 
-| File | Read | Written | Purpose |
-|------|------|---------|---------|
-| `session_state.json` | Session start | Session end | Active projects, todos, last topic |
-| `diary/YYYY-MM-DD.md` | If today's exists | Session end | Daily log, 1–5 lines per session |
-| `instincts/` | Always (auto-applied) | When patterns detected | Evolved behavioral rules |
-| `solutions-registry.md` | Before non-trivial tasks | After ce-compound runs | Index of solved problems |
+No subagent shares context with another during execution. Findings are merged by the orchestrator **after** all subagents complete.
 
----
-
-> 🇨🇳 See also: [AGENTS.template.zh.md](../AGENTS.template.zh.md) for Chinese memory system documentation.
+→ See [WORKFLOW.md](../WORKFLOW.md) for orchestration pattern details.

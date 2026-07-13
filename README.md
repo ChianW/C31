@@ -98,36 +98,171 @@ The final step of every workflow should leave the system better than it found it
 
 ## What Makes C31 Different
 
-### 1. Memory That Persists
-> *Forged from: GSD Core (Artifacts over Memory) + ECC (session state architecture)*
+### 1. A Workflow with Hard Gates — Not a Checklist
 
-Unlike stateless prompt files, C31 remembers. `session_state.json` tracks active projects, open todos, and pending decisions. A diary captures daily work. Instinct files store learned patterns with confidence scores.
+> *Forged from: Compound Engineering Plugin (lifecycle) + 12-Factor Agents (F12: Stateless Reducer) + Archon (deterministic pipelines)*
+
+Most AI workflows are checklists. C31's lifecycle is a **pipeline** — each step takes structured output from the previous step as its only input, and produces structured output for the next. Context is passed as files, not conversation.
+
+```
+Brainstorm → Plan → Work → Simplify → Review → Compound
+   ↓             ↓        ↓          ↓         ↓          ↓
+Decision doc  Plan+    Tests     No regressions  APPROVED  docs/solutions/
+(numbered)    threat    green      verified               + INDEX entry
+              model
+```
+
+Every step has a **verification gate** — a binary condition that must be true before the next step begins. Plans require human approval. Tests must be green before review. Solutions require an INDEX entry before being declared done.
+
+> **Why it matters:** An INDEX entry without the document is invisible. A document without an INDEX entry is also invisible. C31 enforces both. → [Full Workflow Architecture](WORKFLOW.md)
+
+---
+
+### 2. Multi-Agent Orchestration — 4 Patterns
+
+> *Forged from: Compound Engineering (compound subagents) + Archon (subagent governance) + Superpowers (Do Not Trust the Report)*
+
+C31 uses four distinct subagent orchestration patterns. The core architectural principle across all four: **specialized agents working in parallel outperform a single agent trying to do everything.**
+
+#### Pattern A — Parallel Adversarial Review
+
+4 isolated agents review the same code simultaneously. A 5th agent detects contradictions between them.
+
+```
+            Code / Diff
+               │ (broadcast)
+  ┌────────────┼────────────┐────────────┐
+  ▼            ▼            ▼            ▼
+CORRECTNESS  SECURITY  MAINTAINABILITY SIMPLICITY
+  (isolated)  (isolated)   (isolated)   (isolated)
+  │            │            │            │
+  └────────────┼────────────┘────────────┘
+               ▼
+        CONFLICT AGENT (5th)
+        Detect contradictions · Severity gaps · Human flags
+               ▼
+        SYNTHESIS: APPROVED / WARNED / BLOCKED
+```
+
+**Why isolated agents?** Isolation prevents groupthink. A reviewer hunting for security vulnerabilities won't also notice over-engineering — unless that's all they're looking for. Each of the 4 agents operates in read-only mode with zero knowledge of the other agents' findings, so their disagreements become signal, not noise.
+
+#### Pattern B — Parallel Knowledge Extraction
+
+When a problem is solved, 3 agents run simultaneously to extract different dimensions of the solution:
+
+| Agent | Extracts |
+|-------|---------|
+| **Context Analyzer** | What was the situation? What was tried? What constraints existed? |
+| **Solution Extractor** | What was the exact fix? Root cause? Why does it work? Verbatim commands. |
+| **Related Docs Finder** | What prior solutions relate? Index gaps? Where does this belong? |
+
+Output is assembled into a single solution document + mandatory INDEX entry.
+
+#### Pattern C — Fix-it Cascade
+
+```
+"fix it" → C31-debug → Fix (surgical) → Verify → C31-compound
+                                ↑___FAIL___|
+```
+
+Triggered automatically on any debug request. Self-closing loop. The 3-consecutive-failure rule: if the same class of fix fails 3 times in a row, the cascade halts and escalates — no blind retries.
+
+#### Pattern D — 12-Gate Full Automation (C31-lfg)
+
+For approved plans, `lfg` runs a deterministic 12-gate pipeline to completion without interruption:
+
+`Plan validation → Dependency check → Test baseline → Implement → Multi-review → Unit tests → Integration tests → Nyquist coverage → Simplify → Security scan → Build verify → Compound`
+
+Stop conditions are explicit. Everything else runs unattended.
+
+---
+
+### 3. Autonomous by Default
+
+> *Forged from: 12-Factor Agents (F12) + ECC (confidence scoring)*
+
+**The default state is full autonomy.** The AI executes, iterates, self-corrects, and compounds knowledge without interruption. Human intervention is reserved for exactly two conditions:
+
+- **Irreversible scope** — file overwrites, deletion, external publishing
+- **Low intent confidence** — below 0.55, one clarifying question. Then execute.
+
+Everything else — including the 12-gate pipeline, Fix-it Cascade, parallel review, and knowledge extraction — runs in a closed autonomous loop.
+
+**Confidence Routing** governs when the AI speaks before acting:
+
+| Confidence | Behavior |
+|------------|----------|
+| ≥0.75 | Execute directly. No check-in. |
+| 0.55–0.74 | One-sentence confirmation: "You mean X, right?" |
+| <0.55 | One clarifying question. Then execute. |
+
+---
+
+### 4. The Self-Improving Loop
+
+> *Forged from: ECC (continuous learning + confidence scoring) + agent-skills (anti-sycophancy)*
+
+C31's instinct system evolves entirely autonomously. No configuration files. No human teaching required.
+
+```
+Pattern observed → candidate instinct (confidence: 0.5)
+Pattern repeats  → verifying instinct (confidence: 0.7)
+Pattern verified → instinct (confidence: 0.9) — auto-applied, no confirmation
+
+User says "that's wrong" → confidence drops to 0.1 → deprecated → never suggested again
+```
+
+Pre-loaded seed instincts:
+```
+instinct-001-no-overwrite.md     confidence: 0.95  ← never overwrite existing files
+instinct-002-research-first.md   confidence: 0.90  ← always research before acting
+instinct-003-surgical-changes.md confidence: 0.90  ← modify only what's necessary
+instinct-004-compound-trigger.md confidence: 0.85  ← auto-run compound after ≥2 file changes
+```
+
+Session state persists across conversations: `session_state.json` + daily diary + instinct index. Each session starts where the last one ended.
 
 ```
 ~/.cystem31/
 ├── memory/
-│   ├── session_state.json   ← last topic, open todos, completed tasks
+│   ├── session_state.json   ← active projects, open todos, pending decisions
 │   ├── diary/YYYY-MM-DD.md  ← daily session logs
-│   └── instincts/           ← evolved behavioral patterns
-└── solutions-registry.md    ← index of all documented solutions
+│   └── instincts/           ← evolved behavioral patterns with confidence scores
+└── solutions-registry.md    ← cross-project solution index
 ```
 
-### 2. Instincts That Evolve
-> *Forged from: ECC (continuous learning loop, confidence scoring)*
+---
 
-The AI doesn't just follow rules — it builds up instincts. When a pattern succeeds 3 times, it graduates to an `instinct` (auto-applied, no confirmation needed). When a user says "that's wrong," the confidence score drops below 0.3 and the pattern is deprecated.
+### 5. Knowledge Flywheel
+
+> *Forged from: Compound Engineering Plugin (compound step) + GSD Core (artifacts over memory)*
+
+Every solved problem becomes searchable institutional memory. The flywheel:
 
 ```
-instinct-001-no-overwrite.md     confidence: 0.95  ← auto-applied
-instinct-002-research-first.md   confidence: 0.90  ← auto-applied
-instinct-003-surgical-changes.md confidence: 0.90  ← auto-applied
-instinct-004-compound-trigger.md confidence: 0.85  ← auto-applied
+Solve → C31-compound → docs/solutions/[category]/YYYY-MM-DD.md
+                              ↓
+                        Update INDEX.md  ← MANDATORY
+                              ↓
+                 solutions-registry.md (cross-project)
+                              ↓
+              Next session: Pre-Search silently checks registry
+                              ↓
+              Hit → "📋 Found prior art" → inject into context
+              Miss → continue silently
+                              ↓
+          Next occurrence of same problem: minutes, not hours
 ```
 
-### 3. Context Health Monitoring
+Any new project bootstrapped with C31 instantly inherits all prior solutions.
+
+---
+
+### 6. Context Health Monitoring
+
 > *Forged from: 12-Factor Agents (F3: Own Your Context Window) + GSD Core (Context Rot)*
 
-Long sessions kill AI quality. C31 monitors context window usage and takes automatic action:
+Long sessions degrade AI quality silently. C31 monitors and acts:
 
 | State | Usage | Action |
 |-------|-------|--------|
@@ -136,21 +271,19 @@ Long sessions kill AI quality. C31 monitors context window usage and takes autom
 | 🟠 Orange | 70–85% | Move decisions to files, archive assumptions |
 | 🔴 Red | >85% | Force checkpoint: write state, then continue |
 
-### 4. Psychological Framing Layer
-> *Forged from: Superpowers (Cialdini compliance) + agent-skills (anti-sycophancy, Doubt Gate)*
+---
 
-C31 embeds research-backed cognitive techniques directly into the harness:
-- **Step-by-step reasoning**: Complex analysis unfolds internally before output (reduces errors ~34%)
-- **Confidence check**: Every significant output carries a gap annotation
+### 7. Psychological Framing Layer
+
+> *Forged from: Superpowers (Cialdini compliance) + agent-skills (Doubt Gate, anti-sycophancy)*
+
+- **Step-by-step reasoning**: Internal chain-of-thought before output reduces errors ~34%
 - **Critic Gate**: Auto-triggered self-audit on inferred conclusions >300 words
 - **Anti-sycophancy**: Technical rigor over social comfort — disagreement triggers independent evaluation, not capitulation
-
-### 5. Compounding Knowledge
-> *Forged from: Compound Engineering Plugin (the Compound step + Deletion Test)*
-
-Every solved problem becomes institutional memory. The `C31-compound` workflow writes solutions to `docs/solutions/` with an INDEX entry. The next time the same class of problem appears, it takes minutes instead of hours.
+- **Doubt Gate**: For irreversible operations, write the claim → isolate the minimal auditable unit → generate a fresh-context adversarial reviewer
 
 ---
+
 
 ## Quick Install
 
@@ -183,11 +316,15 @@ Replace `{YOUR_HOME}`, `{YOUR_PROJECT}`, `{MEMORY_DIR}` with your actual paths.
 | Guide | What You'll Learn |
 |-------|------------------|
 | **[Quick Start](AGENTS.template.md)** | Install, configure, and run your first C31 session |
-| **[Engineering Philosophy](PHILOSOPHY.md)** | The 5 Karpathy principles + Doubt-Driven Development + Chesterton's Fence |
+| **[Engineering Philosophy](PHILOSOPHY.md)** | The 5 Karpathy principles + Doubt-Driven Development + Chesterton's Fence + Confidence Routing |
+| **[Workflow Architecture](WORKFLOW.md)** | The 6-step lifecycle + 4 multi-agent orchestration patterns (with Mermaid diagrams) |
+| **[C31 vs Individual Frameworks](ADVANTAGES.md)** | Why each of the 7 frameworks falls short alone — and what C31 adds |
+| **[Error Governance](ERROR-GOVERNANCE.md)** | 3-tier error classification · Fix-it Cascade · No Autonomous Lifecycle Mutation |
 | **[Memory System](AGENTS.template.md#session-startup-protocol)** | How session state, diary, and instincts work together |
 | **[Instinct Evolution](AGENTS.template.md#instinct-system)** | How patterns graduate from candidate to auto-applied instinct |
 | **[Context Health](AGENTS.template.md#own-your-context-window)** | Managing the 4-state context system for long sessions |
 | **[Skill Index](skills/)** | All 43 skills with triggers in EN · ZH · JA |
+| **[Subagent Templates](agents/)** | Ready-to-use reviewer, compound, and debug subagent prompts |
 
 ---
 
@@ -287,6 +424,7 @@ Windows: use `.\install.ps1`
 | [Part 7](https://github.com/ChianW/C31-papers/blob/master/part7_gsd_core.md) | GSD Core — Naming Context Rot |
 | [Part 8](https://github.com/ChianW/C31-papers/blob/master/part8_comparison.md) | All 7 Frameworks Compared |
 | [Part 9](https://github.com/ChianW/C31-papers/blob/master/part9_building_c31.md) | From Zero to C31 |
+| [**Part 10**](https://github.com/ChianW/C31-papers/blob/master/part10_the_architecture.md) | **The Architecture — C31 in Production** |
 
 → **[ChianW/C31-papers](https://github.com/ChianW/C31-papers)**
 

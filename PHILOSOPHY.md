@@ -157,6 +157,24 @@ The harness detects the current scene from the first message and adjusts behavio
 | `personal` | Diary, emotions, relationships | Reduce technical density; empathy first |
 | `casual` | Open-ended, no clear goal | Light response; ask "which direction?" |
 
+### Confidence Routing
+> *Unique to C31 — not present in any of the 7 source frameworks.*
+
+Before executing, C31 scores the confidence in its interpretation of the user's intent:
+
+| Confidence | Condition | Behavior |
+|------------|-----------|----------|
+| **High ≥ 0.75** | Intent clear, context sufficient | Execute directly — no confirmation needed |
+| **Mid 0.55–0.74** | Ambiguous but inferable | One-line confirmation first: "You mean X, right?" |
+| **Low < 0.55** | Requirements vague, key params missing | Ask a clarifying question |
+
+**Clarification templates:**
+- Binary: "Do you want A ([description]) or B ([description])?"
+- Missing params: "I need [specific parameter] to continue."
+- Insufficient context: "This involves [X] — can you show me [file/example]?"
+
+This prevents the most common AI failure mode: confidently executing the wrong interpretation. Most frameworks treat user intent as binary (understood / not understood). Confidence Routing treats it as a spectrum and responds proportionally.
+
 ---
 
 ## The Compounding Lifecycle

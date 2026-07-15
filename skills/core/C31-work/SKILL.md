@@ -1,4 +1,4 @@
-﻿---
+---
 name: C31-work
 description: execute, implement, 实现, 开发 | 执行阶段：读取计划，按依赖波次并行调度子代理执行
 triggers: execute, work on, implement, 实现, 开发, execute-phase, run
@@ -28,12 +28,12 @@ Blank uses the latest plan doc or current directory STATE.md.
 
 1. **Locate plan**: read the plan file or parse STATE.md for `tasks` and `waves`.
 2. **Environment check**: confirm git repo, branch name, clean working tree (stash if needed).
-3. **Historical solutions search**（新增）：
-   - 用 `memory_search` 查询 `plan {task_type} {project_name}`（如 "skill optimization compound"）
-   - 若命中 ≥1 个相关 solution（score > 0.5）：
-     - 将相关方案的 Guidance + When to Apply + Examples 注入当前 work 上下文
-     - emit brief note: `📋 发现历史工作记录：{filename} — 已自动注入参考`
-   - 基于历史方案调整 wave 分组策略（如已知某类任务需要特殊工具配置，提前加入 Phase 0 检查）
+3. **Historical solutions search** (new):
+   - Use `memory_search` to query `plan {task_type} {project_name}` (e.g., "skill optimization compound")
+   - If ≥1 relevant solution found (score > 0.5):
+     - Inject the relevant plan's Guidance + When to Apply + Examples into the current work context
+     - emit brief note: `📋 Found prior work record: {filename} — auto-injected as reference`
+   - Adjust the wave grouping strategy based on historical solutions (e.g., if a certain task type requires special tooling, add it to Phase 0 checks upfront)
 4. **Complexity routing**:
 
 | Complexity | Action |

@@ -1,4 +1,4 @@
-﻿---
+---
 name: C31-coding-discipline
 description: "Use when the user expresses coding intent: '帮我写', '实现', '开发', '修复', 'fix', 'bug', 'coding', 'code', '写代码', '改代码', or any request to write, modify, or debug software. Enforces a disciplined 7-step workflow with mandatory TDD, inline self-review, and No Placeholders."
 triggers:
@@ -179,7 +179,7 @@ Each task in wave execution gets a fresh subagent. No context pollution from pri
 ## Integration with C31 Skills
 
 ```
-User: "帮我实现用户认证功能"
+User: "Help me implement user authentication"
 
 1. C31-brainstorm (if unclear) → requirements doc
 2. C31-plan → detailed plan with No Placeholders

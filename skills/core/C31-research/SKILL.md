@@ -1,4 +1,4 @@
-﻿---
+---
 name: C31-research
 description: research, 调研, 最佳实践 | 统一研究：框架文档、git历史、社区问题、机构记忆、bug复现
 triggers: research, 调研, 最佳实践, 资料, 研究, how should I
@@ -21,12 +21,12 @@ Unified research skill. Covers best practices, framework documentation, git hist
 
 ## When to Use
 
-- "最佳实践是什么" / "idiomatic way" / "how should I..."
-- 进入陌生技术栈前
-- 调试框架级错误 / 验证版本变更
-- Bug 报告缺少复现步骤 / "以前解决过类似问题吗？"
-- 采用新依赖前检查健康度
-- 修改复杂代码前了解历史上下文
+- "What is the best practice?" / "idiomatic way" / "how should I..."
+- Before entering an unfamiliar tech stack
+- Debugging framework-level errors / verifying version changes
+- Bug reports lacking reproduction steps / "Have we solved something similar before?"
+- Checking health of a new dependency before adoption
+- Understanding historical context before modifying complex code
 
 ## Core Principles
 
@@ -36,23 +36,23 @@ Unified research skill. Covers best practices, framework documentation, git hist
 4. **Explicit gaps** — say "not found" rather than guess.
 5. **Output ≤80 lines** + one code example max.
 
-## 调研降级链（自动降级，不问人）
+## Research Fallback Chain (Auto-Downgrade — No User Interruption)
 
-当任一 Mode 执行中遇到资料缺失或异常，按以下顺序自动降级。严禁停下来询问用户。
+If any mode encounters missing data or an error during execution, auto-downgrade in the following order. Never stop to ask the user.
 
 ```
-IF 官方文档未找到 → 搜索社区共识（HN / StackOverflow / 官方 Discussions）
-IF 社区共识未找到 → 搜索博客 / RFC / 演讲幻灯片（带 ⚠️ caveats）
-IF 所有来源耗尽   → 明确声明 "证据不足" + 输出已搜索的来源列表
-IF 版本不匹配     → 标记 deprecation risk，继续用最新版本，但注明 "未验证用户版本"
-IF 搜索超时       → 返回部分结果 + 在 gaps 中标注 "搜索超时：未覆盖 [X]"
-IF 5 步搜索无结果  → 标记为 gap，不继续穷举
+IF official docs not found  → search community consensus (HN / StackOverflow / official Discussions)
+IF community consensus not found → search blogs / RFCs / talk slides (with ⚠️ caveats)
+IF all sources exhausted   → explicitly state "Insufficient evidence" + output list of sources searched
+IF version mismatch        → flag deprecation risk, continue with latest version, note "User version unverified"
+IF search timeout           → return partial results + mark in gaps: "Search timed out: did not cover [X]"
+IF 5 search attempts yield nothing → flag as gap, stop exhaustive search
 ```
 
-**降级原则：**
-- 每次降级必须在 `caveat` 字段标注降级层级（"downgraded from official docs to blog posts"）
-- 降级后的 claim 自动降级 `confidence`（high→medium→low）
-- 最终 gaps 列表必须包含 **"尝试了哪些来源"** 和 **"为什么没找着"**
+**Downgrade principles:**
+- Each downgrade must be noted in the `caveat` field with the downgrade level ("downgraded from official docs to blog posts")
+- Claims after downgrade automatically lower `confidence` (high→medium→low)
+- The final gaps list must include **"which sources were tried"** and **"why they were not found"**
 
 ## Research Modes
 
@@ -155,21 +155,21 @@ Systematically reproduce a bug through hypotheses and controlled experiments.
 4. **Gap declaration** — explicitly state what was not found.
 5. **Route** — return findings to caller (e.g., `C31-plan`, `C31-debug`, or user).
 
-## 关联资源（自动检索路径）
+## Associated Resources (Auto-Lookup Paths)
 
-执行 Mode E (`learnings`) 及链式调用时，以下路径如存在则自动检索：
+When executing Mode E (`learnings`) and chained calls, the following paths are automatically searched if they exist:
 
-| 路径 | 内容 | 优先级 |
-|------|------|--------|
-| `memory/solutions/` | 已解决问题的记录（bug 修复、workaround、root cause） | 最高 |
-| `memory/moc/` | 知识图谱 / Map of Content（概念关联、决策审计） | 高 |
-| `memory/projects/` | 项目历史状态与决策记录 | 高 |
-| `memory/decisions/` | 决策审计与效果推理分析 | 中 |
-| `memory/prompts/` | Prompt 工程实验记录 | 中 |
-| `docs/` | ADRs、架构文档、ROADMAP.md、STATE.md | 中 |
-| `references/` | 外部参考资料索引（如存在） | 低 |
+| Path | Contents | Priority |
+|------|----------|----------|
+| `memory/solutions/` | Records of solved problems (bug fixes, workarounds, root causes) | Highest |
+| `memory/moc/` | Knowledge graph / Map of Content (concept associations, decision audits) | High |
+| `memory/projects/` | Project history, state, and decision records | High |
+| `memory/decisions/` | Decision audits and outcome reasoning analysis | Medium |
+| `memory/prompts/` | Prompt engineering experiment records | Medium |
+| `docs/` | ADRs, architecture docs, ROADMAP.md, STATE.md | Medium |
+| `references/` | External reference material index (if present) | Low |
 
-> **路径不存在时自动跳过**，不报错、不中断流程。
+> **If a path does not exist, skip it silently** — no error, no interruption.
 
 ## Output Contract
 
@@ -190,20 +190,20 @@ Systematically reproduce a bug through hypotheses and controlled experiments.
 }
 ```
 
-## 反例黑名单
+## Anti-Pattern Blacklist
 
-这些模式在 C31-research 执行中**绝对禁止**。每条反模式对应实际误用场景。
+These patterns are **absolutely forbidden** during C31-research execution. Each corresponds to a real misuse scenario.
 
-| # | 反模式 | 误用场景 | 正确做法 |
-|---|--------|----------|----------|
-| 1 | ❌ 调研期间写代码 | 读到 API 文档时手痒直接实现 | 切换到 `C31-work` 或 `C31-plan` skill，research 保持 read-only |
-| 2 | ❌ 猜测来源不清的事实 | "这个框架应该支持..." | 明确声明 **"未找到官方确认"**，不输出推测 |
-| 3 | ❌ 证据稀缺时无限搜索 | 第 6 步搜索仍无结果，继续翻第 20 页 | **5 步搜索无结果 → 标记为 gap**，输出已搜索的来源列表，停止穷举 |
-| 4 | ❌ 遗漏来源引用 | 给出建议但不附 URL/git ref/memory path | 每条 claim 必须有 `source` 字段，无法溯源的 claim 降级为 `confidence: low` 或删除 |
-| 5 | ❌ 跳过版本检查 | 直接引用最新文档，不验证用户实际版本 | **先确认版本** → 再读对应版本文档 → 标记 deprecation risk |
-| 6 | ❌ 未明确意图时混用研究模式 | Mode A 做到一半觉得 Mode B 也相关，随机切换 | Mode A→B 是**链式调用**（A 输出 `recommended_next: B`），不是随机混用。用户未明确意图时，单模式执行到底 |
+| # | Anti-Pattern | Misuse Scenario | Correct Practice |
+|---|--------------|-----------------|------------------|
+| 1 | ❌ Writing code during research | Itching to implement directly after reading the API docs | Switch to `C31-work` or `C31-plan` skill; research stays read-only |
+| 2 | ❌ Guessing facts with unclear sources | "This framework should support..." | Explicitly state **"No official confirmation found"**; never output speculation |
+| 3 | ❌ Endless searching when evidence is scarce | Still no results on step 6, continuing to page 20 | **5 search steps with no result → flag as gap**, output sources searched, stop |
+| 4 | ❌ Omitting source citations | Giving a recommendation without a URL / git ref / memory path | Every claim must have a `source` field; untraceable claims downgrade to `confidence: low` or are removed |
+| 5 | ❌ Skipping version check | Citing latest docs without verifying the user's actual version | **Confirm version first** → read the corresponding version docs → flag deprecation risk |
+| 6 | ❌ Mixing research modes without clear intent | Midway through Mode A, randomly switching to Mode B | Mode A→B is a **chained call** (A outputs `recommended_next: B`), not a random switch. When intent is unclear, run a single mode to completion |
 
-> 违反任意一条 = 输出可信度降级为 `confidence: low`，并在 `gaps` 中标注 **"违反反例黑名单 #N"**。
+> Violating any one rule = output confidence downgrades to `confidence: low`, and `gaps` must note **"Anti-pattern blacklist violated #N"**.
 
 ## Escalation
 

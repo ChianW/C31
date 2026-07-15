@@ -1,4 +1,4 @@
-﻿---
+---
 name: C31-compound-refresh
 description: compound refresh, 清理知识库 | 双周维护：扫描memory/和skills/，去重、标记残留、输出健康报告
 triggers: compound refresh, 清理知识库, 双周维护
@@ -15,7 +15,7 @@ metadata: {"category": "c31"}
 
 > **Output language**: Respond automatically in the user's conversation language.
 
-# C31-compound-refresh — 知识库双周维护 + 进化评估
+# C31-compound-refresh — Bi-weekly Knowledge Base Maintenance + Evolution Assessment
 
 Headless health check for the C31 knowledge base. Runs automatically or on-demand to keep `memory/` and `skills/` fresh, and evaluates whether any skill needs evolution.
 
@@ -90,32 +90,32 @@ If residual exists → status becomes `PENDING` regardless of mark.
 - Mark the other `status: deprecated` with redirect link
 - Preserve both titles for searchability
 
-### Zone E: `memory/.planning/evolution/signals/` — 进化信号汇总与评估（新增）
+### Zone E: `memory/.planning/evolution/signals/` — Evolution Signal Aggregation and Assessment
 
-**目标**: 将 C31 Dream 每日捕获的进化信号，汇总成双周进化评估报告。
+**Goal**: Aggregate the evolution signals captured daily by C31 Dream into a bi-weekly evolution assessment report.
 
-**操作步骤**:
-1. 读取最近 14 天的 `memory/.planning/evolution/signals/*.jsonl`
-2. 按 skill 分组统计：
-   - 每个 skill 收到了多少条 ≥P1 信号
-   - 信号类型分布（user_correction / repetition / tool_failure）
-   - 频率最高的前 3 个技能
-3. **LLM-as-judge 评估**: 对信号最多的 skill，读取其当前 SKILL.md，评估改进空间
-   - 输入: skill 内容 + 累计信号摘要
-   - 输出: { "needs_evolution": true/false, "confidence": 0-1, "reasoning": "为什么该改/不该改" }
-4. 如果 confidence ≥ 0.7 且 needs_evolution = true:
-   - 生成 1 个改进候选（diff 格式，不是完整重写）
-   - 写入 `memory/.planning/evolution/candidates/YYYY-MM-DD-{skill-name}/diff.md`
-   - 写入评估报告 `report.md`
-5. **约束门预检**（三门）:
-   - Size Gate: 候选 diff 是否使文件增幅 < 20%
-   - Test Gate: Markdown 格式合法、frontmatter 完整
-   - Cache Gate: 不触及 AGENTS.md 核心 section
-   - 任一失败 → 不生成候选，只记录原因
+**Steps:**
+1. Read `memory/.planning/evolution/signals/*.jsonl` from the last 14 days
+2. Group and count by skill:
+   - How many ≥P1 signals each skill received
+   - Signal type distribution (user_correction / repetition / tool_failure)
+   - Top 3 skills by signal frequency
+3. **LLM-as-judge evaluation**: For the skills with the most signals, read the current SKILL.md and assess improvement potential
+   - Input: skill content + accumulated signal summary
+   - Output: `{ "needs_evolution": true/false, "confidence": 0-1, "reasoning": "why it should/shouldn't change" }`
+4. If confidence ≥ 0.7 and needs_evolution = true:
+   - Generate 1 improvement candidate (diff format, not a full rewrite)
+   - Write to `memory/.planning/evolution/candidates/YYYY-MM-DD-{skill-name}/diff.md`
+   - Write assessment report to `report.md`
+5. **Constraint gate pre-check** (three gates):
+   - Size Gate: does the candidate diff increase file size by < 20%?
+   - Test Gate: is Markdown format valid and frontmatter complete?
+   - Cache Gate: does it avoid touching core sections of AGENTS.md?
+   - Any gate failure → do not generate candidate; record reason only
 
-**输出**: 
-- 若无 ≥0.7 confidence 的 skill → zone 静默，不写入文件
-- 若有 → candidates/ 目录 + 报告
+**Output:**
+- If no skill reaches confidence ≥ 0.7 → zone is silent; no files written
+- If one does → candidates/ directory + report
 
 ## Execution Flow
 
@@ -125,7 +125,7 @@ If residual exists → status becomes `PENDING` regardless of mark.
 2. List `memory/20*.md` files — check age
 3. `grep` all `skills/*/SKILL.md` for repo-relative path references — verify existence
 4. Read `.planning/STATE.md` — cross-check against `memory/.planning/todos/residual-*.md`
-5. **Read `memory/.planning/evolution/signals/*.jsonl` — 最近 14 天信号汇总**
+5. **Read `memory/.planning/evolution/signals/*.jsonl` — aggregate signals from last 14 days**
 
 ### Phase 2: Classify
 
@@ -170,7 +170,7 @@ One-line health score + evolution status.
 ## Zone E: Evolution Signals (N signals, N candidates)
 | Skill | Signal count | Confidence | Candidate | Action |
 |-------|-------------|------------|-----------|--------|
-| skill-name | 5 | 0.85 | ✅ diff.md | 等待用户确认 |
+| skill-name | 5 | 0.85 | ✅ diff.md | Awaiting user confirmation |
 
 ## Residuals (N open, N aged >30d)
 | File | Age | Urgency |
@@ -185,8 +185,8 @@ One-line health score + evolution status.
 |--------|--------|
 | `clean` | Silent. Log only. |
 | `review` | Silent. User discovers report on demand. |
-| `critical` | Announce to user: "双周知识库扫描发现 N 项需要关注：`path/to/report`" |
-| **evolution candidate** | **Outer Loop 推送**: "🌙 双周进化建议：skill `{name}` 检测到 5 次纠正信号，confidence 0.85。候选 diff 已生成，等待 confirm。" |
+| `critical` | Announce to user: "Bi-weekly knowledge base scan found N items requiring attention: `path/to/report`" |
+| **evolution candidate** | **Outer Loop push**: "🌙 Bi-weekly evolution suggestion: skill `{name}` detected 5 correction signals, confidence 0.85. Candidate diff generated — awaiting confirm." |
 
 **Critical threshold:** ≥3 total issues, OR any phantom DONE with residual aged >30 days.  
 **Evolution threshold:** ≥1 candidate with confidence ≥ 0.7.
@@ -212,5 +212,5 @@ One-line health score + evolution status.
 3. **Residuals are debt** — 30-day aging makes them visible
 4. **Report is the artifact** — everything else is side effect
 5. **Under threshold = silent** — do not nag user for minor drift
-6. **Evolution candidates = waiting** — 不自动 merge，48h 不 confirm 自动丢弃
-7. **Size Gate first** — 候选 diff 超过 20% 增幅直接 reject
+6. **Evolution candidates = waiting** — do not auto-merge; auto-discard if not confirmed within 48h
+7. **Size Gate first** — candidate diff exceeding 20% size increase is rejected immediately

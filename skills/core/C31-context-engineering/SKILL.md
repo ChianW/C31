@@ -1,4 +1,4 @@
-﻿---
+---
 name: C31-context-engineering
 description: context, 上下文, 变蠢 | 上下文工程：在正确的时间给AI正确的信息，解决200K窗口组织不善问题
 triggers: context, 上下文, 信息组织, 变蠢, context engineering, 信息太多, 你好像忘了, 上下文不够了
@@ -15,198 +15,198 @@ metadata: {"category": "c31"}
 
 > **Output language**: Respond automatically in the user's conversation language.
 
-# C31 Context Engineering — 上下文工程
+# C31 Context Engineering
 
-C31系统的核心痛点：**200K上下文窗口，但信息组织不好 = 实际有效容量只有30K。**
+The core pain point of the C31 system: **a 200K context window, but with poor information organization = effective capacity of only ~30K.**
 
-这不是容量问题，是**信息结构问题**。
+This is not a capacity problem — it is an **information structure problem**.
 
-## 核心原则
+## Core Principles
 
-1. **分层加载** — 不是所有信息都值得加载
-2. **按需检索** — GBrain在需要时才搜索，不是每次都搜索
-3. **主动丢弃** — 过期的、已完成的、无关紧要的信息及时清理
-4. **Anti-rationalization** — 不因"以防万一"而保留信息
-
----
-
-## 信息分层架构（四层模型）
-
-| 层级 | 内容 | 加载时机 | 丢弃条件 |
-|------|------|----------|----------|
-| **L1 即时层** | 当前对话、本轮任务指令、活跃工具调用 | 始终加载 | 对话结束即丢弃 |
-| **L2 工作层** | 本轮项目文件（STATE.md、PLAN.md、CONTEXT.md）、活跃待办 | 会话开始时加载 | 项目切换或完成 |
-| **L3 规则层** | AGENTS.md、SKILL.md、SOUL.md、USER.md | 会话开始时按需加载 | 规则更新时替换 |
-| **L4 记忆层** | 历史知识、解决方案、过往项目、长期记忆 | **需要时才搜索** | 从不主动加载 |
-
-**红线：L4 永不自动注入上下文。** 必须通过GBrain搜索或memory_search显式检索。
+1. **Layered loading** — Not all information is worth loading
+2. **On-demand retrieval** — GBrain searches only when needed, not on every call
+3. **Active discarding** — Expired, completed, or irrelevant information is cleaned up promptly
+4. **Anti-rationalization** — Do not retain information "just in case"
 
 ---
 
-## Rules Files 管理
+## Information Layering Architecture (Four-Layer Model)
 
-### 按需加载策略
+| Layer | Content | When to Load | Discard Condition |
+|-------|---------|-------------|-------------------|
+| **L1 Immediate** | Current conversation, task instructions for this turn, active tool calls | Always loaded | Discard when conversation ends |
+| **L2 Working** | Current project files (STATE.md, PLAN.md, CONTEXT.md), active todos | Load at session start | On project switch or completion |
+| **L3 Rules** | AGENTS.md, SKILL.md, SOUL.md, USER.md | Load on-demand at session start | Replace when rules are updated |
+| **L4 Memory** | Historical knowledge, solutions, past projects, long-term memory | **Search only when needed** | Never proactively loaded |
 
-AGENTS.md采用模块化拆分（core.md、decision-boundary.md、communication.md、workflow.md）。
-
-**加载规则：**
-- 每次会话 → 加载 `core.md`（始终）
-- 涉及决策/权限 → 加载 `decision-boundary.md`
-- 涉及消息格式/平台 → 加载 `communication.md`
-- 涉及调度/cron/心跳 → 加载 `workflow.md`
-- **不涉及的子文件，不加载**
-
-### SKILL 触发管理
-
-- 仅当用户输入匹配触发词时，读取对应SKILL.md
-- 不要"预加载所有skills"
-- 子代理只传递它需要的SKILL.md内容
+**Hard rule: L4 is never automatically injected into context.** It must be explicitly retrieved via GBrain search or `memory_search`.
 
 ---
 
-## Context Packing（上下文打包）
+## Rules Files Management
 
-### 打包原则
+### On-Demand Loading Strategy
 
-1. **摘要优于全文** — 10页对话 → 3行摘要 + 关键结论
-2. **结构化优于叙述** — 用表格、列表、YAML frontmatter替代长段落
-3. **引用优于复制** — "见 PLAN.md Phase 3" 优于复制Phase 3全文
-4. **状态优于历史** — "当前状态：X" 优于 "如何从Y变成X"
+AGENTS.md uses modular splits (core.md, decision-boundary.md, communication.md, workflow.md).
 
-### 打包操作
+**Loading rules:**
+- Every session → load `core.md` (always)
+- Involves decisions/permissions → load `decision-boundary.md`
+- Involves message format/platform → load `communication.md`
+- Involves scheduling/cron/heartbeat → load `workflow.md`
+- **Sub-files not relevant to the current task are not loaded**
 
-**会话启动时：**
-```
-1. 读取 session_state.json（如果有）
-2. 读取活跃项目文件（PROJECT.md + STATE.md + 当前阶段PLAN.md）
-3. 评估上下文占用 → 若>35%，跳过非关键文件
-4. 若>50%，询问用户是否 /clear
-```
+### SKILL Trigger Management
 
-**任务切换时：**
-```
-1. 保存当前任务状态到 STATE.md
-2. 卸载旧任务的L2文件
-3. 加载新任务的L2文件
-4. 保留L1即时层（对话连续性）
-```
+- Read the corresponding SKILL.md only when user input matches a trigger phrase
+- Do not "preload all skills"
+- Subagents only receive the SKILL.md content they actually need
 
 ---
 
-## 信息丢弃策略（主动遗忘）
+## Context Packing
 
-### 丢弃决策树
+### Packing Principles
 
+1. **Summary over full text** — 10 pages of conversation → 3-line summary + key conclusions
+2. **Structured over narrative** — Use tables, lists, YAML frontmatter instead of long paragraphs
+3. **Reference over copy** — "See PLAN.md Phase 3" is better than copying Phase 3 in full
+4. **State over history** — "Current state: X" is better than "how we got from Y to X"
+
+### Packing Operations
+
+**At session start:**
 ```
-这条信息是否影响当前决策？
-├── 是 → 保留（L1/L2）
-└── 否 → 这条信息是否属于长期知识？
-    ├── 是 → 写入 memory/solutions/ 或 GBrain，从上下文丢弃
-    └── 否 → 直接丢弃
+1. Read session_state.json (if present)
+2. Read active project files (PROJECT.md + STATE.md + current PLAN.md)
+3. Assess context usage → if >35%, skip non-critical files
+4. If >50%, ask user whether to /clear
 ```
 
-### 具体丢弃规则
-
-| 场景 | 动作 |
-|------|------|
-| 任务已完成且无后续依赖 | 从L2卸载，记录到MILESTONES.md |
-| 对话已解决且无新知识 | 不保留对话历史，只保留结论 |
-| 调试已修复的bug | 若值得记录→compound；不值得→丢弃 |
-| 临时文件/中间产物 | 立即删除或标记可清理 |
-| 过期的日程/提醒 | 归档或删除，不保留在活跃上下文 |
-| 已合并的PR/已关闭的issue | 引用编号即可，不保留详情 |
-
-### Anti-rationalization 表
-
-当想说"以防万一留着"时，对照此表：
-
-| 借口 | 反驳 | 正确做法 |
-|------|------|----------|
-| "万一待会要用" | 需要时可以从GBrain/memory_search找回来 | 丢弃，需要时检索 |
-| "这个信息很特别" | 特别的信息更应该compound到长期存储 | 写入solutions，丢弃 |
-| "之前花了很多时间搞出来的" | 沉没成本不是保留理由 | 提取结论，丢弃过程 |
-| "用户之前强调过" | 用户强调的已写入USER.md | 引用USER.md，不保留原始对话 |
-| "留着不占多少空间" | 心理占用比token占用更致命 | 清理，保持心智清爽 |
-| "等这个项目结束再整理" | 永远不会"结束" | 现在就摘要或丢弃 |
-
----
-
-## GBrain 集成规则
-
-### 检索触发条件
-
-**必须搜索GBrain/memory的场景：**
-1. 用户提到"之前说过"、"之前做过"、"不是已经"
-2. 解决新问题前，检查是否已有解决方案
-3. 涉及过往项目决策或技术选型
-4. 用户问"我为什么选这个"
-5. 调试bug前，搜索是否已有类似记录
-
-**禁止搜索的场景：**
-1. 用户问的是通用知识（除非与历史项目相关）
-2. 当前任务完全独立，无历史关联
-3. 上下文已包含所需信息
-
-### 检索后处理
-
+**On task switch:**
 ```
-1. memory_search 返回结果
-2. 评估相关性：直接相关 / 间接相关 / 无关
-3. 直接相关 → 提取关键信息，摘要后注入上下文
-4. 间接相关 → 记录引用，不注入全文
-5. 无关 → 忽略，不因为"可能有用"而保留
+1. Save current task state to STATE.md
+2. Unload old task's L2 files
+3. Load new task's L2 files
+4. Retain L1 immediate layer (conversation continuity)
 ```
 
 ---
 
-## Context Budget Management 衔接
+## Information Discard Strategy (Active Forgetting)
 
-与AGENTS.md的阈值系统联动：
+### Discard Decision Tree
 
-| 上下文占用 | 策略 |
-|-----------|------|
-| **> 35%** | 警告：避免开始新的复杂工作；优先完成当前任务 |
-| **> 50%** | 建议 /clear 或新会话；若继续→写入 continue-here.md |
-| **> 70%** | 强制清理：丢弃所有L2非关键文件，仅保留L1+当前PLAN.md |
-| **> 85%** | 紧急模式：停止工作，保存状态，请求新会话 |
+```
+Does this information affect the current decision?
+├── Yes → Retain (L1/L2)
+└── No → Is this information long-term knowledge?
+    ├── Yes → Write to memory/solutions/ or GBrain; discard from context
+    └── No → Discard immediately
+```
 
----
+### Specific Discard Rules
 
-## 执行流程
+| Scenario | Action |
+|----------|--------|
+| Task completed with no further dependencies | Unload from L2; record to MILESTONES.md |
+| Conversation resolved with no new knowledge | Do not retain conversation history; only keep conclusion |
+| Debugging a fixed bug | Worth recording → compound; not worth it → discard |
+| Temporary files / intermediate artifacts | Delete immediately or mark as cleanable |
+| Expired schedules / reminders | Archive or delete; do not retain in active context |
+| Merged PRs / closed issues | Reference by number only; do not retain details |
 
-### 会话启动时
+### Anti-Rationalization Table
 
-1. 加载 session_state.json（恢复活跃项目）
-2. 读取 L3 规则层（core.md + 按需子文件）
-3. 读取 L2 工作层（当前项目STATE.md + PLAN.md）
-4. 计算上下文占用
-5. 若>35%：报告状态，建议完成当前任务再开新任务
-6. **不加载任何L4记忆**（除非session_state.json显式要求）
+When you're about to say "keep it just in case," consult this table:
 
-### 任务执行中
-
-1. 遇到需要历史信息的场景 → 触发memory_search或gbrain think
-2. 任务完成后 → 更新STATE.md，清理L2中过期的中间文件
-3. 发现解决方案值得记录 → 触发compound流程
-
-### 会话结束前（用户说"今天就到这"/长时间无响应）
-
-1. 保存 session_state.json（活跃项目、待办、待决策）
-2. 摘要本轮关键决策到STATE.md
-3. 清理所有临时/中间产物
-4. 确认L4值得保存的信息已compound
-
----
-
-## Anti-rationalization 承诺
-
-> "我承诺不因焦虑而 hoard 信息。我信任检索系统。我信任当需要时，信息会回来。"
-
-**清理比保留更需要勇气。** 一个清爽的上下文胜过100K的冗余信息。
+| Excuse | Rebuttal | Correct Action |
+|--------|----------|----------------|
+| "Might need it later" | It can be retrieved from GBrain/memory_search when needed | Discard; retrieve when needed |
+| "This information is special" | Special information should be compounded into long-term storage | Write to solutions; discard |
+| "It took a lot of effort to produce" | Sunk cost is not a reason to retain | Extract conclusion; discard process |
+| "User emphasized this before" | What the user emphasized is already in USER.md | Reference USER.md; don't keep the original conversation |
+| "Keeping it doesn't take much space" | Mental occupation is more fatal than token occupation | Clean it up; maintain clarity |
+| "I'll organize after this project is done" | It will never be "done" | Summarize or discard now |
 
 ---
 
-## 触发词
+## GBrain Integration Rules
+
+### Retrieval Trigger Conditions
+
+**Must search GBrain/memory when:**
+1. User mentions "said before", "did before", "wasn't this already done"
+2. Before solving a new problem, check if a solution already exists
+3. Involves past project decisions or technology choices
+4. User asks "why did I choose this"
+5. Before debugging a bug, search for similar existing records
+
+**Do NOT search when:**
+1. User is asking about general knowledge (unless related to a historical project)
+2. Current task is completely independent with no historical connection
+3. Context already contains the required information
+
+### Post-Retrieval Processing
+
+```
+1. memory_search returns results
+2. Assess relevance: directly relevant / indirectly relevant / unrelated
+3. Directly relevant → extract key info, inject summary into context
+4. Indirectly relevant → record reference; do not inject full text
+5. Unrelated → ignore; do not retain because it "might be useful"
+```
+
+---
+
+## Context Budget Management Integration
+
+Connects with the threshold system in AGENTS.md:
+
+| Context Usage | Strategy |
+|---------------|----------|
+| **> 35%** | Warning: avoid starting complex new work; prioritize completing current task |
+| **> 50%** | Suggest /clear or new session; if continuing → write `continue-here.md` |
+| **> 70%** | Force cleanup: discard all non-critical L2 files; retain L1 + current PLAN.md only |
+| **> 85%** | Emergency mode: stop work, save state, request new session |
+
+---
+
+## Execution Flow
+
+### At Session Start
+
+1. Load session_state.json (restore active projects)
+2. Read L3 Rules layer (core.md + on-demand sub-files)
+3. Read L2 Working layer (current project STATE.md + PLAN.md)
+4. Calculate context usage
+5. If >35%: report status, suggest completing current task before starting a new one
+6. **Do not load any L4 memory** (unless session_state.json explicitly requires it)
+
+### During Task Execution
+
+1. When historical information is needed → trigger memory_search or gbrain think
+2. After task completion → update STATE.md, clean up expired intermediate files in L2
+3. When a solution worth recording is found → trigger compound flow
+
+### Before Session End (user says "that's it for today" / long idle period)
+
+1. Save session_state.json (active projects, todos, pending decisions)
+2. Summarize key decisions from this turn to STATE.md
+3. Clean up all temporary / intermediate artifacts
+4. Confirm that L4-worthy information has been compounded
+
+---
+
+## Anti-Rationalization Commitment
+
+> "I commit not to hoard information out of anxiety. I trust the retrieval system. I trust that when information is needed, it will come back."
+
+**Discarding takes more courage than retaining.** A clean context beats 100K of redundant information.
+
+---
+
+## Trigger Phrases
 
 - "context", "上下文", "信息组织", "变蠢"
 - "context engineering", "信息太多"
@@ -217,16 +217,16 @@ AGENTS.md采用模块化拆分（core.md、decision-boundary.md、communication.
 
 ---
 
-## 输出格式
+## Output Format
 
-当被要求检查上下文健康时：
+When asked to check context health:
 
 ```
-📊 上下文健康报告
-占用: X% (X / 200K tokens)
-L1 即时层: [摘要]
-L2 工作层: [活跃项目/文件]
-L3 规则层: [已加载的规则]
-L4 记忆层: [未加载，可检索]
-建议: [保持/清理/建议新会话]
+📊 Context Health Report
+Usage: X% (X / 200K tokens)
+L1 Immediate: [summary]
+L2 Working: [active projects/files]
+L3 Rules: [loaded rules]
+L4 Memory: [not loaded, retrievable]
+Recommendation: [maintain / clean up / suggest new session]
 ```

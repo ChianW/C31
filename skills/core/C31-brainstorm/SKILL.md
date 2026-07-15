@@ -1,4 +1,4 @@
-﻿---
+---
 name: C31-brainstorm
 description: brainstorm, ideate, 需求, discuss | 讨论阶段：将模糊需求转化为带编号决策点的需求文档
 triggers: brainstorm, ideate, think through, 需求, discuss, 讨论, discuss-phase
@@ -25,13 +25,13 @@ The durable output is a **requirements document** with **numbered, traceable dec
 
 When requirements are fuzzy, agents commonly rationalize skipping structured discovery. Call yourself out.
 
-| 借口 | 为什么错了 | 正确做法 |
-|------|-----------|---------|
-| "用户会告诉我的" | 用户默认你懂，不会主动补充 | 主动提取，一次一问 |
-| "先假设再改" | 假设会污染后续所有推理 | 标记为 `A-XX`，等确认 |
-| "开放式提问效率高" | 用户面对空白会跳过或敷衍 | 给选项，缩小回答空间 |
-| "已经够清楚了" | 你的"清楚"≠用户的"清楚" | 用具体场景验证 |
-| "再问会烦到用户" | 交卷后返工更烦 | 每个问题都有 ROI |
+| Excuse | Why It's Wrong | Correct Approach |
+|--------|---------------|------------------|
+| "The user will tell me" | Users assume you already understand; they won't proactively fill in gaps | Actively extract, one question at a time |
+| "Assume first, adjust later" | Assumptions will contaminate all downstream reasoning | Mark as `A-XX`, wait for confirmation |
+| "Open-ended questions are efficient" | Users faced with a blank will skip or give vague answers | Offer options to narrow the answer space |
+| "It's already clear enough" | Your "clear" ≠ the user's "clear" | Validate with concrete scenarios |
+| "Asking more will annoy the user" | Rework after delivery is far more annoying | Every question has ROI |
 
 **Rule of thumb:** If you can't write down 3 specific acceptance criteria right now, you don't understand the requirement well enough to plan.
 
@@ -44,11 +44,11 @@ A structured variant of Phase 1.3 for when the user's request is genuinely ambig
 - You can't articulate the user's goal in one sentence
 - You can't list 3 concrete acceptance criteria
 - Your internal confidence score is < 70%
-- The user said "我想做个..." / "能不能帮我..." with no follow-up detail
+- The user said "I want to build a..." / "Can you help me..." with no follow-up detail
 
 ### Protocol
 
-**One question at a time.** Not two. Not "这里有几个问题". One.
+**One question at a time.** Not two. Not "here are a few questions". One.
 
 Each question must reduce the uncertainty space. Never ask an open-ended question when a multiple-choice would work.
 
@@ -56,8 +56,8 @@ Each question must reduce the uncertainty space. Never ask an open-ended questio
 
 | Tier | Confidence | Action |
 |------|-----------|--------|
-| 🔴 Red | 0–40% | Problem frame unknown. Ask: "谁用？解决什么痛点？现在怎么做的？" |
-| 🟡 Yellow | 41–70% | Mechanism unknown. Ask: "优先级最高的结果是什么？不能牺牲的是什么？" |
+| 🔴 Red | 0–40% | Problem frame unknown. Ask: "Who uses it? What pain does it solve? What do they do today?" |
+| 🟡 Yellow | 41–70% | Mechanism unknown. Ask: "What's the most important outcome? What can't be sacrificed?" |
 | 🟢 Green | 71–94% | Details fuzzy but direction locked. Ask 1–2 verification questions. |
 | ✅ Ready | 95–100% | Proceed to Phase 2 (approaches) or Phase 3 (requirements doc). |
 
@@ -65,10 +65,10 @@ Each question must reduce the uncertainty space. Never ask an open-ended questio
 
 **Question types (in order of preference):**
 
-1. **Constrained choice** — "方案A vs 方案B，你倾向哪个？"
-2. **Prioritization** — "如果只能选一个，A 和 B 哪个更重要？"
-3. **Boundary test** — "这种情况需要覆盖吗？"
-4. **Open-ended (last resort)** — "能给我讲一个具体的使用场景吗？"
+1. **Constrained choice** — "Option A vs. Option B — which do you lean toward?"
+2. **Prioritization** — "If you could only pick one, A or B — which matters more?"
+3. **Boundary test** — "Does this scenario need to be covered?"
+4. **Open-ended (last resort)** — "Can you walk me through a concrete use case?"
 
 **Integration with decision gates:**
 
@@ -105,7 +105,7 @@ Each question must reduce the uncertainty space. Never ask an open-ended questio
 
 ## Interaction Rules
 
-1. **Ask one question at a time.** Not two. Not "这里有几个问题". One. Never ask an open-ended question when a multiple-choice would work.
+1. **Ask one question at a time.** Not two. Not "here are a few questions". One. Never ask an open-ended question when a multiple-choice would work.
 2. **Prefer single-select multiple choice** — When choosing one direction, priority, or next step.
 3. **Use multi-select rarely** — Only for compatible sets (goals, constraints, non-goals).
 4. **Default to the platform's blocking question tool** — In Feishu, use `feishu_ask_user_question`. In other channels, use numbered options in chat.
@@ -294,34 +294,34 @@ Write or update a requirements document only when the conversation produced dura
 
 For Lightweight: keep the document compact. Skip doc creation entirely if only brief alignment is needed.
 
-### 错误处理
+### Error Handling
 
-本 skill 遵循 [AGENTS/error-handling.md](../AGENTS/error-handling.md) 标准。
+This skill follows the [AGENTS/error-handling.md](../AGENTS/error-handling.md) standard.
 
-### 常见错误码
+### Common Error Codes
 
-| 错误码 | 触发场景 | 处理策略 |
-|--------|---------|---------|
-| `API_TIMEOUT` | `feishu_ask_user_question` / 搜索超时 | 等待 4s 重试，最多 2 次 |
-| `RATE_LIMITED` | API 限流 | 等待 10s 重试 |
-| `VALIDATION_FAILED` | 用户输入 / 平台交互参数校验失败 | 修正参数后重试 |
-| `RESOURCE_NOT_FOUND` | 已有需求文档 / 项目文件不存在 | 检查路径，无法恢复则 escalate |
-| `CONTEXT_OVERFLOW` | 长对话 / 大型代码库扫描超限 | 压缩后重试，或分片处理 |
-| `SUBAGENT_FAILED` | 子代理（如存在）失败 | 检查子代理日志，最多重试 1 次 |
+| Error Code | Trigger Scenario | Handling Strategy |
+|------------|-----------------|-------------------|
+| `API_TIMEOUT` | `feishu_ask_user_question` / search timeout | Wait 4s and retry, max 2 times |
+| `RATE_LIMITED` | API rate limiting | Wait 10s and retry |
+| `VALIDATION_FAILED` | User input / platform interaction parameter validation failure | Fix parameters and retry |
+| `RESOURCE_NOT_FOUND` | Existing requirements doc / project file not found | Check path; escalate if unrecoverable |
+| `CONTEXT_OVERFLOW` | Long conversation / large codebase scan exceeds limit | Compress and retry, or process in chunks |
+| `SUBAGENT_FAILED` | Subagent (if present) failed | Check subagent logs; retry at most once |
 
-### Escalation 条件
+### Escalation Conditions
 
-- 同一 error_code 连续 2 次 → 第 3 次强制 escalate
-- retry_count 达到 max_retries → escalate
-- 非 recoverable 错误（PERMISSION_DENIED, SECURITY_BLOCKED 等）→ 立即 escalate
+- Same `error_code` fails 2 times in a row → force escalate on the 3rd
+- `retry_count` reaches `max_retries` → escalate
+- Non-recoverable errors (PERMISSION_DENIED, SECURITY_BLOCKED, etc.) → escalate immediately
 
-### 回退链
+### Fallback Chain
 
-| Primary | Fallback | 条件 |
-|---------|---------|------|
-| `feishu_ask_user_question` | `message` (文本选项) | `API_TIMEOUT` / `RATE_LIMITED` |
-| `read` (项目文件) | `memory_search` | `RESOURCE_NOT_FOUND` |
-| `kimi_fetch` (外部研究) | `web_fetch` | `API_TIMEOUT` / `NETWORK_ERROR` |
+| Primary | Fallback | Condition |
+|---------|----------|-----------|
+| `feishu_ask_user_question` | `message` (text options) | `API_TIMEOUT` / `RATE_LIMITED` |
+| `read` (project files) | `memory_search` | `RESOURCE_NOT_FOUND` |
+| `kimi_fetch` (external research) | `web_fetch` | `API_TIMEOUT` / `NETWORK_ERROR` |
 
 ## Phase 4: Handoff
 

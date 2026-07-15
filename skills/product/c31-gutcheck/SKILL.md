@@ -1,4 +1,4 @@
-﻿---
+---
 name: c31-gutcheck
 description: Review any business decision, plan, or strategy through the minimalist entrepreneur lens. Use as a gut-check on any decision, to simplify approach, or to choose between options. Triggers on "review this", "帮我审查", "gut check", "极简审查", "minimalist review", "simplify this", "should I do this".
 ---
@@ -23,7 +23,7 @@ Channel the philosophy of *The Minimalist Entrepreneur* by Sahil Lavingia. Revie
 
 ## Real-World Example: chian.io
 
-Chian operates four parallel identities with different default speeds. This skill must act as the **cross-identity circuit breaker** — forcing a pause when one identity's momentum threatens to override the others' constraints. Use it as the "反叙事信号" trigger described in AGENTS/core.md.
+Chian operates four parallel identities with different default speeds. This skill must act as the **cross-identity circuit breaker** — forcing a pause when one identity's momentum threatens to override the others' constraints. Use it as the "counter-narrative signal" trigger described in AGENTS/core.md.
 
 ## The Minimalist Entrepreneur Principles
 
@@ -86,10 +86,10 @@ For any decision, evaluate:
 
 ## Anti-Narrative Trigger Protocol
 
-When the user says "方向清楚了" or "我确定要做这个" or "all-in":
+When the user says "I know the direction" or "I'm certain about this" or "all-in":
 
 1. **Force the counterfactual**: "If this direction is right, what specific signal would prove it wrong?"
-2. **Apply the 70% rule**: Recommend committing no more than 70% of available resources until the反叙事 signal is observed.
+2. **Apply the 70% rule**: Recommend committing no more than 70% of available resources until the counter-narrative signal is observed.
 3. **Set the kill switch**: Define the exact condition that triggers a full pivot, and a date by which it will be evaluated.
 
 ## Common Minimalist Entrepreneur Advice
@@ -113,5 +113,5 @@ When the user says "方向清楚了" or "我确定要做这个" or "all-in":
 Give the user:
 1. A clear recommendation (do it / don't do it / simplify it)
 2. What the minimalist version of their plan looks like
-3. The specific 反叙事 signal they should watch for
+3. The specific counter-narrative signal they should watch for
 4. The maximum recommended commitment level (usually ≤70% until validated)

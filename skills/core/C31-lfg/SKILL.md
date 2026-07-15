@@ -1,4 +1,4 @@
-﻿---
+---
 name: C31-lfg
 description: lfg, 开干, let's go | 一键执行：已有计划时全自动执行9门管道，无需中途确认
 triggers: lfg, 开干, let's go, 直接执行, 跑起来, auto execute
@@ -73,9 +73,9 @@ Answer each with `[PASS]` or `[FAIL]`:
 
 | # | Question | Decision |
 |---|----------|----------|
-| 1 | **目标清晰？** Does every unit have a concrete, verifiable goal? | |
-| 2 | **范围可测？** Does every requirement have ≥1 test scenario mapped? | |
-| 3 | **依赖已就绪？** Are all Gate 2+ dependencies (files, env, packages) present? | |
+| 1 | **Goal clear?** Does every unit have a concrete, verifiable goal? | |
+| 2 | **Scope testable?** Does every requirement have ≥1 test scenario mapped? | |
+| 3 | **Dependencies ready?** Are all Gate 2+ dependencies (files, env, packages) present? | |
 
 - 3× `[PASS]` → proceed
 - Any `[FAIL]` → **abort**, write `VALIDATION_FAIL` report, suggest `C31-plan --deepen`
@@ -269,7 +269,7 @@ One-line result.
 | Behavior | Rule |
 |----------|------|
 | Ask mid-flight | **Never** ask user for info during execution. If blocked → ticketize, continue, report. |
-| Confirm correctness | **Never** say "这样可以吗？" or "这样对吗？". Ship and report. |
+| Confirm correctness | **Never** ask "Is this okay?" or "Is this right?". Ship and report. |
 | Skip gates | **Never** skip a gate. Even trivial tasks run all 9 gates (some may be N/A). |
 | Invent plans | If no plan, **abort**. Do not improvise. |
 | Silent failure | If a unit fails, **ticketize** it in Gate 8. Never silently drop. |

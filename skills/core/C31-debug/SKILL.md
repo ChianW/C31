@@ -1,4 +1,4 @@
-﻿---
+---
 name: C31-debug
 description: debug, bug, fix, 排查 | 调试阶段：系统化错误追踪，从复现到根因到修复验证
 triggers: debug, bug, fix, 排查, 为什么会报错, 报错, trace this error, find the root cause, debugger
@@ -60,14 +60,14 @@ Parse input. If an issue tracker is referenced, fetch it. Extract symptoms, expe
 
 **Trivial fast-path:** If the cause is immediately obvious (single-file typo, missing import, clear null deref) and verification is shallow, present cause + one-line fix, ask whether to apply or diagnose, and skip to Phase 5 if applied. When in doubt, run full framework.
 
-**Solutions 强制搜索**（新增）：
-在分析任何 bug 之前，先搜索 `memory/solutions/` 是否有相关记录：
-1. 用 `memory_search` 查询 `{error_type} {component} {symptom}`（如 "cron timeout fix"）
-2. 若命中 ≥1 个相关 solution（score > 0.5）：
-   - **注入上下文**：将 solution 的 Problem + Solution + Prevention 追加到 session 文件
-   - **提示用户**：`📋 发现历史记录：{filename}（compound_score: X）— 已自动注入上下文`
-   - 基于历史方案调整 Phase 1 的调查方向（如已知根因是 API timeout，则直接验证而非从头排查）
-3. 若未命中或 score < 0.5：正常进入 Phase 1
+**Solutions Search (Mandatory)**:
+Before analyzing any bug, search `memory/solutions/` for relevant prior records:
+1. Use `memory_search` to query `{error_type} {component} {symptom}` (e.g., "cron timeout fix")
+2. If ≥1 relevant solution found (score > 0.5):
+   - **Inject context**: Append the solution's Problem + Solution + Prevention to the session file
+   - **Notify user**: `📋 Found prior record: {filename} (compound_score: X) — automatically injected into context`
+   - Adjust the Phase 1 investigation direction based on the historical solution (e.g., if the root cause is known to be API timeout, verify directly rather than starting from scratch)
+3. If no match or score < 0.5: proceed normally to Phase 1
 
 **Prior-attempt awareness:** If the user indicates prior failed attempts, ask what was tried first to avoid repetition.
 
@@ -217,33 +217,33 @@ KB entry format:
 
 Create `knowledge-base.md` if it does not exist.
 
-## 错误处理
+## Error Handling
 
-本 skill 遵循 [AGENTS/error-handling.md](../AGENTS/error-handling.md) 标准。
+This skill follows the [AGENTS/error-handling.md](../AGENTS/error-handling.md) standard.
 
-### 常见错误码
+### Common Error Codes
 
-| 错误码 | 触发场景 | 处理策略 |
-|--------|---------|---------|
-| `API_TIMEOUT` | `exec` 测试运行超时 | 等待 4s 重试，最多 2 次 |
-| `RATE_LIMITED` | API 限流 | 等待 10s 重试 |
-| `VALIDATION_FAILED` | 测试参数 / 环境校验失败 | 修正参数后重试 |
-| `RESOURCE_NOT_FOUND` | 测试文件 / 源码不存在 | 检查路径，无法恢复则 escalate |
-| `CONTEXT_OVERFLOW` | 长调用链 / 大堆栈 | 压缩后重试，或分片处理 |
-| `SUBAGENT_FAILED` | 并行调查子代理失败 | 检查子代理日志，最多重试 1 次 |
+| Error Code | Trigger | Handling Strategy |
+|------------|---------|-------------------|
+| `API_TIMEOUT` | `exec` test run timed out | Wait 4s and retry, max 2 times |
+| `RATE_LIMITED` | API rate limit hit | Wait 10s and retry |
+| `VALIDATION_FAILED` | Test parameter / environment validation failed | Fix parameters and retry |
+| `RESOURCE_NOT_FOUND` | Test file / source code not found | Check path; escalate if unrecoverable |
+| `CONTEXT_OVERFLOW` | Long call chain / large stack | Compress and retry, or process in chunks |
+| `SUBAGENT_FAILED` | Parallel investigation subagent failed | Check subagent logs; retry max 1 time |
 
-### Escalation 条件
+### Escalation Conditions
 
-- 同一 error_code 连续 2 次 → 第 3 次强制 escalate
-- retry_count 达到 max_retries → escalate
-- 非 recoverable 错误（PERMISSION_DENIED, SECURITY_BLOCKED 等）→ 立即 escalate
+- Same error_code 2 consecutive times → force escalate on the 3rd
+- retry_count reaches max_retries → escalate
+- Non-recoverable errors (PERMISSION_DENIED, SECURITY_BLOCKED, etc.) → escalate immediately
 
-### 回退链
+### Fallback Chain
 
-| Primary | Fallback | 条件 |
-|---------|---------|------|
-| `exec` (运行测试) | `read` 手动检查测试文件 | `API_TIMEOUT` / `RESOURCE_NOT_FOUND` |
-| `browser` (浏览器 bug) | `web_fetch` | `API_TIMEOUT` |
+| Primary | Fallback | Condition |
+|---------|----------|-----------|
+| `exec` (run tests) | `read` manually inspect test file | `API_TIMEOUT` / `RESOURCE_NOT_FOUND` |
+| `browser` (browser bug) | `web_fetch` | `API_TIMEOUT` |
 | `kimi_fetch` | `web_fetch` | `API_TIMEOUT` / `NETWORK_ERROR` |
 
 ## Parallel Investigation (Optional)

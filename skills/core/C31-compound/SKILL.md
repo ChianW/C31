@@ -1,4 +1,4 @@
-﻿---
+---
 name: C31-compound
 description: solved, fixed, compound, 解决了 | 知识固化：将已解决的问题记录为结构化文档供未来复用
 triggers: solved, fixed, working now, root cause, that worked, compound, document this, 解决了, 搞定了, 原来是因为, C一下
@@ -38,37 +38,37 @@ draft mode first.
    - **Symptoms**: Observable symptoms
    - **What Didn't Work**: Failed attempts
    - **Solution**: Actual fix
-3. **Duplicate detection**（重复检测）：
-   - 用 `memory_search` 查询 Problem 描述关键词 + Solution 中的核心工具/文件名
-   - 若命中 **score > 0.7** 的相似 solution：
-     - emit brief note: `⚠️ 检测到相似记录：{filename}（日期）`
-     - 追加选项：`[覆盖] 更新现有文件 / [追加] 添加新 case study / [跳过] 不保存`
-     - **若用户说"覆盖"** → 更新现有文件（追加 `last_updated: YYYY-MM-DD`，在末尾添加新 observations）
-     - **若用户说"追加"** → 在现有文件末尾追加新 case study 区块
-     - **若用户说"跳过"或无响应（30s）** → 丢弃当前 draft，不保存
-     - 中断当前 Auto-Draft 流程，由用户选择驱动后续
-   - 若未命中或 score ≤ 0.7 → 继续第4步
+3. **Duplicate detection:**
+   - Use `memory_search` to query key words from the Problem description + core tool/filename from Solution
+   - If a similar solution with **score > 0.7** is found:
+     - Emit a brief note: `⚠️ Similar record detected: {filename} (date)`
+     - Append options: `[Overwrite] update existing file / [Append] add new case study / [Skip] do not save`
+     - **If user says "Overwrite"** → update existing file (append `last_updated: YYYY-MM-DD`, add new observations at end)
+     - **If user says "Append"** → append a new case study block at end of existing file
+     - **If user says "Skip" or no response (30s)** → discard current draft, do not save
+     - Interrupt current Auto-Draft flow; next steps are user-driven
+   - If no match or score ≤ 0.7 → continue to step 4
 4. Auto-calculate **compound_score** = Severity × Frequency × Uniqueness × Scope
    - Severity: 1-5 (how bad was the problem)
    - Frequency: 1-5 (how likely to recur)
    - Uniqueness: 1-5 (how non-obvious was the solution)
    - **Scope: 1-5** (impact range: single file → cross-skill → systemic)
-     - 1 = 单个文件/单一技能内部
-     - 2-3 = 跨文件或跨技能
-     - 4-5 = 系统性/框架级/影响多个工作流
-4. **分级自动保存:**
-   - **compound_score ≥ 50** → 触发 **Full Mode 异步执行**
-     - spawn 后台子代理跑 Phase 0.5-4（并行研究+完整版组装）
-     - 主对话只发：`✍️ 高价值问题检测到（{score}分），后台生成完整版 compound...`
-     - 完成后静默写入，不再打扰
-   - **15 ≤ compound_score < 50** → auto-save **轻量版** to `memory/solutions/`，silently
-     - emit brief note: `✍️ 已自动记录 — {filename} (compound_score: {score})`
+     - 1 = within a single file / single skill
+     - 2-3 = across files or across skills
+     - 4-5 = systemic / framework-level / affects multiple workflows
+4. **Tiered auto-save:**
+   - **compound_score ≥ 50** → trigger **Full Mode async execution**
+     - Spawn background subagent to run Phases 0.5–4 (parallel research + full assembly)
+     - Main conversation only emits: `✍️ High-value problem detected ({score} pts) — generating full compound doc in background...`
+     - Completes silently; no further interruption
+   - **15 ≤ compound_score < 50** → auto-save **lightweight version** to `memory/solutions/`, silently
+     - Emit brief note: `✍️ Auto-recorded — {filename} (compound_score: {score})`
    - **compound_score < 15** → skip silently. No notification.
 
    **No checkpoint. No user selection.** The skill runs and completes without interruption.
 
 **If user explicitly says "compound this" / "document this" / "保存" / "记录":**
-→ 直接进入 **Full Mode**（Phase 0.5 onwards），跳过 Auto-Draft 分级。
+→ Proceed directly to **Full Mode** (Phase 0.5 onwards), bypassing Auto-Draft tiering.
 
 **If user explicitly says "skip" / "不要记" / "不用记录":**
 → Discard silently, no save, no notification.
@@ -86,12 +86,12 @@ found, prepare labeled excerpt block for Phase 1 subagents.
 
 **Critical: subagents return TEXT DATA only. Orchestrator writes files.**
 
-🛑 **STOP**: 根据问题描述初步确认 track 类型：
-- 意外失败 / 报错 / 不正常行为 → **bug**
-- 工作模式 / 最佳实践 / 设计决策 → **knowledge**
-- 无法判断 → 标记为 `unknown`，由 Context Analyzer 子代理最终裁定
+🛑 **STOP**: Based on the problem description, make a preliminary determination of track type:
+- Unexpected failure / error / abnormal behavior → **bug**
+- Working pattern / best practice / design decision → **knowledge**
+- Cannot determine → mark as `unknown`; let the Context Analyzer subagent make the final call
 
-记录初步 track 判断后，启动以下子代理：
+After recording the preliminary track determination, launch the following subagents:
 
 Launch these subagents in parallel:
 
@@ -202,74 +202,75 @@ Build → Test → Find Issue → Research → Improve → Document → Validate
 
 Each unit of work should make subsequent units easier — not harder.
 
-## 错误处理
+## Error Handling
 
-本 skill 遵循 [AGENTS/error-handling.md](../AGENTS/error-handling.md) 标准。
+This skill follows the [AGENTS/error-handling.md](../AGENTS/error-handling.md) standard.
 
-### 常见错误码
+### Common Error Codes
 
-| 错误码 | 触发场景 | 处理策略 |
-|--------|---------|---------|
-| `API_TIMEOUT` | `memory_search` / 文件操作超时 | 等待 4s 重试，最多 2 次 |
-| `RATE_LIMITED` | API 限流（搜索、子代理） | 等待 10s 重试 |
-| `VALIDATION_FAILED` | YAML frontmatter 校验失败 | 修正参数后重试 |
-| `RESOURCE_NOT_FOUND` | 文件/数据不存在 | 检查路径，无法恢复则 escalate |
-| `CONTEXT_OVERFLOW` | 长 session 上下文超限 | 压缩后重试，或分片处理 |
-| `SUBAGENT_FAILED` | Phase 1 子代理失败 | 检查子代理日志，最多重试 1 次 |
+| Error Code | Trigger Scenario | Handling Strategy |
+|------------|-----------------|-------------------|
+| `API_TIMEOUT` | `memory_search` / file operation timeout | Wait 4s and retry, max 2 times |
+| `RATE_LIMITED` | API rate limiting (search, subagents) | Wait 10s and retry |
+| `VALIDATION_FAILED` | YAML frontmatter validation failure | Fix parameters and retry |
+| `RESOURCE_NOT_FOUND` | File / data does not exist | Check path; escalate if unrecoverable |
+| `CONTEXT_OVERFLOW` | Long session context exceeds limit | Compress and retry, or process in chunks |
+| `SUBAGENT_FAILED` | Phase 1 subagent failed | Check subagent logs; retry at most once |
 
-### Escalation 条件
+### Escalation Conditions
 
-- 同一 error_code 连续 2 次 → 第 3 次强制 escalate
-- retry_count 达到 max_retries → escalate
-- 非 recoverable 错误（PERMISSION_DENIED, SECURITY_BLOCKED 等）→ 立即 escalate
+- Same `error_code` fails 2 times in a row → force escalate on the 3rd
+- `retry_count` reaches `max_retries` → escalate
+- Non-recoverable errors (PERMISSION_DENIED, SECURITY_BLOCKED, etc.) → escalate immediately
 
-### 回退链
+### Fallback Chain
 
-| Primary | Fallback | 条件 |
-|---------|---------|------|
+| Primary | Fallback | Condition |
+|---------|----------|-----------|
 | `memory_search` | `exec` + `grep/ripgrep` | `API_TIMEOUT` / `RATE_LIMITED` |
 | `kimi_fetch` | `web_fetch` | `API_TIMEOUT` / `NETWORK_ERROR` |
-| `read` (大文件) | `read` + offset/limit | `CONTEXT_OVERFLOW` |
+| `read` (large file) | `read` + offset/limit | `CONTEXT_OVERFLOW` |
 
-### If-Then 失败模式 Fallback
+### If-Then Failure Mode Fallbacks
 
-| 条件 | 触发场景 | 动作 |
-|------|---------|------|
-| 用户选 [3] 跳过 | Auto-Draft 模式下用户明确拒绝 | 立即丢弃 draft，不保存，不 spawn 子代理，流程终止 |
-| compound_score < 15 且用户未 insist | 低价值问题，用户无强烈记录意愿 | 仅展示 draft 内容，不预推荐 [1]，等待用户主动选择 |
-| `memory/.planning/` 不可写 | Phase 4 项目集成时目录权限/路径异常 | 降级到 `/tmp/c31-compound-fallback/` 临时保存，输出提示用户手动迁移 |
-| 相关文档搜索超时 | Phase 0.5 `memory_search` 超时或 API 失败 | 跳过 Phase 0.5，直接进入 Phase 1，子代理自行处理上下文 |
+| Condition | Trigger Scenario | Action |
+|-----------|-----------------|--------|
+| User selects [skip] | User explicitly declines in Auto-Draft mode | Immediately discard draft; do not save; do not spawn subagents; flow terminates |
+| compound_score < 15 and user doesn't insist | Low-value problem; user has no strong desire to record | Only display draft content; do not pre-recommend [1]; wait for user to actively choose |
+| `memory/.planning/` is not writable | Directory permission / path error during Phase 4 project integration | Fall back to `/tmp/c31-compound-fallback/` for temporary save; prompt user to migrate manually |
+| Related doc search times out | Phase 0.5 `memory_search` times out or API fails | Skip Phase 0.5; proceed directly to Phase 1; subagents handle context on their own |
 
-## 反例黑名单
+## Anti-Pattern Blacklist
 
-以下反模式在 C31-compound 执行中**绝对禁止**：
+The following anti-patterns are **strictly forbidden** during C31-compound execution:
 
-1. **❌ 不要记录未验证的解决方案**
-   - 用户说"应该没问题"但没实际测试 → 不记录，标记为 `pending_verification`
-   - 必须看到"解决了"/"验证通过"等确认词才进入 draft 流程
+1. **❌ Never record unverified solutions**
+   - User says "should be fine" but hasn't actually tested it → do not record; mark as `pending_verification`
+   - Must see "solved" / "verified" or equivalent confirmation before entering draft flow
 
-2. **❌ 不要在 Auto-Draft 模式跳过用户确认**
-   - 即使是 draft 也必须展示给用户，提供 [1]-[4] 选项
-   - 禁止静默保存，禁止绕过 pre-select 推荐逻辑
+2. **❌ Never skip user confirmation in Auto-Draft mode**
+   - Even a draft must be shown to the user with [1]-[4] options
+   - Silent saving is forbidden; bypassing pre-select recommendation logic is forbidden
 
-3. **❌ 不要修改原始 SKILL.md 文件内容**
-   - compound 只写 `memory/solutions/`，不改 `skills/C31-compound/SKILL.md`
-   - 发现 skill 本身有 bug → 走正常修复流程，不借 compound 之机打补丁
+3. **❌ Never modify the original SKILL.md file content**
+   - compound only writes to `memory/solutions/`; it does not modify `skills/C31-compound/SKILL.md`
+   - If a bug is found in the skill itself → go through the normal fix process; do not patch it via compound
 
-4. **❌ 不要记录纯闲聊/情感表达的"解决方案"**
-   - "我懂了""原来如此""谢谢你" → 不触发 compound
-   - 必须有可复用的技术/流程/认知产出
+4. **❌ Never record "solutions" from pure casual chat / emotional expressions**
+   - "I understand" / "I see" / "Thanks" → do not trigger compound
+   - There must be a reusable technical / process / cognitive output
 
-5. **❌ 不要在用户明确说"不记/跳过"时强行保存**
-   - 用户选 [3] 跳过 → 立即丢弃 draft，不写入任何文件
-   - 用户说"别记了""不用记" → 等同于 [3]，不追问、不挽留
+5. **❌ Never forcefully save when user explicitly says "don't record / skip"**
+   - User selects [skip] → immediately discard draft; do not write to any file
+   - User says "stop recording" / "no need to record" → equivalent to [skip]; do not ask again or try to retain
 
-### 黑名单触发后果
-| 违反项 | 后果 |
-|--------|------|
-| 第1、4项 | draft 无效，不进入 Phase 2 |
-| 第2、5项 | 用户信任降级，未来 auto-invoke 敏感度降低 |
-| 第3项 | 技能体系污染，需人工回滚 |
+### Blacklist Violation Consequences
+
+| Violation | Consequence |
+|-----------|-------------|
+| Items 1, 4 | Draft is invalid; do not enter Phase 2 |
+| Items 2, 5 | User trust degrades; future auto-invoke sensitivity decreases |
+| Item 3 | Skill system contamination; requires manual rollback |
 
 ## Auto-Invoke
 

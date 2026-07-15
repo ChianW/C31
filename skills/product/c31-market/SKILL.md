@@ -1,4 +1,4 @@
-﻿---
+---
 name: c31-market
 description: Create a minimalist marketing plan focused on building an audience through authentic content, not ads. Use when the user has product-market fit and wants to scale with content, or needs a content strategy for LinkedIn/即刻/Newsletter. Triggers on "marketing plan", "内容策略", "怎么宣传", "growth marketing", "content strategy", "build audience".
 ---
@@ -23,7 +23,7 @@ Channel the philosophy of *The Minimalist Entrepreneur* by Sahil Lavingia. Help 
 
 ## Real-World Example: chian.io
 
-Chian runs four parallel content channels (LinkedIn, Newsletter, 即刻, 公众号). This skill should treat "marketing" as "cross-platform content architecture" — how one raw insight gets sliced into four formats, not how to buy ads. The funnel is: 英文专业帖 → Newsletter 深度 → 即刻短内容 → 公众号长文。
+Chian runs four parallel content channels (LinkedIn, Newsletter, Jike, WeChat Official Account). This skill should treat "marketing" as "cross-platform content architecture" — how one raw insight gets sliced into four formats, not how to buy ads. The funnel is: English professional post → Newsletter deep-dive → Jike short-form → WeChat long-form article.
 
 ## Prerequisites
 
@@ -97,10 +97,10 @@ Create a simple, sustainable schedule. For Chian's four-channel architecture:
 
 | Channel | Frequency | Content Level | Format |
 |---------|-----------|---------------|--------|
-| **LinkedIn** | Daily | Educate + Inspire | 900–1300 字符，带数据 |
-| **Newsletter** | Weekly | Inspire + Educate | 1500–3000 字符，分析性 |
-| **即刻** | 3–4x/week | Entertain + Educate | 200–500 字符，有梗 |
-| **公众号** | Weekly | Educate + Inspire | 2000–5000 字符，结构化 |
+| **LinkedIn** | Daily | Educate + Inspire | 900–1,300 chars, data-driven |
+| **Newsletter** | Weekly | Inspire + Educate | 1,500–3,000 chars, analytical |
+| **Jike** | 3–4x/week | Entertain + Educate | 200–500 chars, witty |
+| **WeChat OA** | Weekly | Educate + Inspire | 2,000–5,000 chars, structured |
 
 ## Cross-References
 

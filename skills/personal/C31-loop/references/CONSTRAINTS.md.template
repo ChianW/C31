@@ -1,0 +1,36 @@
+# Loop Constraints — {{REPO_NAME}}
+
+> The C31 loop reads this file at the start of EVERY run.
+> Constraints here are BINDING — the loop MUST follow them without exception.
+
+## Hard Stops (Never Do)
+
+- Never auto-merge to main without human approval
+- Never edit `.env`, `.env.*`, `secrets/`, `credentials/`, `auth/`
+- Never disable tests to make CI green
+- Never push directly to main/master
+- Never spend more than {{BUDGET_TOKENS}} tokens in a single run
+
+## Escalation Triggers (Stop Loop + Notify Human)
+
+- Same type of error occurs 3 consecutive times → write FAILED to STATE.md, halt
+- Any change touching authentication, payments, or security → require human review
+- Ambiguous task with no clear success criterion → ask human before acting
+
+## Allowed Actions (No Human Approval Needed)
+
+- Read any file in the repository
+- Create draft PRs (not merge)
+- Write to STATE.md, loop-run-log.md
+- Create GitHub Issues (for escalation only)
+- Run tests in read-only mode
+
+## Allowed With Caution (Log Every Action)
+
+- Edit files in non-critical paths
+- Install/update patch-level dependencies
+- Create new branches (prefix: `loop/`)
+
+## Platform: {{PLATFORM}}
+## Pattern: {{PATTERN}}
+## Initialized: {{TODAY}}

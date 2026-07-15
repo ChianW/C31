@@ -1,0 +1,27 @@
+# Loop State — C31 Loop Engineering
+
+> This file is the loop's durable memory. Read at the start of every run. Updated at the end of every run.
+
+Last run: {{TODAY}} (first run — initialized by c31-loop init)
+Pattern: {{PATTERN}}
+Status: ACTIVE
+
+---
+
+## High Priority
+*(empty — populated by first loop run)*
+
+## Watch List
+*(empty — populated by first loop run)*
+
+## Recent Actions
+*(empty — populated by first loop run)*
+
+## Consecutive Failures
+count: 0
+last_error: none
+
+## Loop Health
+- Budget remaining today: {{BUDGET_TOKENS}} tokens
+- Runs today: 0
+- Last successful run: never

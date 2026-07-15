@@ -1,0 +1,35 @@
+# Loop Budget — {{REPO_NAME}}
+
+> Token and cost ceiling enforced by C31 before each loop run.
+> If any limit is exceeded, the loop HALTS and writes to STATE.md.
+
+## Per-Run Limits
+
+- Max tokens per run: {{BUDGET_TOKENS}}
+- Max cost per run: ${{BUDGET_USD}}
+- Kill switch: 3 consecutive budget overruns → halt loop entirely
+
+## Daily Limits
+
+- Max tokens per day: {{BUDGET_TOKENS_DAILY}}
+- Max cost per day: ${{BUDGET_USD_DAILY}}
+- Reset time: 00:00 UTC
+
+## Escalation on Budget Exceeded
+
+1. Write `Budget exceeded: {actual} / {limit} tokens` to STATE.md
+2. {{ESCALATION_ACTION}}
+3. Halt current run immediately
+4. Resume on next scheduled run (do not retry same run)
+
+## Budget Tier: {{BUDGET_TIER}}
+
+| Tier | Per-run | Daily | Strategy |
+|------|---------|-------|----------|
+| Strict | 3,000 | 15,000 | Report-only, no code changes |
+| Standard | 8,000 | 40,000 | Analysis + light fixes |
+| Relaxed | 20,000 | 100,000 | Full autonomous execution |
+
+Current tier: **{{BUDGET_TIER}}**
+
+## Initialized: {{TODAY}}

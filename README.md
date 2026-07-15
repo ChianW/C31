@@ -1,5 +1,7 @@
 # C31 — Agent Harness System
 
+![C31 in action — 12-gate autonomous pipeline](docs/hero.gif)
+
 > You wrote 1,000 prompts for your AI. Then the conversation reset. It forgot everything.
 > This is why you need an agent harness — not better prompts, but a persistent operating layer.
 

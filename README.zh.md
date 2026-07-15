@@ -335,70 +335,70 @@ cd C31
 
 | 技能 | 描述 | 英文触发词 | 中文触发词 |
 |------|------|-----------|-----------|
-| C31-1st | 追本溯源的思考框架。当用户提到"第一性原理"、"本质"、"追本溯源"、"底层逻辑"、"为什么"、或需要从基本原理重新构建解决方案时触发。用于将复杂问题拆解... |  |  |
-| C31-adopt-project | 当用户提供 GitHub 项目链接或说"adopt", "看看这个项目", "研究这个项目", |  |  |
-| C31-brainstorm | brainstorm, ideate, 需求, discuss \| 讨论阶段：将模糊需求转化为带编号决策点的需求文档 | brainstorm, ideate, think through, discuss, discuss-phase | 需求, 讨论 |
-| C31-coding-discipline | Use when the user expresses coding intent: '帮我写', '实现', '开发', '修复', 'fix', 'b... | fix, bug, coding, code | 帮我写, 实现, 开发, 修复, 写代码, 改代码 |
-| C31-compound | solved, fixed, compound, 解决了 \| 知识固化：将已解决的问题记录为结构化文档供未来复用 | solved, fixed, working now, root cause, that worked, compound, document this | 解决了, 搞定了, 原来是因为, C一下 |
-| C31-compound-refresh | compound refresh, 清理知识库 \| 双周维护：扫描memory/和skills/，去重、标记残留、输出健康报告 | compound refresh | 清理知识库, 双周维护 |
-| C31-context-engineering | context, 上下文, 变蠢 \| 上下文工程：在正确的时间给AI正确的信息，解决200K窗口组织不善问题 | context, context engineering | 上下文, 信息组织, 变蠢, 信息太多, 你好像忘了, 上下文不够了 |
-| C31-debug | debug, bug, fix, 排查 \| 调试阶段：系统化错误追踪，从复现到根因到修复验证 | debug, bug, fix, trace this error, find the root cause, debugger | 排查, 为什么会报错, 报错 |
-| C31-lfg | lfg, 开干, let's go \| 一键执行：已有计划时全自动执行9门管道，无需中途确认 | lfg, let's go, auto execute | 开干, 直接执行, 跑起来 |
-| C31-plan | plan, 制定计划, roadmap \| 规划阶段：将需求转化为带验证门和威胁建模的可执行计划 | plan, plan-phase, roadmap | 制定计划, 实现方案, 怎么实现, 分步 |
-| C31-research | research, 调研, 最佳实践 \| 统一研究：框架文档、git历史、社区问题、机构记忆、bug复现 | research, how should I | 调研, 最佳实践, 资料, 研究 |
-| C31-spec | spec, 写需求, PRD \| 需求定义：任何新项目/功能/重大变更先写PRD，作为意图与实现的契约 | spec, PRD | 写需求, 产品文档, 定义项目 |
-| C31-strategy | Create or maintain STRATEGY.md for a project. Anchors all downstream C31-brai... |  |  |
-| C31-work | execute, implement, 实现, 开发 \| 执行阶段：读取计划，按依赖波次并行调度子代理执行 | execute, work on, implement, execute-phase, run | 实现, 开发 |
-| C31-workflow-bug-reproduction | Read-only workflow agent. Systematically reproduces bugs: hypothesize causes ... |  |  |
+| [`C31-1st`](skills/core/C31-1st/) | 追本溯源的思考框架。当用户提到"第一性原理"、"本质"、"追本溯源"、"底层逻辑"、"为什么"、或需要从基本原理重新构建解决方案时触发。用于将复杂问题拆解... |  |  |
+| [`C31-adopt-project`](skills/core/C31-adopt-project/) | 当用户提供 GitHub 项目链接或说"adopt", "看看这个项目", "研究这个项目", |  |  |
+| [`C31-brainstorm`](skills/core/C31-brainstorm/) | brainstorm, ideate, 需求, discuss \| 讨论阶段：将模糊需求转化为带编号决策点的需求文档 | brainstorm, ideate, think through, discuss, discuss-phase | 需求, 讨论 |
+| [`C31-coding-discipline`](skills/core/C31-coding-discipline/) | Use when the user expresses coding intent: '帮我写', '实现', '开发', '修复', 'fix', 'b... | fix, bug, coding, code | 帮我写, 实现, 开发, 修复, 写代码, 改代码 |
+| [`C31-compound`](skills/core/C31-compound/) | solved, fixed, compound, 解决了 \| 知识固化：将已解决的问题记录为结构化文档供未来复用 | solved, fixed, working now, root cause, that worked, compound, document this | 解决了, 搞定了, 原来是因为, C一下 |
+| [`C31-compound-refresh`](skills/core/C31-compound-refresh/) | compound refresh, 清理知识库 \| 双周维护：扫描memory/和skills/，去重、标记残留、输出健康报告 | compound refresh | 清理知识库, 双周维护 |
+| [`C31-context-engineering`](skills/core/C31-context-engineering/) | context, 上下文, 变蠢 \| 上下文工程：在正确的时间给AI正确的信息，解决200K窗口组织不善问题 | context, context engineering | 上下文, 信息组织, 变蠢, 信息太多, 你好像忘了, 上下文不够了 |
+| [`C31-debug`](skills/core/C31-debug/) | debug, bug, fix, 排查 \| 调试阶段：系统化错误追踪，从复现到根因到修复验证 | debug, bug, fix, trace this error, find the root cause, debugger | 排查, 为什么会报错, 报错 |
+| [`C31-lfg`](skills/core/C31-lfg/) | lfg, 开干, let's go \| 一键执行：已有计划时全自动执行9门管道，无需中途确认 | lfg, let's go, auto execute | 开干, 直接执行, 跑起来 |
+| [`C31-plan`](skills/core/C31-plan/) | plan, 制定计划, roadmap \| 规划阶段：将需求转化为带验证门和威胁建模的可执行计划 | plan, plan-phase, roadmap | 制定计划, 实现方案, 怎么实现, 分步 |
+| [`C31-research`](skills/core/C31-research/) | research, 调研, 最佳实践 \| 统一研究：框架文档、git历史、社区问题、机构记忆、bug复现 | research, how should I | 调研, 最佳实践, 资料, 研究 |
+| [`C31-spec`](skills/core/C31-spec/) | spec, 写需求, PRD \| 需求定义：任何新项目/功能/重大变更先写PRD，作为意图与实现的契约 | spec, PRD | 写需求, 产品文档, 定义项目 |
+| [`C31-strategy`](skills/core/C31-strategy/) | Create or maintain STRATEGY.md for a project. Anchors all downstream C31-brai... |  |  |
+| [`C31-work`](skills/core/C31-work/) | execute, implement, 实现, 开发 \| 执行阶段：读取计划，按依赖波次并行调度子代理执行 | execute, work on, implement, execute-phase, run | 实现, 开发 |
+| [`C31-workflow-bug-reproduction`](skills/core/C31-workflow-bug-reproduction/) | Read-only workflow agent. Systematically reproduces bugs: hypothesize causes ... |  |  |
 
 ### 🔍 review/ — 多代理代码审查（3 个）
 
 | 技能 | 描述 | 英文触发词 | 中文触发词 |
 |------|------|-----------|-----------|
-| C31-multi-review | multi-review, 代码审查 \| 4代理对抗审查：并行审查+冲突检测+统一裁决 | multi-review, review | 代码审查, 检查这个 |
-| C31-review | review, 审查, verify \| 审查阶段：并行多角色代码审查+UAT验证+覆盖率检查 | review, code review, verify, verify-work | 审查, 验证 |
-| C31-review-security | Security reviewer subagent for C31-review. Focus: exploitable vulnerabilities... |  |  |
+| [`C31-multi-review`](skills/review/C31-multi-review/) | multi-review, 代码审查 \| 4代理对抗审查：并行审查+冲突检测+统一裁决 | multi-review, review | 代码审查, 检查这个 |
+| [`C31-review`](skills/review/C31-review/) | review, 审查, verify \| 审查阶段：并行多角色代码审查+UAT验证+覆盖率检查 | review, code review, verify, verify-work | 审查, 验证 |
+| [`C31-review-security`](skills/review/C31-review-security/) | Security reviewer subagent for C31-review. Focus: exploitable vulnerabilities... |  |  |
 
 ### 📦 product/ — 产品与商业（10 个）
 
 | 技能 | 描述 | 英文触发词 | 中文触发词 |
 |------|------|-----------|-----------|
-| c31-community | Identify, evaluate, and select the right community to build a minimalist busi... |  |  |
-| c31-grow | Evaluate business decisions through the lens of sustainable, profitable growt... |  |  |
-| c31-gutcheck | Review any business decision, plan, or strategy through the minimalist entrep... |  |  |
-| c31-market | Create a minimalist marketing plan focused on building an audience through au... |  |  |
-| c31-mvp | Guide building a minimum viable product the minimalist way — manual first, th... |  |  |
-| c31-price | Help set pricing for a product or service using minimalist entrepreneur princ... |  |  |
-| c31-process | Turn a product or service idea into a manual-first process that can be delive... |  |  |
-| c31-sell | Create a strategy for selling to the first 100 customers using the minimalist... |  |  |
-| c31-validate | Validate a business idea using the minimalist entrepreneur framework before b... |  |  |
-| c31-values | Help define company values and culture for a minimalist business. Use when th... |  |  |
+| [`c31-community`](skills/product/c31-community/) | Identify, evaluate, and select the right community to build a minimalist busi... |  |  |
+| [`c31-grow`](skills/product/c31-grow/) | Evaluate business decisions through the lens of sustainable, profitable growt... |  |  |
+| [`c31-gutcheck`](skills/product/c31-gutcheck/) | Review any business decision, plan, or strategy through the minimalist entrep... |  |  |
+| [`c31-market`](skills/product/c31-market/) | Create a minimalist marketing plan focused on building an audience through au... |  |  |
+| [`c31-mvp`](skills/product/c31-mvp/) | Guide building a minimum viable product the minimalist way — manual first, th... |  |  |
+| [`c31-price`](skills/product/c31-price/) | Help set pricing for a product or service using minimalist entrepreneur princ... |  |  |
+| [`c31-process`](skills/product/c31-process/) | Turn a product or service idea into a manual-first process that can be delive... |  |  |
+| [`c31-sell`](skills/product/c31-sell/) | Create a strategy for selling to the first 100 customers using the minimalist... |  |  |
+| [`c31-validate`](skills/product/c31-validate/) | Validate a business idea using the minimalist entrepreneur framework before b... |  |  |
+| [`c31-values`](skills/product/c31-values/) | Help define company values and culture for a minimalist business. Use when th... |  |  |
 
 ### 🛠️ utils/ — 实用工具（7 个）
 
 | 技能 | 描述 | 英文触发词 | 中文触发词 |
 |------|------|-----------|-----------|
-| find-skills | Highest-priority skill discovery flow. MUST trigger when users ask to find/in... | find-skill, find-skills, install skill, skill discovery | 技能, 找技能, 插件, 插件管理 |
-| gsd-map-codebase | Analyze an existing codebase and create brownfield mapping artifacts. |  |  |
-| gsd-new-project | new project, 新项目, init project, start project \| Initialize a new project with... | new project, init project, start project, bootstrap project | 新项目 |
-| gsd-progress | progress, next step, what next, 下一步, 继续, gsd-progress \| Auto-detect the next ... | progress, next step, what next, gsd-progress, where are we | 下一步, 继续 |
-| gsd-quick | quick, quickly, fast, 速战速决, 小事, 改一下, 查一下, 看一下, 简单, trivial, just do it \| Hand... | quick, quickly, fast, trivial, just do it | 速战速决, 小事, 改一下, 查一下, 看一下, 简单 |
-| gsd-ship | Ship a completed phase or project. Finalize work, generate summary, |  |  |
-| time-awareness | today \| now \| current date \| 今天 \| 现在 — time-aware query execution policy | today, now, current date, current time | 今天, 现在, 当前时间, 当前日期, 最近, 过去, 接下来 |
+| [`find-skills`](skills/utils/find-skills/) | Highest-priority skill discovery flow. MUST trigger when users ask to find/in... | find-skill, find-skills, install skill, skill discovery | 技能, 找技能, 插件, 插件管理 |
+| [`gsd-map-codebase`](skills/utils/gsd-map-codebase/) | Analyze an existing codebase and create brownfield mapping artifacts. |  |  |
+| [`gsd-new-project`](skills/utils/gsd-new-project/) | new project, 新项目, init project, start project \| Initialize a new project with... | new project, init project, start project, bootstrap project | 新项目 |
+| [`gsd-progress`](skills/utils/gsd-progress/) | progress, next step, what next, 下一步, 继续, gsd-progress \| Auto-detect the next ... | progress, next step, what next, gsd-progress, where are we | 下一步, 继续 |
+| [`gsd-quick`](skills/utils/gsd-quick/) | quick, quickly, fast, 速战速决, 小事, 改一下, 查一下, 看一下, 简单, trivial, just do it \| Hand... | quick, quickly, fast, trivial, just do it | 速战速决, 小事, 改一下, 查一下, 看一下, 简单 |
+| [`gsd-ship`](skills/utils/gsd-ship/) | Ship a completed phase or project. Finalize work, generate summary, |  |  |
+| [`time-awareness`](skills/utils/time-awareness/) | today \| now \| current date \| 今天 \| 现在 — time-aware query execution policy | today, now, current date, current time | 今天, 现在, 当前时间, 当前日期, 最近, 过去, 接下来 |
 
 ### 🧑 personal/ — 个人专属（2 个）
 
 | 技能 | 描述 | 英文触发词 | 中文触发词 |
 |------|------|-----------|-----------|
-| C31-loop | 将 C31 接入 Loop Engineering 调度层，使其从"人工触发的 Harness"升级为"自主定时运行的 Loop System"。 通过 ... | c31-loop, loop init, loop, schedule, loop engineering | 定时运行, 后台运行, 自动运行, 接入loop, 让C31自动跑, 定时任务 |
-| c31-sxs | 四寻思观（Four Inquiries）解构技能。用于对情绪、焦虑、执着、身份认同进行唯识宗式拆解。触发词：sxs, c31-sxs, 四寻思, 四寻思观... |  |  |
+| [`C31-loop`](skills/personal/C31-loop/) | 将 C31 接入 Loop Engineering 调度层，使其从"人工触发的 Harness"升级为"自主定时运行的 Loop System"。 通过 ... | c31-loop, loop init, loop, schedule, loop engineering | 定时运行, 后台运行, 自动运行, 接入loop, 让C31自动跑, 定时任务 |
+| [`c31-sxs`](skills/personal/c31-sxs/) | 四寻思观（Four Inquiries）解构技能。用于对情绪、焦虑、执着、身份认同进行唯识宗式拆解。触发词：sxs, c31-sxs, 四寻思, 四寻思观... |  |  |
 
 ### ⚙️ platform-specific/ — 平台特定（2 个）
 
 | 技能 | 描述 | 英文触发词 | 中文触发词 |
 |------|------|-----------|-----------|
-| kimiim | Use this skill for any interaction with Kimi Group Chat or its Sessions, incl... |  |  |
-| skillhub-preference | Prefer `skillhub` for skill discovery/install/update, then fallback to `clawh... | skillhub, skill preference, clawhub, skill source | 插件, 插件偏好 |
+| [`kimiim`](skills/platform-specific/kimiim/) | Use this skill for any interaction with Kimi Group Chat or its Sessions, incl... |  |  |
+| [`skillhub-preference`](skills/platform-specific/skillhub-preference/) | Prefer `skillhub` for skill discovery/install/update, then fallback to `clawh... | skillhub, skill preference, clawhub, skill source | 插件, 插件偏好 |
 
 
 ---

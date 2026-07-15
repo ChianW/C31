@@ -334,38 +334,98 @@ Replace `{YOUR_HOME}`, `{YOUR_PROJECT}`, `{MEMORY_DIR}` with your actual paths.
 
 ## Skill Index
 
-### 🔧 core/ (18) — Engineering Workflow
+> Each skill is a standalone instruction file (`SKILL.md`) that activates on trigger words.
+> **Autonomy**: L1 = read-only report · L2 = executes with human gate · L3 = fully autonomous
 
-| Skill | EN Trigger | ZH | JA |
-|-------|-----------|----|-----|
-| C31-1st | `first principles` | 第一性原理 | 第一原理 |
-| C31-brainstorm | `brainstorm` | 头脑风暴 | ブレスト |
-| C31-plan | `plan` | 制定计划 | 計画を立てる |
-| C31-spec | `spec` | 写需求 | 仕様を書く |
-| C31-work | `work` | 开干 | 実装する |
-| C31-research | `research` | 调研 | 調査する |
-| C31-coding-discipline | `coding` | 写代码 | コーディング |
-| C31-debug | `debug` | 调试 | デバッグ |
-| C31-compound | `compound` | 复利 | 知識を記録 |
-| C31-strategy | `strategy` | 定战略 | 戦略を立てる |
-| C31-lfg | `lfg` | 开干 | やろう |
-| C31-context-engineering | `context` | 上下文 | コンテキスト管理 |
-| C31-adopt-project | `adopt` | 看看这个项目 | プロジェクト調査 |
-| C31-compound-refresh | `refresh` | 更新知识库 | ドキュメント更新 |
-| C31-workflow-bug-reproduction | `reproduce` | 复现bug | バグ再現 |
-| ce-simplify-code | `simplify` | 简化代码 | コード簡素化 |
-| ce-pov | `pov` | 技术决策 | 技術判定 |
-| ce-promote | `promote` | 发布公告 | リリース告知 |
+---
 
-### 🔍 review/ (5) — Multi-Agent Code Review
+### 🔧 [core/](skills/core/) — Engineering Workflow (18 skills)
 
-`C31-review` · `C31-review-security` · `C31-review-architecture` · `C31-review-adversarial` · `C31-multi-review`
+| Skill | Trigger | What it does | Autonomy |
+|-------|---------|-------------|----------|
+| [C31-1st](skills/core/C31-1st/SKILL.md) | `first principles` / `第一性原理` | Deconstructs any problem to axiomatic facts. Use before planning complex architecture or when you suspect the current approach is wrong. | L1 |
+| [C31-brainstorm](skills/core/C31-brainstorm/SKILL.md) | `brainstorm` / `头脑风暴` | Turns vague requirements into a numbered decision document. Collaborative dialogue phase — defines **WHAT** before planning **HOW**. | L2 |
+| [C31-plan](skills/core/C31-plan/SKILL.md) | `plan` / `制定计划` | Converts requirements into a gated execution plan with wave analysis, Nyquist coverage gates, and threat modeling. Output requires human approval. | L2 |
+| [C31-spec](skills/core/C31-spec/SKILL.md) | `spec` / `写需求` | Writes a structured PRD (Product Requirements Doc) as a contract between intent and implementation. Use before any non-trivial feature. | L2 |
+| [C31-work](skills/core/C31-work/SKILL.md) | `work` / `实现` | Executes a single implementation unit from an approved plan. Surgical — no scope creep, no unrequested abstractions. | L2 |
+| [C31-research](skills/core/C31-research/SKILL.md) | `research` / `调研` | Unified read-only research: framework docs, git history, community issues, institutional memory. Never writes code. | L1 |
+| [C31-coding-discipline](skills/core/C31-coding-discipline/SKILL.md) | `coding` / `写代码` | Enforces a 7-step disciplined coding workflow: constraints check → brainstorm → worktree → TDD → execute → inline review → finish. No placeholders allowed. | L2 |
+| [C31-debug](skills/core/C31-debug/SKILL.md) | `debug` / `调试` | Systematic root-cause debugging: reproduce → hypothesize → isolate → fix → verify. Caps at 3 consecutive fix attempts before escalation. | L2 |
+| [C31-compound](skills/core/C31-compound/SKILL.md) | `compound` / `复利` | Documents solved problems into `docs/solutions/` with a mandatory INDEX entry. The knowledge flywheel — every fix makes future fixes faster. | L3 |
+| [C31-strategy](skills/core/C31-strategy/SKILL.md) | `strategy` / `定战略` | Creates or updates `STRATEGY.md`. Anchors all downstream brainstorm and plan sessions to the project's actual goal. Use when direction feels unclear. | L2 |
+| [C31-lfg](skills/core/C31-lfg/SKILL.md) | `lfg` / `开干` | **The flagship skill.** Runs the full 12-gate autonomous pipeline (plan validation → dependency → tests → implement → multi-agent review → coverage → simplify → security → build → compound) without interruption. Requires an approved plan to exist first. | L3 |
+| [C31-context-engineering](skills/core/C31-context-engineering/SKILL.md) | `context` / `上下文` | Monitors context window health (🟢🟡🟠🔴), compresses stale content, and injects fresh context from files. Prevents context rot in long sessions. | L1 |
+| [C31-adopt-project](skills/core/C31-adopt-project/SKILL.md) | `adopt` / `看看这个项目` | Five-phase external project research: extract philosophy → gap analysis → report → gate → integrate. Use when you find a GitHub project worth learning from. | L2 |
+| [C31-compound-refresh](skills/core/C31-compound-refresh/SKILL.md) | `refresh` / `更新知识库` | Audits existing `docs/solutions/` files for staleness, updates outdated entries, and syncs INDEX.md. Keeps the knowledge base alive. | L3 |
+| [C31-workflow-bug-reproduction](skills/core/C31-workflow-bug-reproduction/SKILL.md) | `reproduce` / `复现bug` | Read-only workflow: hypothesize bug causes → construct minimal reproduction → verify. Use when a bug is vague or intermittent. | L1 |
+| [ce-simplify-code](skills/core/ce-simplify-code/SKILL.md) | `simplify` / `简化代码` | Tidy/refactor pass on recently changed code: clarity, reuse, efficiency — without changing behavior. Run after implementation, before review. | L2 |
+| [ce-pov](skills/core/ce-pov/SKILL.md) | `pov` / `技术决策` | Gives a decisive, project-grounded verdict on a technology choice, library, or architecture. Not a neutral explainer — returns ADOPT / REJECT / WATCH. | L1 |
+| [ce-promote](skills/core/ce-promote/SKILL.md) | `promote` / `发布公告` | Drafts launch copy (tweets, release notes, announcements) for a shipped feature. Converts technical changes into user-facing value statements. | L2 |
 
-### 💼 product/ (11) — Product & Business
+---
 
-`c31-community` · `c31-validate` · `c31-mvp` · `c31-process` · `c31-sell` · `c31-market` · `c31-grow` · `c31-price` · `c31-gutcheck` · `c31-values` · `growth-hacker`
+### 🔍 [review/](skills/review/) — Multi-Agent Code Review (5 skills)
 
-### 🛠️ utils/ (8) · 🧘 personal/ (2) · ⚙️ platform-specific/ (2)
+| Skill | Trigger | What it does | Autonomy |
+|-------|---------|-------------|----------|
+| [C31-review](skills/review/C31-review/SKILL.md) | `review` / `审查` | Full review pipeline: 4 parallel isolated agents (correctness · security · maintainability · simplicity) + conflict detection agent + final verdict (APPROVED / WARNED / BLOCKED). | L1 |
+| [C31-multi-review](skills/review/C31-multi-review/SKILL.md) | `multi-review` / `代码审查` | Adversarial 4-agent parallel review with conflict detection and unified verdict. Use before creating a PR. | L1 |
+| [C31-review-security](skills/review/C31-review-security/SKILL.md) | *(spawned by C31-review)* | Security-specialist subagent: exploitable vulnerabilities, auth/data/API gaps, injection, XSS, secrets exposure. Read-only. | L1 |
+| [C31-review-architecture](skills/review/C31-review-architecture/SKILL.md) | *(spawned by C31-review)* | Architecture-specialist subagent: coupling, cohesion, boundary violations, scalability concerns. Read-only. | L1 |
+| [C31-review-adversarial](skills/review/C31-review-adversarial/SKILL.md) | *(spawned by C31-review)* | Adversarial reviewer: actively argues against the implementation, finds every reason to reject. Provides signal through disagreement. | L1 |
+
+---
+
+### 💼 [product/](skills/product/) — Product & Business (11 skills)
+
+> Built on the *Minimalist Entrepreneur* framework. Use these when building a product business, not just software.
+
+| Skill | Trigger | What it does |
+|-------|---------|-------------|
+| [c31-community](skills/product/c31-community/SKILL.md) | `找社区` / `community` | Identifies the right community to build around. Maps your existing communities to monetizable opportunities. |
+| [c31-validate](skills/product/c31-validate/SKILL.md) | `验证想法` / `validate` | Validates a business idea before building: is this worth pursuing? Tests with real signals, not assumptions. |
+| [c31-mvp](skills/product/c31-mvp/SKILL.md) | `MVP` / `最小可行产品` | Guides building an MVP the minimalist way — manual first, then processized, then productized. Enforces scope discipline. |
+| [c31-process](skills/product/c31-process/SKILL.md) | `流程化` / `manual first` | Turns a product idea into a manual delivery process (no code needed yet). Use to validate before automating. |
+| [c31-sell](skills/product/c31-sell/SKILL.md) | `前100客户` / `first customers` | Strategy for selling to your first 100 customers. Founder-led sales playbook, not growth hacks. |
+| [c31-market](skills/product/c31-market/SKILL.md) | `内容策略` / `marketing plan` | Creates a minimalist content marketing plan: authentic content, not ads. LinkedIn / 即刻 / Newsletter strategies. |
+| [c31-grow](skills/product/c31-grow/SKILL.md) | `可持续增长` / `grow` | Evaluates growth decisions through the sustainable profitability lens. Anti-burnout, anti-VC-dependency. |
+| [c31-price](skills/product/c31-price/SKILL.md) | `定价` / `pricing` | Sets or adjusts pricing using minimalist entrepreneur principles. Helps you charge what your product is worth. |
+| [c31-gutcheck](skills/product/c31-gutcheck/SKILL.md) | `审查` / `gut check` | Reviews any business decision through the minimalist lens. Use as a sanity check before committing. |
+| [c31-values](skills/product/c31-values/SKILL.md) | `价值观` / `company values` | Defines company values and culture for a minimalist business. Use when preparing to hire or collaborate. |
+| [growth-hacker](skills/product/growth-hacker/SKILL.md) | `growth` / `增长` | Applies growth hacking frameworks to product distribution. Viral loops, referral mechanics, activation funnels. |
+
+---
+
+### 🛠️ [utils/](skills/utils/) — Productivity Utilities (8 skills)
+
+| Skill | Trigger | What it does |
+|-------|---------|-------------|
+| [find-skills](skills/utils/find-skills/SKILL.md) | `找技能` / `find skills` | Discovers and installs skills from SkillHub or Clawhub. Highest-priority auto-trigger when you ask about skills. |
+| [gsd-new-project](skills/utils/gsd-new-project/SKILL.md) | `新项目` / `new project` | Initializes a new project with all GSD planning artifacts (STRATEGY.md, PLAN.md, task tracking) automatically. |
+| [gsd-map-codebase](skills/utils/gsd-map-codebase/SKILL.md) | `代码库分析` / `map codebase` | Analyzes an existing codebase: tech stack, conventions, architecture concerns, brownfield mapping artifacts. |
+| [gsd-progress](skills/utils/gsd-progress/SKILL.md) | `下一步` / `next step` | Auto-detects where you are in the GSD workflow and suggests or executes the next step. |
+| [gsd-quick](skills/utils/gsd-quick/SKILL.md) | `小事` / `quick` | Handles trivial tasks without the full GSD phase workflow. Record and move on. |
+| [gsd-ship](skills/utils/gsd-ship/SKILL.md) | `收尾` / `ship it` | Finalizes a completed phase: summary, state update, marks as shipped. |
+| [time-awareness](skills/utils/time-awareness/SKILL.md) | `今天` / `today` | Injects current date/time into context. Use when the task requires time-aware decisions. |
+| [C31-grill](skills/utils/C31-grill/SKILL.md) | `grill me` / `拷问` | Relentless interview to sharpen a plan or design. Generates ADRs and a project glossary as output. One question at a time, no mercy. |
+
+---
+
+### 🧘 [personal/](skills/personal/) — Personal Workflows (2 skills)
+
+| Skill | Trigger | What it does |
+|-------|---------|-------------|
+| [c31-sxs](skills/personal/c31-sxs/SKILL.md) | `四寻思` / `sxs` | Four Inquiries (四寻思观) — Yogācāra-style deconstruction of emotions, anxiety, and identity. For deep personal reflection. |
+| [C31-loop](skills/personal/C31-loop/SKILL.md) | `loop init` / `定时运行` | 5-question interview that configures C31 as a Loop Engineering system. Auto-generates STATE.md, CONSTRAINTS.md, loop-budget.md, and platform deployment files (GitHub Actions / Windows Task Scheduler). | 
+
+---
+
+### ⚙️ [platform-specific/](skills/platform-specific/) — Platform Integrations (2 skills)
+
+| Skill | Trigger | What it does |
+|-------|---------|-------------|
+| [skillhub-preference](skills/platform-specific/skillhub-preference/SKILL.md) | *(auto)* | Routes skill discovery to SkillHub first (speed + compliance), then falls back to Clawhub. |
+| [kimiim](skills/platform-specific/kimiim/SKILL.md) | `kimi` | Integrates with Kimi Group Chat and Sessions for team-based AI workflows. |
 
 ---
 

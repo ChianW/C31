@@ -1,19 +1,21 @@
-# C31 — Agent Harness System
+# C31 — Loop-Ready Agent Harness
 
 ![C31 in action — 12-gate autonomous pipeline](docs/hero.gif)
 
 > You wrote 1,000 prompts for your AI. Then the conversation reset. It forgot everything.
-> This is why you need an agent harness — not better prompts, but a persistent operating layer.
+> This is why you need an agent harness — not better prompts, but a persistent operating layer
+> that runs autonomously, learns from every session, and connects to Loop Engineering when you're ready.
 
 **C31** is the agent harness forged from 7 open-source frameworks and 5 months of daily production use.  
-Memory that persists. Instincts that evolve. Context that stays healthy.
+Memory that persists. Instincts that evolve. Context that stays healthy. Loop-ready when you need it.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Skills](https://img.shields.io/badge/skills-43-green.svg)](skills/)
 [![Platforms](https://img.shields.io/badge/platforms-6%2B-purple.svg)](#compatibility)
 [![Languages](https://img.shields.io/badge/languages-EN%20%7C%20ZH%20%7C%20JA-orange.svg)](#languages)
+[![Loop Ready](https://img.shields.io/badge/loop-ready-brightgreen.svg)](docs/loop-ready-integration.md)
 
-> 🇨🇳 [中文版](README.zh.md) · 🇯🇵 [日本語版](README.ja.md)
+> 🇨🇳 [中文版](README.zh.md) · 🇯🇵 [日本語版](README.ja.md) · 🔄 [Loop Engineering Integration](docs/loop-ready-integration.md)
 
 ---
 

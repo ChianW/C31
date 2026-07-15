@@ -210,6 +210,64 @@ This closes the loop: errors become instincts, instincts prevent recurrence.
 
 ---
 
+## Loop Engineering Failure Modes（循环工程失效模式）
+
+> 以下模式来自 Loop Engineering 框架，在 C31 接入调度层（c31-loop）后适用。
+
+### FM-L1: Infinite Fix Loop（无限修复循环）
+
+**症状**：同一个 bug 被尝试修复 3+ 次，每次都失败，loop 不停重试。
+
+**严重度**：S2
+
+**C31 防御**：
+- **3 连续同类错误规则**（已内置）：连续 3 次失败 → 强制 Escalate，停止 pipeline
+- Fix-it 链路最多重试 3 次，第 3 次失败后写入 `STATE.md: status: BLOCKED`
+
+### FM-L2: State Rot（状态腐化）
+
+**症状**：`STATE.md` / `session_state.json` 引用了已过期的 PR、任务、分支，loop 对"幽灵"采取行动。
+
+**严重度**：S1 → S2
+
+**C31 防御**：
+- Session End Protocol：每次 flush `session_state.json`，清除已完成任务
+- C31-loop 在每次运行开始时验证 STATE.md 中的引用是否仍然有效
+
+### FM-L3: Compound Without Recall（只写不读的文档黑洞）
+
+**C31 特有**
+
+**症状**：`docs/solutions/` 有大量文档，但下次遇到同类问题时 AI 从头开始，完全未查阅历史。
+
+**严重度**：S1 → S2
+
+**C31 防御**：
+- ce-compound 写文档时必须同时更新 INDEX.md（无 INDEX 条目 = 文档不存在）
+- Solutions Pre-Search 在每次非平凡任务前静默触发
+
+### FM-L4: Verifier Theater（验证者剧场）
+
+**症状**：Verifier "批准"了，但测试实际失败，或代码有明显问题。
+
+**严重度**：S2
+
+**C31 防御**：
+- C31-review 使用 4 个**隔离** agent，每个只看代码，不看其他 agent 的结论
+- "Do Not Trust the Report"：验证者不得依赖执行者的自我报告
+
+### FM-L5: Notification Fatigue（通知疲劳）
+
+**症状**：C31 loop 每次运行都通知，用户开始忽视，真正的 Escalation 被错过。
+
+**严重度**：S1 → S2
+
+**C31 防御**：
+- L1 loops（report-only）只更新 STATE.md，不创建 Issue
+- Escalation 仅在：连续 3 次失败 / 安全相关变更 / 预算超限 时触发
+
+---
+
 → **[README.md](README.md)** — System overview  
 → **[WORKFLOW.md](WORKFLOW.md)** — Multi-agent orchestration architecture  
 → **[PHILOSOPHY.md](PHILOSOPHY.md)** — Engineering principles  

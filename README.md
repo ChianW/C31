@@ -13,9 +13,9 @@ Memory that persists. Instincts that evolve. Context that stays healthy. Loop-re
 [![Skills](https://img.shields.io/badge/skills-43-green.svg)](skills/)
 [![Platforms](https://img.shields.io/badge/platforms-6%2B-purple.svg)](#compatibility)
 [![Languages](https://img.shields.io/badge/languages-EN%20%7C%20ZH%20%7C%20JA-orange.svg)](#languages)
-[![Loop Ready](https://img.shields.io/badge/loop-ready-brightgreen.svg)](docs/loop-ready-integration.md)
+[![Loop Ready](https://img.shields.io/badge/loop-ready-brightgreen.svg)](https://github.com/ChianW/C31-papers/blob/master/part11_loop_engineering.md)
 
-> 🇨🇳 [中文版](README.zh.md) · 🇯🇵 [日本語版](README.ja.md) · 🔄 [Loop Engineering Integration](docs/loop-ready-integration.md)
+> 🇨🇳 [中文版](README.zh.md) · 🇯🇵 [日本語版](README.ja.md) · 🔄 [Loop Engineering Integration](https://github.com/ChianW/C31-papers/blob/master/part11_loop_engineering.md)
 
 ---
 
@@ -486,7 +486,8 @@ Windows: use `.\install.ps1`
 | [Part 7](https://github.com/ChianW/C31-papers/blob/master/part7_gsd_core.md) | GSD Core — Naming Context Rot |
 | [Part 8](https://github.com/ChianW/C31-papers/blob/master/part8_comparison.md) | All 7 Frameworks Compared |
 | [Part 9](https://github.com/ChianW/C31-papers/blob/master/part9_building_c31.md) | From Zero to C31 |
-| [**Part 10**](https://github.com/ChianW/C31-papers/blob/master/part10_the_architecture.md) | **The Architecture — C31 in Production** |
+| [Part 10](https://github.com/ChianW/C31-papers/blob/master/part10_the_architecture.md) | The Architecture — C31 in Production |
+| [**Part 11**](https://github.com/ChianW/C31-papers/blob/master/part11_loop_engineering.md) | **From Harness to Loop — The Missing Automation Layer** |
 
 → **[ChianW/C31-papers](https://github.com/ChianW/C31-papers)**
 

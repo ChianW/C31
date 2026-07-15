@@ -11,7 +11,7 @@
 [![Skills](https://img.shields.io/badge/skills-50+-green.svg)](skills/)
 [![Platforms](https://img.shields.io/badge/platforms-6%2B-purple.svg)](#互換性)
 [![Languages](https://img.shields.io/badge/languages-EN%20%7C%20ZH%20%7C%20JA-orange.svg)](#languages)
-[![Loop Ready](https://img.shields.io/badge/loop-ready-brightgreen.svg)](docs/loop-ready-integration.md)
+[![Loop Ready](https://img.shields.io/badge/loop-ready-brightgreen.svg)](https://github.com/ChianW/C31-papers/blob/master/part11_loop_engineering.md)
 
 > 🇺🇸 [English](README.md) · 🇨🇳 [中文](README.zh.md) · 🇯🇵 [日本語](README.ja.md)
 
@@ -427,7 +427,8 @@ cd C31
 | [第 7 部](https://github.com/ChianW/C31-papers/blob/master/part7_gsd_core.md) | GSD Core — コンテキスト劣化の命名 |
 | [第 8 部](https://github.com/ChianW/C31-papers/blob/master/part8_comparison.md) | 7 つのフレームワーク比較 |
 | [第 9 部](https://github.com/ChianW/C31-papers/blob/master/part9_building_c31.md) | ゼロから C31 へ |
-| [**第 10 部**](https://github.com/ChianW/C31-papers/blob/master/part10_the_architecture.md) | **アーキテクチャ——プロダクションにおける C31** |
+| [第 10 編](https://github.com/ChianW/C31-papers/blob/master/part10_the_architecture.md) | アーキテクチャ — 本番環境の C31 |
+| [**第 11 編**](https://github.com/ChianW/C31-papers/blob/master/part11_loop_engineering.md) | **Harness から Loop へ — オートメーションの最後のピース** |
 
 → **[ChianW/C31-papers](https://github.com/ChianW/C31-papers)**
 

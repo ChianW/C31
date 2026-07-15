@@ -12,7 +12,7 @@
 [![Skills](https://img.shields.io/badge/skills-43-green.svg)](skills/)
 [![Platforms](https://img.shields.io/badge/platforms-6%2B-purple.svg)](#兼容性)
 [![Languages](https://img.shields.io/badge/languages-EN%20%7C%20ZH%20%7C%20JA-orange.svg)](#languages)
-[![Loop Ready](https://img.shields.io/badge/loop-ready-brightgreen.svg)](docs/loop-ready-integration.md)
+[![Loop Ready](https://img.shields.io/badge/loop-ready-brightgreen.svg)](https://github.com/ChianW/C31-papers/blob/master/part11_loop_engineering.md)
 
 > 🇺🇸 [English](README.md) · 🇨🇳 [中文](README.zh.md) · 🇯🇵 [日本語](README.ja.md)
 
@@ -460,7 +460,8 @@ Windows 用户：请使用 `.\install.ps1`
 | [第 7 篇](https://github.com/ChianW/C31-papers/blob/master/part7_gsd_core.md) | GSD Core — 命名上下文腐化 |
 | [第 8 篇](https://github.com/ChianW/C31-papers/blob/master/part8_comparison.md) | 7 个框架横向对比 |
 | [第 9 篇](https://github.com/ChianW/C31-papers/blob/master/part9_building_c31.md) | 从零到 C31 |
-| [**第 10 篇**](https://github.com/ChianW/C31-papers/blob/master/part10_the_architecture.md) | **架构——C31 在生产中的运行** |
+| [第 10 篇](https://github.com/ChianW/C31-papers/blob/master/part10_the_architecture.md) | 架构 — 生产环境中的 C31 |
+| [**第 11 篇**](https://github.com/ChianW/C31-papers/blob/master/part11_loop_engineering.md) | **从 Harness 到 Loop — 补齐自动化拼图** |
 
 → **[ChianW/C31-papers](https://github.com/ChianW/C31-papers)**
 

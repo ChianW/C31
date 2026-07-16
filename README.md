@@ -434,12 +434,14 @@ C31 synthesizes the best ideas from 7 open-source frameworks. Each framework sol
 | Framework | Stars | Key Contribution to C31 | Deep Dive |
 |-----------|-------|------------------------|-----------|
 | **[12-Factor Agents](https://github.com/humanlayer/12-factor-agents)** | ~24k | Stateless reducer · context ownership · compact errors | [Part 1 →](https://github.com/ChianW/C31-papers/blob/master/part1_12_factor_agents.md) |
-| **[Superpowers](https://github.com/obra/superpowers)** | ~249k | Psychology-driven AI compliance (Cialdini) | [Part 2 →](https://github.com/ChianW/C31-papers/blob/master/part2_superpowers.md) |
-| **[ECC](https://github.com/affaan-m/ecc)** | ~225k | Instinct evolution system · context health colors | [Part 3 →](https://github.com/ChianW/C31-papers/blob/master/part3_ecc.md) |
-| **[agent-skills](https://github.com/addyosmani/agent-skills)** | ~70k | Doubt-Driven Development · Chesterton's Fence · anti-sycophancy | [Part 4 →](https://github.com/ChianW/C31-papers/blob/master/part4_agent_skills.md) |
+| **[Superpowers](https://github.com/obra/superpowers)** | ~255k | Psychology-driven AI compliance (Cialdini) | [Part 2 →](https://github.com/ChianW/C31-papers/blob/master/part2_superpowers.md) |
+| **[ECC](https://github.com/affaan-m/ecc)** | ~230k | Instinct evolution system · context health colors | [Part 3 →](https://github.com/ChianW/C31-papers/blob/master/part3_ecc.md) |
+| **[agent-skills](https://github.com/addyosmani/agent-skills)** | ~78k | Doubt-Driven Development · Chesterton's Fence · anti-sycophancy | [Part 4 →](https://github.com/ChianW/C31-papers/blob/master/part4_agent_skills.md) |
 | **[Compound Engineering](https://github.com/EveryInc/compound-engineering-plugin)** | ~23k | Brainstorm→Plan→Work→**Simplify**→Review→Compound lifecycle | [Part 5 →](https://github.com/ChianW/C31-papers/blob/master/part5_cep.md) |
 | **[Archon](https://github.com/coleam00/Archon)** | ~23k | Agent lifecycle governance · no autonomous mutation | [Part 6 →](https://github.com/ChianW/C31-papers/blob/master/part6_archon.md) |
-| **[GSD Core](https://github.com/open-gsd/gsd-core)** | ~6k | Context Rot · artifacts-over-memory · plan quality gate | [Part 7 →](https://github.com/ChianW/C31-papers/blob/master/part7_gsd_core.md) |
+| **[GSD Core](https://github.com/open-gsd/gsd-core)** | ~6.6k | Context Rot · artifacts-over-memory · plan quality gate | [Part 7 →](https://github.com/ChianW/C31-papers/blob/master/part7_gsd_core.md) |
+
+> *Star counts verified July 2026. C31 synthesizes the top ideas from all 7 — combined 600k+ stars.*
 
 Plus **Karpathy AI Skills** as the bedrock engineering philosophy across all layers.
 

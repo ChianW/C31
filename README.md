@@ -51,6 +51,8 @@ Most prompt collections give you one-shot instructions. C31 gives you a **persis
 | **Psych-Framing** | Step-by-step reasoning enforcement + confidence-check output validation |
 | **Critic Gate** | Auto quality gate: outputs >300 words with inferred conclusions trigger self-audit |
 
+**→ [Quick Install](#quick-install)** · **[43 Skills](skills/)** · **[12 Papers](https://github.com/ChianW/C31-papers)** · **[Philosophy](PHILOSOPHY.md)**
+
 ---
 
 ## The 2026 Consensus

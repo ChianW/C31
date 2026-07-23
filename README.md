@@ -10,7 +10,7 @@
 Memory that persists. Instincts that evolve. Context that stays healthy. Loop-ready when you need it.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Skills](https://img.shields.io/badge/skills-43-green.svg)](skills/)
+[![Skills](https://img.shields.io/badge/skills-44-green.svg)](skills/)
 [![Platforms](https://img.shields.io/badge/platforms-6%2B-purple.svg)](#compatibility)
 [![Languages](https://img.shields.io/badge/languages-EN%20%7C%20ZH%20%7C%20JA-orange.svg)](#languages)
 [![Loop Ready](https://img.shields.io/badge/loop-ready-brightgreen.svg)](https://github.com/ChianW/C31-papers/blob/master/part11_loop_engineering.md)
@@ -339,7 +339,7 @@ Replace `{YOUR_HOME}`, `{YOUR_PROJECT}`, `{MEMORY_DIR}` with your actual paths.
 > Each skill is a standalone instruction file (`SKILL.md`) that activates on trigger words.
 ---
 
-### 🔧 [core/](skills/core/) — Engineering Workflow (18 skills)
+### 🔧 [core/](skills/core/) — Engineering Workflow (19 skills)
 
 | Skill | Trigger | What it does |
 |-------|---------|-------------|
@@ -354,6 +354,7 @@ Replace `{YOUR_HOME}`, `{YOUR_PROJECT}`, `{MEMORY_DIR}` with your actual paths.
 | [C31-compound](skills/core/C31-compound/SKILL.md) | `compound` / `复利` | Documents solved problems into `docs/solutions/` with a mandatory INDEX entry. The knowledge flywheel — every fix makes future fixes faster. |
 | [C31-strategy](skills/core/C31-strategy/SKILL.md) | `strategy` / `定战略` | Creates or updates `STRATEGY.md`. Anchors all downstream brainstorm and plan sessions to the project's actual goal. Use when direction feels unclear. |
 | [C31-lfg](skills/core/C31-lfg/SKILL.md) | `lfg` / `开干` | **The flagship skill.** Runs the full 12-gate autonomous pipeline (plan validation → dependency → tests → implement → multi-agent review → coverage → simplify → security → build → compound) without interruption. Requires an approved plan to exist first. |
+| [c31-dev](skills/core/c31-dev/SKILL.md) | `dev` / `新项目` / `build` | The guided development pipeline. Orchestrates Grill → Spec → Plan → Work with user confirmation gates at each phase. Entry point for all new projects and features. |
 | [C31-context-engineering](skills/core/C31-context-engineering/SKILL.md) | `context` / `上下文` | Monitors context window health (🟢🟡🟠🔴), compresses stale content, and injects fresh context from files. Prevents context rot in long sessions. |
 | [C31-adopt-project](skills/core/C31-adopt-project/SKILL.md) | `adopt` / `看看这个项目` | Five-phase external project research: extract philosophy → gap analysis → report → gate → integrate. Use when you find a GitHub project worth learning from. |
 | [C31-compound-refresh](skills/core/C31-compound-refresh/SKILL.md) | `refresh` / `更新知识库` | Audits existing `docs/solutions/` files for staleness, updates outdated entries, and syncs INDEX.md. Keeps the knowledge base alive. |
